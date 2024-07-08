@@ -42,5 +42,6 @@ CREATE TABLE IF NOT EXISTS Paiements (
 CREATE TABLE IF NOT EXISTS Archives (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_debut DATE,
-    date_fin DATE
+    date_fin DATE,
+    fichier VARCHAR(255)
 ) ;

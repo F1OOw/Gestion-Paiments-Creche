@@ -13,6 +13,7 @@ def create_app():
     app.register_blueprint(routes, url_prefix='')
     return app 
 
+
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True, host="0.0.0.0", port=8000)

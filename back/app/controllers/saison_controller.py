@@ -78,13 +78,37 @@ def get_saison_enfants():
             return jsonify({'error': 'No current season found'}), 404
         
         inscriptions = Inscriptions.query.filter_by(id_saison=saison.id).all()
-        result = [
-            jsonify_alchemy(s) for s in inscriptions
-        ]
+        
+        result=[]
+        for s in inscriptions:
+            enfant = jsonify_alchemy(db.session.query(Enfants).filter_by(id=s.id_enfant).first())
+            enfant['saison_id'] = s.id_saison
+            enfant['groupe'] = s.groupe
+            enfant['transport'] = s.transport
+            
+            result.append(enfant)
+            
         return jsonify(result)
     
     except Exception as e:
         return internal_server_error(e)
+
+
+def init_paiements(id_enfant,id_saison):
+    saison = db.session.query(Saisons).filter_by(id=id_saison).first()
+    
+    for m in get_months(saison.date_debut,saison.date_fin):
+        p = Paiements(
+            id_saison=id_saison,
+            id_enfant=id_enfant,
+            mois=m,
+            paye=False
+        )
+        
+        db.session.add(p)
+    
+    db.session.commit()
+    
 
 def enroll_enfant_saison(id_enfant):
     try:
@@ -93,6 +117,11 @@ def enroll_enfant_saison(id_enfant):
         if not saison:
             return jsonify({'error': 'No current season found'}), 404
         
+        enfant = db.seesion.query(Inscriptions).filter_by(id_saison=saison.id,id_enfant=id_enfant)
+        
+        if enfant:
+            return jsonify({'error': 'Enfant already enrolled'}), 409
+        
         new_inscription = Inscriptions(
             id_saison=saison.id,
             id_enfant=id_enfant,
@@ -100,7 +129,11 @@ def enroll_enfant_saison(id_enfant):
             transport=data['transport']
         )
         db.session.add(new_inscription)
+        
+        init_paiements(id_enfant,saison.id)
+        
         db.session.commit()
+        
         return jsonify_alchemy(new_inscription)
     
     except Exception as e:
@@ -122,6 +155,7 @@ def get_enfant_saison(id_enfant):
         result['transport'] =  inscription.transport
         result['id_saison'] =  inscription.id_saison
         
+        
         return result
     except Exception as e:
         return internal_server_error(e)
@@ -137,5 +171,21 @@ def delete_enfant_saison(id_enfant):
         db.session.commit()
         return deleted_message()
     
+    except Exception as e:
+        return internal_server_error(e)
+
+def update_enfant_saison(id_enfant):
+    try:
+        data = request.get_json()
+        saison = db.session.query(Saisons).filter_by(actuelle=True).first()
+        if not saison:
+            return jsonify({'error': 'No current season found'}), 404
+        
+        inscription = db.session.query(Inscriptions).filter_by(id_saison=saison.id, id_enfant=id_enfant).first_or_404()
+        inscription.groupe = data['groupe']
+        inscription.transport = data['transport']
+        db.session.commit()
+        
+        return jsonify_alchemy(inscription)
     except Exception as e:
         return internal_server_error(e)

@@ -57,15 +57,15 @@ def delete_enfant(id):
 def update_enfant(id):
     try:
         data = request.get_json()
-        enfant = Enfants.query.get_or_404(id)
+        enfant = db.session.query(Enfants).query.get_or_404(id)
         
-        enfant.nom = data.get('nom', enfant.nom)
-        enfant.prenom = data.get('prenom', enfant.prenom)
+        enfant.nom = data['nom']
+        enfant.prenom = data['prenim']
         enfant.date_naissance = datetime.strptime(data['date_naissance'], '%d/%m/%Y')
-        enfant.nom_tuteur = data.get('nom_tuteur', enfant.nom_tuteur)
-        enfant.prenom_tuteur = data.get('prenom_tuteur', enfant.prenom_tuteur)
-        enfant.tel_tuteur = data.get('tel_tuteur', enfant.tel_tuteur)
-        enfant.email_tuteur = data.get('email_tuteur', enfant.email_tuteur)
+        enfant.nom_tuteur = data['nom_tuteur']
+        enfant.prenom_tuteur = data['prenom_tuteur']
+        enfant.tel_tuteur = data['tel_tuteur']
+        enfant.email_tuteur = data['email_tuteur']
         db.session.commit()
         
         return jsonify_alchemy(enfant)

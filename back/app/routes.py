@@ -1,9 +1,13 @@
-from flask import jsonify,request
+from flask import request
 from flask.blueprints import Blueprint
 from models import *
 from utils import *
 from controllers.enfant_controller import *
 from controllers.saison_controller import *
+from controllers.paiements_controller import *
+from controllers.archive_controller import *
+
+
 from db import db
 import sys
 
@@ -50,3 +54,29 @@ def handler6(id):
         return get_enfant_saison(id)
     elif request.method == 'DELETE':
         return delete_enfant_saison(id)
+    else:
+        return update_enfant_saison(id)
+
+@routes.route('/api/saison/paiements', methods=['POST'])
+def handler7():
+    return get_unpaid_enfants()
+
+@routes.route('/api/saison/paiements/<int:id>', methods=['GET',"POST"])
+def handler8(id):
+    if request.method == "GET":
+        return get_enfant_paiements(id)
+    else:
+        return update_paiement(id)
+
+@routes.route("/api/saison/<int:id>/archive",methods=['GET'])
+def handler9(id):
+    return archive_saison(id)
+
+
+@routes.route("/api/archives",methods=['GET'])
+def handler10():
+    return get_archives()
+
+@routes.route("/api/archives/<int:id>",methods=['GET'])
+def handler11(id):
+    return download_archive(id)

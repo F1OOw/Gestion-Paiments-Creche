@@ -65,3 +65,4 @@ class Archives(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date_debut = db.Column(db.Date, nullable=False)
     date_fin = db.Column(db.Date, nullable=False)
+    fichier = db.Column(db.String(255), nullable=False)

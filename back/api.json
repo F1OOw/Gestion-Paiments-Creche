@@ -11,7 +11,7 @@
                     "id": 1,
                     "nom": "nom",
                     "prenom": "prenom",
-                    "date_naissance": "01/01/2024",
+                    "date_naissance": "2024-01-01",
                     "nom_tuteur": "nom",
                     "prenom_tuteur": "prenom",
                     "tel_tuteur": "0677777777",
@@ -28,7 +28,7 @@
             "input": {
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "2024-01-01",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
@@ -51,7 +51,7 @@
                 "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "2024-01-01",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
@@ -69,7 +69,7 @@
                 "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "2024-01-01",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
@@ -86,7 +86,7 @@
                 "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "2024-01-01",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
@@ -96,7 +96,7 @@
                 "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "2024-01-01",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
@@ -112,8 +112,8 @@
             "input": null,
             "output": {
                 "id": 1 ,
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
+                "date_debut": "2024-01-01",
+                "date_fin": "2024-07-01"
             },
             "error": ""
         },
@@ -123,13 +123,13 @@
             "method": "PUT",
             "description": "Modifier les informations de la saison actuelle",
             "input": {
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
+                "date_debut": "2024-01-01",
+                "date_fin": "2024-07-01"
             },
             "output": {
                 "id": 1 ,
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
+                "date_debut": "2024-01-01",
+                "date_fin": "2024-07-01"
             },
             "error": ""
         },
@@ -143,8 +143,8 @@
                 "date_fin": "01-07-2024"
             },
             "output": {
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024",
+                "date_debut": "2024-01-01",
+                "date_fin": "2024-07-01",
                 "actuelle": true,
                 "id": 1
             },
@@ -158,21 +158,8 @@
             "input": null,
             "output": {
                 "id": 1 ,
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
-            },
-            "error": ""
-        },
-        {
-            "name": "/api/saison/archive",
-            "done": false,
-            "method": "POST",
-            "description": "Archiver la saison actuelle",
-            "input": null,
-            "output": {
-                "id": 1,
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
+                "date_debut": "2024-01-01",
+                "date_fin": "2024-07-01"
             },
             "error": ""
         },
@@ -188,7 +175,7 @@
                     "id_enfant": 1,
                     "nom": "nom",
                     "prenom": "prenom",
-                    "date_naissance": "01/01/2024",
+                    "date_naissance": "2024-01-01",
                     "nom_tuteur": "nom",
                     "prenom_tuteur": "prenom",
                     "tel_tuteur": "0677777777",
@@ -202,7 +189,7 @@
         },
         {
             "name": "/api/saison/enfants/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "POST",
             "description": "Inscrire un enfant a la saison actuelle",
             "input": {
@@ -228,7 +215,7 @@
                 "id": 2,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "2024-01-01",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
@@ -254,7 +241,7 @@
         },
         {
             "name": "/api/saison/enfants/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "PUT",
             "description": "Modifier les informations de l'enfant lié à la saison actuelle",
             "input": {
@@ -271,8 +258,8 @@
         },
         {
             "name": "/api/saison/paiements",
-            "done": false,
-            "method": "GET",
+            "done": true,
+            "method": "POST",
             "description": "Retourne la liste des enfants qui n'ont pas payé les dus du mois en question",
             "input": {
                 "mois": 12
@@ -283,7 +270,7 @@
                     "id_enfant": 1,
                     "nom": "nom",
                     "prenom": "prenom",
-                    "date_naissance": "01/01/2024",
+                    "date_naissance": "2024-01-01",
                     "nom_tuteur": "nom",
                     "prenom_tuteur": "prenom",
                     "tel_tuteur": "0677777777",
@@ -296,7 +283,7 @@
         },
         {
             "name": "/api/saison/paiements/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourne l'etat des paiements de l'enfant pour chaque mois de la saison",
             "input": null,
@@ -315,7 +302,7 @@
         },
         {
             "name": "/api/saison/paiements/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "POST",
             "description": "Modifier l'etat de paiement du mois indiqué",
             "input": {
@@ -325,7 +312,44 @@
                 "1": true
             },
             "error": ""
+        },
+        {
+            "name": "/api/saison/<int:id>/archive",
+            "done": true,
+            "method": "POST",
+            "description": "Archiver la saison spécifié",
+            "input": null,
+            "output": {
+                "id": 1,
+                "date_debut": "2024-01-01",
+                "date_fin": "2024-07-01"
+            },
+            "error": ""
+        },
+        {
+            "name": "/api/archives",
+            "done": true,
+            "method": "GET",
+            "description": "Retourner la liste des archives",
+            "input": null,
+            "output": [
+                {
+                    "id":1,
+                    "date_debut": "2024-01-01",
+                    "date_fin":"2025-04-01",
+                    "fichier": "aaaaa"
+                }
+            ],
+            "error": ""
+        },
+        {
+            "name": "/api/archive/<id>",
+            "done": true,
+            "method": "GET",
+            "description": "Telecharger l'archive",
+            "input": null,
+            "output": null,
+            "error": ""
         }
-        
     ]
 }
