@@ -2,7 +2,7 @@
     "routes": [
         {
             "name": "/api/enfants",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourner la liste de tous les enfants de la bdd",
             "input": null,
@@ -22,7 +22,7 @@
         },
         {
             "name": "/api/enfants",
-            "done": false,
+            "done": true,
             "method": "POST",
             "description": "Ajouter un enfant à la base de donnees",
             "input": {
@@ -43,7 +43,7 @@
         },
         {
             "name": "/api/enfants/<id>",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourner les informations lies a un enfant",
             "input": null,
@@ -61,7 +61,7 @@
         },
         {
             "name": "/api/enfants/<id>",
-            "done": false,
+            "done": true,
             "method": "DELETE",
             "description": "supprimer un enfant de la base de donnees",
             "input": null,
@@ -79,7 +79,7 @@
         },
         {
             "name": "/api/enfants/<id>",
-            "done": false,
+            "done": true,
             "method": "PUT",
             "description": "Modifier les information d'un enfant",
             "input": {
@@ -106,7 +106,7 @@
         },
         {
             "name": "/api/saison",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourne les informations de la saison actuelle",
             "input": null,
@@ -119,7 +119,7 @@
         },
         {
             "name": "/api/saison",
-            "done": false,
+            "done": true,
             "method": "PUT",
             "description": "Modifier les informations de la saison actuelle",
             "input": {
@@ -135,15 +135,32 @@
         },
         {
             "name": "/api/saison",
-            "done": false,
+            "done": true,
             "method": "POST",
             "description": "Lancement d'une nouvelle saison",
             "input": {
-                "id": 1,
                 "date_debut": "01-01-2024",
                 "date_fin": "01-07-2024"
             },
-            "output": null,
+            "output": {
+                "date_debut": "01-01-2024",
+                "date_fin": "01-07-2024",
+                "actuelle": true,
+                "id": 1
+            },
+            "error": ""
+        },
+        {
+            "name": "/api/saison/<id_saison>",
+            "done": true,
+            "method": "DELETE",
+            "description": "Supprimer la saison indiquée",
+            "input": null,
+            "output": {
+                "id": 1 ,
+                "date_debut": "01-01-2024",
+                "date_fin": "01-07-2024"
+            },
             "error": ""
         },
         {
@@ -154,19 +171,6 @@
             "input": null,
             "output": {
                 "id": 1,
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
-            },
-            "error": ""
-        },
-        {
-            "name": "/api/saison/<id_saison>",
-            "done": false,
-            "method": "DELETE",
-            "description": "Supprimer la saison indiquée",
-            "input": null,
-            "output": {
-                "id": 1 ,
                 "date_debut": "01-01-2024",
                 "date_fin": "01-07-2024"
             },
