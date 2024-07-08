@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  back:
+    container_name: backend
+    build: ./back/
+    ports:
+      - "8000:8000"
+    
+    env_file:
+      - .env
+    
+    volumes:
+      - ./back/app:/app
+    
+    networks:
+      - app
+    
+    depends_on:
+      - database
+    
+    restart: always
+
+  database:
+    image: mysql:latest
+    container_name: ${MYSQL_CONTAINER_NAME}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - ${MYSQL_PORT}:3306
+    
+    volumes:
+      - ./db/scripts/:/docker-entrypoint-initdb.d
+      - ./db/mysql:/var/lib/mysql
+    
+    networks:
+      - app
+
+    restart: always
+
+networks:
+  app:
