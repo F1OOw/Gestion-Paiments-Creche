@@ -37,3 +37,16 @@ def handler3():
 @routes.route("/api/saison/<int:id>",methods=['DELETE'])
 def handler4(id):
     return delete_saison(id)
+
+@routes.route("/api/saison/enfants",methods=['GET'])
+def handler5():
+    return get_saison_enfants()
+
+@routes.route("/api/saison/enfants/<int:id>",methods=['GET',"POST",'PUT','DELETE'])
+def handler6(id):
+    if request.method=='POST':
+        return enroll_enfant_saison(id)
+    elif request.method == 'GET':
+        return get_enfant_saison(id)
+    elif request.method == 'DELETE':
+        return delete_enfant_saison(id)

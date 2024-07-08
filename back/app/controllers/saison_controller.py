@@ -69,3 +69,73 @@ def delete_saison(id):
         return deleted_message()
     except Exception as e:
         return internal_server_error(e)
+
+
+def get_saison_enfants():
+    try:
+        saison = db.session.query(Saisons).filter_by(actuelle=True).first()
+        if not saison:
+            return jsonify({'error': 'No current season found'}), 404
+        
+        inscriptions = Inscriptions.query.filter_by(id_saison=saison.id).all()
+        result = [
+            jsonify_alchemy(s) for s in inscriptions
+        ]
+        return jsonify(result)
+    
+    except Exception as e:
+        return internal_server_error(e)
+
+def enroll_enfant_saison(id_enfant):
+    try:
+        data = request.get_json()
+        saison = db.session.query(Saisons).filter_by(actuelle=True).first()
+        if not saison:
+            return jsonify({'error': 'No current season found'}), 404
+        
+        new_inscription = Inscriptions(
+            id_saison=saison.id,
+            id_enfant=id_enfant,
+            groupe=data['groupe'],
+            transport=data['transport']
+        )
+        db.session.add(new_inscription)
+        db.session.commit()
+        return jsonify_alchemy(new_inscription)
+    
+    except Exception as e:
+        return internal_server_error(e)
+
+def get_enfant_saison(id_enfant):
+    try:
+        
+        saison = db.session.query(Saisons).filter_by(actuelle=True).first()
+        if not saison:
+            return jsonify({'error': 'No current season found'}), 404
+        
+        inscription = db.session.query(Inscriptions).filter_by(id_saison=saison.id, id_enfant=id_enfant).first_or_404()
+        
+        enfant = db.session.query(Enfants).get_or_404(id_enfant)
+        
+        result = jsonify_alchemy(enfant)
+        result['groupe'] =  inscription.groupe
+        result['transport'] =  inscription.transport
+        result['id_saison'] =  inscription.id_saison
+        
+        return result
+    except Exception as e:
+        return internal_server_error(e)
+
+def delete_enfant_saison(id_enfant):
+    try:
+        saison = db.session.query(Saisons).filter_by(actuelle=True).first()
+        if not saison:
+            return jsonify({'error': 'No current season found'}), 404
+        
+        inscription = db.session.query(Inscriptions).filter_by(id_saison=saison.id, id_enfant=id_enfant).first_or_404()
+        db.session.delete(inscription)
+        db.session.commit()
+        return deleted_message()
+    
+    except Exception as e:
+        return internal_server_error(e)

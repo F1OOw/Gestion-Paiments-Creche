@@ -178,7 +178,7 @@
         },
         {
             "name": "/api/saison/enfants",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourne la liste des enfants de la saison actuelle",
             "input": null,
@@ -201,12 +201,11 @@
             "error": ""
         },
         {
-            "name": "/api/saison/enfants",
+            "name": "/api/saison/enfants/<id_enfant>",
             "done": false,
             "method": "POST",
             "description": "Inscrire un enfant a la saison actuelle",
             "input": {
-                "id_enfant": 2,
                 "groupe": 3,
                 "transport": false
             },
@@ -220,13 +219,13 @@
         },
         {
             "name": "/api/saison/enfants/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourner les information d'un enfant lié à une saison",
             "input": null,
             "output": {
                 "id_saison": 1,
-                "id_enfant": 2,
+                "id": 2,
                 "nom": "nom",
                 "prenom": "prenom",
                 "date_naissance": "01/01/2024",
@@ -241,7 +240,7 @@
         },
         {
             "name": "/api/saison/enfants/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "DELETE",
             "description": "Supprimer un enfant de la saison actuelle",
             "input": null,
