@@ -2,15 +2,25 @@ import sys
 from flask import jsonify
 from models import *
 from string import ascii_letters, digits
-from datetime import datetime,time
+from datetime import datetime,time,date
 import random
 import traceback
 
 def jsonify_alchemy(object):   
     class_name = object.__class__.__name__
     class_defined_attributes = [key for key, value in globals()[class_name].__dict__.items() if not (callable(value) or key.startswith('__') or key.startswith('_'))]
+    
+    json = {}
+    
+    for key in class_defined_attributes:
+        val = getattr(object,key)
         
-    return {key:getattr(object,key) for key in class_defined_attributes}
+        if isinstance(val,date):    
+            val = datetime.strftime(val,'%d-%m-%Y')
+            
+        json[key] = val
+            
+    return json
 
 def internal_server_error(e):
     print(str(e),file=sys.stderr)

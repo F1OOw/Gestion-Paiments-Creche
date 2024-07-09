@@ -10,6 +10,7 @@ def get_enfants():
         result = [
             jsonify_alchemy(en) for en in enfants
         ]
+
         return jsonify(result)
     
     except Exception as e :
@@ -22,7 +23,7 @@ def add_enfant():
         new_enfant = Enfants(
             nom=data['nom'],
             prenom=data['prenom'],
-            date_naissance=datetime.strptime(data['date_naissance'], '%d/%m/%Y'),
+            date_naissance=datetime.strptime(data['date_naissance'], '%d-%m-%Y'),
             nom_tuteur=data['nom_tuteur'],
             prenom_tuteur=data['prenom_tuteur'],
             tel_tuteur=data['tel_tuteur'],
@@ -61,7 +62,7 @@ def update_enfant(id):
         
         enfant.nom = data['nom']
         enfant.prenom = data['prenim']
-        enfant.date_naissance = datetime.strptime(data['date_naissance'], '%d/%m/%Y')
+        enfant.date_naissance = datetime.strptime(data['date_naissance'], '%d-%m-%Y')
         enfant.nom_tuteur = data['nom_tuteur']
         enfant.prenom_tuteur = data['prenom_tuteur']
         enfant.tel_tuteur = data['tel_tuteur']

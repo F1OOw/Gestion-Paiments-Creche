@@ -9,7 +9,7 @@ faker = Faker()
 def ajouter_enfant_bdd():
     child_name = faker.first_name()
     child_surname = faker.last_name()
-    birth_date = faker.date_of_birth(minimum_age=0, maximum_age=10).strftime("%d/%m/%Y")
+    birth_date = faker.date_of_birth(minimum_age=0, maximum_age=10).strftime("%d-%m-%Y")
     tutor_name = faker.first_name()
     tutor_surname = faker.last_name()
     tutor_phone = faker.phone_number()
