@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS Saisons (
 ) ;
 
 CREATE TABLE IF NOT EXISTS Inscriptions(
-    id_enfant INT UNIQUE,
+    id_enfant INT,
     id_saison INT ,
     groupe INT CHECK(groupe>0 AND groupe<=8),
     transport BOOLEAN,

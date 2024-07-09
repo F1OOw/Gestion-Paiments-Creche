@@ -117,7 +117,7 @@ def enroll_enfant_saison(id_enfant):
         if not saison:
             return jsonify({'error': 'No current season found'}), 404
         
-        enfant = db.seesion.query(Inscriptions).filter_by(id_saison=saison.id,id_enfant=id_enfant)
+        enfant = db.session.query(Inscriptions).filter_by(id_saison=saison.id,id_enfant=id_enfant).first()
         
         if enfant:
             return jsonify({'error': 'Enfant already enrolled'}), 409

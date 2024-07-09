@@ -36,7 +36,13 @@
             },
 
             "output": {
-                "id": 1
+                "nom": "nom",
+                "prenom": "prenom",
+                "date_naissance": "2024-01-01",
+                "nom_tuteur": "nom",
+                "prenom_tuteur": "prenom",
+                "tel_tuteur": "0677777777",
+                "email_tuteur": "something@something.com"
             } ,
             
             "error":""
@@ -316,7 +322,7 @@
         {
             "name": "/api/saison/<int:id>/archive",
             "done": true,
-            "method": "POST",
+            "method": "GET",
             "description": "Archiver la saison spécifié",
             "input": null,
             "output": {

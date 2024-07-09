@@ -4,6 +4,7 @@ from models import *
 from string import ascii_letters, digits
 from datetime import datetime,time
 import random
+import traceback
 
 def jsonify_alchemy(object):   
     class_name = object.__class__.__name__
@@ -12,7 +13,8 @@ def jsonify_alchemy(object):
     return {key:getattr(object,key) for key in class_defined_attributes}
 
 def internal_server_error(e):
-    print(e,file=sys.stderr)
+    print(str(e),file=sys.stderr)
+    traceback.print_exc()
     return jsonify({'message': "Internal Server Error"}), 500
 
 def deleted_message():

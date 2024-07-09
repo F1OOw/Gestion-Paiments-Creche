@@ -16,7 +16,7 @@ def archive_saison(saison_id):
         header = ['id', 'nom', 'prenom', 'date Naissance','nom_tuteur','prenom_tuteur','tel_tuteur'] + [ months[i] for i in saison_months]
         
         file = ARCHIVE_FOLDER
-        file += gen_random_file_name(10)
+        file += gen_random_file_name(20)
         file += ".csv"
         
         with open(file,'w',newline='') as csvfile:
@@ -47,7 +47,7 @@ def archive_saison(saison_id):
         db.session.add(archive)
         
         
-        # db.session.delete(saison)
+        db.session.delete(saison)
         
         db.session.commit()
         
