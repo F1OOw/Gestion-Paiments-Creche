@@ -13,6 +13,7 @@ import sys
 
 routes = Blueprint("routes",__name__)
 
+
 @routes.route('/api/enfants', methods=['GET',"POST"])
 def handler1():
     if request.method == 'GET':
@@ -80,3 +81,7 @@ def handler10():
 @routes.route("/api/archives/<int:id>",methods=['GET'])
 def handler11(id):
     return download_archive(id)
+
+@routes.route('/api/auth/login', methods=["POST"])
+def handler12():
+    pass

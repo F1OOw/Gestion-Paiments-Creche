@@ -1,6 +1,21 @@
 {
     "routes": [
         {
+            "name": "/api/auth/login",
+            "done": true,
+            "method": "POST",
+            "description": "Retourner un jwt token d'authenitfication",
+            "input": {
+                "username": "username",
+                "password": "password"
+            },
+            "output": {
+                "token": "jwt_token"
+            },
+            "error": ""
+        
+        },
+        {
             "name": "/api/enfants",
             "done": true,
             "method": "GET",

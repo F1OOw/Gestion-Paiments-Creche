@@ -1,6 +1,9 @@
 import sys
-from flask import jsonify
+from functools import wraps
+import jwt
+from flask import jsonify, request
 from models import *
+from config import SECRET_KEY
 from string import ascii_letters, digits
 from datetime import datetime,time,date
 import random
@@ -48,3 +51,38 @@ def get_months(start_date,end_date):
 
 def gen_random_file_name(length):
     return "".join([random.choice(ascii_letters+digits) for i in range(length)])
+
+def extract_token(request):
+    token = request.headers.get('Authorization')
+
+    if not token:
+        return None
+
+    # Check if the token starts with 'Bearer ' and extract the token
+    if 'Bearer ' in token:
+        token = token.split('Bearer ')[1]
+        return token
+    
+    return None
+
+def decode_token(token):
+    return jwt.decode(token, SECRET_KEY , algorithms="HS256")
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = extract_token(request)
+        
+        if not token:
+            return jsonify({'Alert!': 'Token is missing!'}), 401
+
+        try:
+            data = decode_token(token)
+        except jwt.ExpiredSignatureError:
+            return jsonify({'Message': 'Token has expired'}), 403
+        except jwt.InvalidTokenError:
+            return jsonify({'Message': 'Invalid token'}), 403
+
+        return f(*args, **kwargs)
+
+    return decorated
