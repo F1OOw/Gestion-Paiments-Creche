@@ -3,9 +3,9 @@ from functools import wraps
 import jwt
 from flask import jsonify, request
 from models import *
-from config import SECRET_KEY
+from config import *
 from string import ascii_letters, digits
-from datetime import datetime,time,date
+from datetime import datetime,time,date, timedelta,timezone
 import random
 import traceback
 
@@ -86,3 +86,15 @@ def token_required(f):
         return f(*args, **kwargs)
 
     return decorated
+
+def generate_token(username):
+    token = jwt.encode(
+        {
+            'user': username,
+            'exp': datetime.now(timezone.utc) + timedelta(hours=TOKEN_EXPIRATION_TIME)
+        }, SECRET_KEY, 
+        
+        algorithm='HS256'
+    )
+    
+    return token

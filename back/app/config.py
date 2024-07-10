@@ -15,6 +15,14 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 ARCHIVE_FOLDER=getenv("ARCHIVE_FOLDER")
 
+SECRET_KEY=getenv("SECRET_KEY")
+
+USERNAME=getenv("USERNAME")
+PASSWORD=getenv("PASSWORD")
+
+TOKEN_EXPIRATION_TIME=int(getenv("TOKEN_EXPIRATION_TIME"))
+
+
 months = {
     1: "Janvier",
     2: "Février",
