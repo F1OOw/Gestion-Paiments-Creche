@@ -1,0 +1,92 @@
+import React, { useState } from "react";
+import NavBar from "../components/nav_bar";
+import { FaSearch } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
+import { addChild, removeChild, updateChild } from '../slices/children_slice';
+
+export default function ChildrenPage() {
+    const children = useSelector(state => state.children);
+    const dispatch = useDispatch();
+    let [id,setId] = useState(0); 
+    const handleAddChild = () => {
+        dispatch(addChild({
+          id: id,
+          nom: 'Nom'+id.toString(),
+          prenom: 'Prenom',
+          date_naissance: '01/01/2024',
+          nom_tuteur: 'Nom Tuteur',
+          prenom_tuteur: 'Prenom Tuteur',
+          tel_tuteur: '0677777777',
+          email_tuteur: 'something@something.com'
+        }));
+        setId(id+1);
+      };
+      const handleRemoveChild = (id) => {
+        dispatch(removeChild({ id }));
+      };
+    return (
+        <div>
+            <NavBar/>
+            {/* children display */}
+            <div className="flex flex-col items-center">
+                <div className="h-[10vh] w-[90%] flex flex-row justify-around items-center"> 
+                    <h1 className="text-3xl text-myblue font-bold ">Liste des enfants</h1>
+                    <div className="w-[20%]"></div>
+                    <div className="relative w-[35%]">
+                        <input type="text" placeholder="Introduisez un nom d'enfant ..." className="w-full border-2 border-myyellow rounded-3xl  py-2 px-4 focus:outline-none focus:border-myyellow" />
+                        <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-myorange" />
+                    </div>
+                </div>
+                <div className=" w-[90%] ">
+                    {/* header */}
+                    <div className="h-[10vh] w-[100%] flex flex-row sticky top-0 z-10" >
+                        <div className="h-[100%] w-[20%] bg-myyellow rounded-tl-3xl flex items-center justify-center">
+                            <p className="text-white font-bold text-lg ">Enfants</p>
+                        </div>
+                        <div className="h-[100%] w-[40%] bg-myorange flex items-center justify-center">
+                            <p className="text-white font-bold text-lg ">Parents</p>
+                        </div>
+                        <div className="h-[100%] w-[40%] bg-myblue rounded-tr-3xl flex items-center justify-center">
+                            <p className="text-white font-bold text-lg ">Actions</p>
+                        </div>
+                    </div>
+                    {/* table body */}
+                    <div className="flex flex-col">
+                        {children.length === 0 ? (
+                            <div className="h-[10vh] w-[100%] flex justify-center items-center">
+                                <p className="text-xl font-semibold">Pas d'enfants, veuillez ajouter</p>
+                            </div>
+                        ) : (
+                            children.map(child => (
+                                <div key={child.id} className="flex flex-row">
+                                    <div className="h-[10vh] border w-[20%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
+                                        <p className="text-xl font-semibold">{child.nom}</p>
+                                    </div>
+                                    <div className="h-[10vh] w-[40%] border border-l-myorange border-r-myorange border-b-myorange flex flex-row justify-around items-center">
+                                        <div className="w-[60%] flex justify-center">
+                                            <p className="text-xl font-semibold">{child.nom_tuteur} {child.prenom_tuteur}</p>
+                                        </div>
+                                        <div className="w-[35%] flex justify-center">
+                                            <p className="text-xl font-semibold">{child.tel_tuteur}</p>
+                                        </div>
+                                    </div>
+                                    <div className="h-[10vh] w-[40%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
+                                        <button onClick={() => { console.log("update here") }} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Voir plus</button>
+                                        <button onClick={() => {
+                                            handleRemoveChild(child.id);
+                                        }} className="bg-myorange text-white px-8 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Supprimer</button>
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+
+                    <div className="h-[10vh]"></div>
+                </div>
+                <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2">
+                    <button onClick={handleAddChild} className="bg-myblue text-white px-8 py-2 rounded-3xl shadow-slate-300 border-2 border-white  shadow-xl">Ajouter</button>
+                </div>
+            </div>
+        </div>
+    );
+}
