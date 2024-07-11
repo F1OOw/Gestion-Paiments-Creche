@@ -26,11 +26,12 @@
                     "id": 1,
                     "nom": "nom",
                     "prenom": "prenom",
-                    "date_naissance": "2024-01-01",
+                    "date_naissance": "01-01-2024",
                     "nom_tuteur": "nom",
                     "prenom_tuteur": "prenom",
                     "tel_tuteur": "0677777777",
-                    "email_tuteur": "something@something.com"
+                    "email_tuteur": "something@something.com",
+                    "addresse": "some addresse"
                 }
             ],
             "error": ""
@@ -43,21 +44,24 @@
             "input": {
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "2024-01-01",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
+                "email_tuteur": "something@something.com",
+                "addresse": "some addresse"
             },
 
             "output": {
+                "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "2024-01-01",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
+                "email_tuteur": "something@something.com",
+                "addresse": "some addresse"
             } ,
             
             "error":""
@@ -72,11 +76,12 @@
                 "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "2024-01-01",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
+                "email_tuteur": "something@something.com",
+                "addresse": "some addresse"
             },
             "error": ""
         },
@@ -86,16 +91,7 @@
             "method": "DELETE",
             "description": "supprimer un enfant de la base de donnees",
             "input": null,
-            "output": {
-                "id": 1,
-                "nom": "nom",
-                "prenom": "prenom",
-                "date_naissance": "2024-01-01",
-                "nom_tuteur": "nom",
-                "prenom_tuteur": "prenom",
-                "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
-            },
+            "output": {"message": "Deleted succesfully"},
             "error": ""
         },
         {
@@ -107,21 +103,23 @@
                 "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "2024-01-01",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
+                "email_tuteur": "something@something.com",
+                "addresse": "some addresse"
             },
             "output": {
                 "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "2024-01-01",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
+                "email_tuteur": "something@something.com",
+                "addresse": "some addresse"
             },
             "error": ""
         },
@@ -133,8 +131,8 @@
             "input": null,
             "output": {
                 "id": 1 ,
-                "date_debut": "2024-01-01",
-                "date_fin": "2024-07-01"
+                "date_debut": "01-09-2024",
+                "date_fin": "30-06-2025"
             },
             "error": ""
         },
@@ -144,13 +142,13 @@
             "method": "PUT",
             "description": "Modifier les informations de la saison actuelle",
             "input": {
-                "date_debut": "2024-01-01",
-                "date_fin": "2024-07-01"
+                "date_debut": "01-09-2024",
+                "date_fin": "30-06-2025"
             },
             "output": {
                 "id": 1 ,
-                "date_debut": "2024-01-01",
-                "date_fin": "2024-07-01"
+                "date_debut": "01-09-2024",
+                "date_fin": "30-06-2025"
             },
             "error": ""
         },
@@ -160,12 +158,12 @@
             "method": "POST",
             "description": "Lancement d'une nouvelle saison",
             "input": {
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
+                "date_debut": "01-09-2024",
+                "date_fin": "30-06-2025"
             },
             "output": {
-                "date_debut": "2024-01-01",
-                "date_fin": "2024-07-01",
+                "date_debut": "01-09-2024",
+                "date_fin": "30-06-2025",
                 "actuelle": true,
                 "id": 1
             },
@@ -177,11 +175,7 @@
             "method": "DELETE",
             "description": "Supprimer la saison indiquée",
             "input": null,
-            "output": {
-                "id": 1 ,
-                "date_debut": "2024-01-01",
-                "date_fin": "2024-07-01"
-            },
+            "output": {"message": "Deleted succesfully"},
             "error": ""
         },
         {
@@ -191,16 +185,17 @@
             "description": "Retourne la liste des enfants de la saison actuelle",
             "input": null,
             "output": [
-                {
+                {   
                     "id_saison": 1,
-                    "id_enfant": 1,
+                    "id": 1,
                     "nom": "nom",
                     "prenom": "prenom",
-                    "date_naissance": "2024-01-01",
+                    "date_naissance": "01-01-2024",
                     "nom_tuteur": "nom",
                     "prenom_tuteur": "prenom",
                     "tel_tuteur": "0677777777",
                     "email_tuteur": "something@something.com",
+                    "addresse": "some addresse",
                     "groupe": 1,
                     "transport": true
                 }
@@ -231,17 +226,18 @@
             "method": "GET",
             "description": "Retourner les information d'un enfant lié à une saison",
             "input": null,
-            "output": {
+            "output": {   
                 "id_saison": 1,
-                "id": 2,
+                "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "2024-01-01",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
                 "email_tuteur": "something@something.com",
-                "groupe": 4,
+                "addresse": "some addresse",
+                "groupe": 1,
                 "transport": true
             },
             "error": ""
@@ -252,12 +248,7 @@
             "method": "DELETE",
             "description": "Supprimer un enfant de la saison actuelle",
             "input": null,
-            "output": {
-                "id_enfant": 2,
-                "id_saison": 1,
-                "groupe": 3,
-                "transport": false
-            },
+            "output": {"message": "Deleted succesfully"},
             "error": ""
         },
         {
@@ -286,16 +277,17 @@
                 "mois": 12
             },
             "output": [
-                {
+                {   
                     "id_saison": 1,
-                    "id_enfant": 1,
+                    "id": 1,
                     "nom": "nom",
                     "prenom": "prenom",
-                    "date_naissance": "2024-01-01",
+                    "date_naissance": "01-01-2024",
                     "nom_tuteur": "nom",
                     "prenom_tuteur": "prenom",
                     "tel_tuteur": "0677777777",
                     "email_tuteur": "something@something.com",
+                    "addresse": "some addresse",
                     "groupe": 1,
                     "transport": true
                 }
@@ -343,7 +335,8 @@
             "output": {
                 "id": 1,
                 "date_debut": "2024-01-01",
-                "date_fin": "2024-07-01"
+                "date_fin": "2024-07-01",
+                "fichier": "aaaaa"
             },
             "error": ""
         },

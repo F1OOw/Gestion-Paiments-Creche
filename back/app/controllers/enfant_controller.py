@@ -27,7 +27,8 @@ def add_enfant():
             nom_tuteur=data['nom_tuteur'],
             prenom_tuteur=data['prenom_tuteur'],
             tel_tuteur=data['tel_tuteur'],
-            email_tuteur=data['email_tuteur']
+            email_tuteur=data['email_tuteur'],
+            addresse=data['addresse']
         )
         
         db.session.add(new_enfant)
@@ -67,6 +68,8 @@ def update_enfant(id):
         enfant.prenom_tuteur = data['prenom_tuteur']
         enfant.tel_tuteur = data['tel_tuteur']
         enfant.email_tuteur = data['email_tuteur']
+        enfant.addresse = data['addresse']
+        
         db.session.commit()
         
         return jsonify_alchemy(enfant)

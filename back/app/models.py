@@ -12,20 +12,7 @@ class Enfants(db.Model):
     prenom_tuteur = db.Column(db.String(255), nullable=False)
     tel_tuteur = db.Column(db.String(255), nullable=False)
     email_tuteur = db.Column(db.String(255), nullable=False)
-    
-    
-    def json(self):
-        print(dir(self),file=sys.stderr)
-        return {
-            "id": self.id,
-            "nom": self.nom ,
-            "prenom": self.prenom,
-            "date_naissance": self.date_naissance,
-            "nom_tuteur": self.nom_tuteur, 
-            "prenom_tuteur": self.prenom_tuteur,
-            "tel_tuteur": self.tel_tuteur,  
-            "email_tuteur": self.email_tuteur
-        }
+    addresse = db.Column(db.String(512), nullable=False)
     
 class Saisons(db.Model):
     __tablename__ = 'Saisons'
@@ -43,7 +30,7 @@ class Inscriptions(db.Model):
     transport = db.Column(db.Boolean, nullable=False)
     
     __table_args__ = (
-        db.CheckConstraint('groupe > 0 AND groupe <= 8', name='check_groupe'),
+        db.CheckConstraint('groupe > 0 AND groupe <= 5', name='check_groupe'),
     )
 
 class Paiements(db.Model):

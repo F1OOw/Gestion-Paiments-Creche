@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS Enfants (
     nom_tuteur VARCHAR(255),
     prenom_tuteur VARCHAR(255),
     tel_tuteur VARCHAR(255),
-    email_tuteur VARCHAR(255)
+    email_tuteur VARCHAR(255),
+    addresse VARCHAR(512)
 ) ;
 
 CREATE TABLE IF NOT EXISTS Saisons (
@@ -23,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Saisons (
 CREATE TABLE IF NOT EXISTS Inscriptions(
     id_enfant INT,
     id_saison INT ,
-    groupe INT CHECK(groupe>0 AND groupe<=8),
+    groupe INT CHECK(groupe>0 AND groupe<=5 ),
     transport BOOLEAN,
     FOREIGN KEY (id_enfant) REFERENCES Enfants(id) ON DELETE CASCADE ,
     FOREIGN KEY (id_saison) REFERENCES Saisons(id) ON DELETE CASCADE ,

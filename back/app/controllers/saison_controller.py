@@ -82,7 +82,7 @@ def get_saison_enfants():
         result=[]
         for s in inscriptions:
             enfant = jsonify_alchemy(db.session.query(Enfants).filter_by(id=s.id_enfant).first())
-            enfant['saison_id'] = s.id_saison
+            enfant['id_saison'] = s.id_saison
             enfant['groupe'] = s.groupe
             enfant['transport'] = s.transport
             
