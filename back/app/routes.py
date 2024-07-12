@@ -49,6 +49,16 @@ def handler4(id):
 def handler5():
     return get_saison_enfants()
 
+@routes.route("/api/saison/mois",methods=['GET'])
+@token_required
+def handler13():
+    return get_current_saison_months()
+
+@routes.route("/api/saison/groupes",methods=['GET'])
+@token_required
+def handler14():
+    return get_current_saison_groupes()
+
 @routes.route("/api/saison/enfants/<int:id>",methods=['GET',"POST",'PUT','DELETE'])
 @token_required
 def handler6(id):

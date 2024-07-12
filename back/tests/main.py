@@ -3,6 +3,8 @@ from enfants import *
 from saisons import *
 
 
+supprimer_enfants_bdd()
+
 # ajouter 200 enfants a la bdd
 ajouter_enfants_bdd(200)
 

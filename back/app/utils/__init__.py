@@ -30,6 +30,17 @@ def internal_server_error(e):
     traceback.print_exc()
     return jsonify({'message': "Internal Server Error"}), 500
 
+def controller_template(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        try:
+            return f(*args, **kwargs)
+        
+        except Exception as e:
+            return internal_server_error(e)
+        
+    return decorated
+
 def deleted_message():
     return jsonify({"message": "Deleted succesfully"}), 200
 

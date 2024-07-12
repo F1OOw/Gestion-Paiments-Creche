@@ -14,6 +14,7 @@ def ajouter_enfant_bdd():
     tutor_surname = faker.last_name()
     tutor_phone = faker.phone_number()
     tutor_email = faker.email()
+    address = faker.address()
     
     data = {
         "nom": child_surname,
@@ -22,7 +23,8 @@ def ajouter_enfant_bdd():
         "nom_tuteur": tutor_surname,
         "prenom_tuteur": tutor_name,
         "tel_tuteur": tutor_phone,
-        "email_tuteur": tutor_email
+        "email_tuteur": tutor_email,
+        "addresse": address
     }
     
     r = requests.post(

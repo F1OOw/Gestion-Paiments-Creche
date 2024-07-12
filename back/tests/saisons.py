@@ -64,7 +64,7 @@ def ajouter_enfants_bdd_saison():
     enfants = r.json()
     
     for en in enfants:
-        ajouter_enfant_saison(en['id'],random.randint(1,8),random.randint(0,1))
+        ajouter_enfant_saison(en['id'],random.randint(1,5),random.randint(0,1))
 
 def get_unpaid_enfants(mois):
     r = requests.post(

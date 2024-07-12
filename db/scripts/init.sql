@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS creche ;
 
 USE creche ;
 
-SET @NB_GROUPES = 5;
+-- SET @NB_GROUPES = 5 ;
 
 CREATE TABLE IF NOT EXISTS Enfants (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS Saisons (
 CREATE TABLE IF NOT EXISTS Inscriptions(
     id_enfant INT,
     id_saison INT ,
-    groupe INT CHECK(groupe>0 AND groupe<= @NB_GROUPES ),
+    groupe INT CHECK(groupe>0 AND groupe<= 5 ),
     transport BOOLEAN,
     FOREIGN KEY (id_enfant) REFERENCES Enfants(id) ON DELETE CASCADE ,
     FOREIGN KEY (id_saison) REFERENCES Saisons(id) ON DELETE CASCADE ,

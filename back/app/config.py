@@ -21,6 +21,7 @@ USERNAME=getenv("USERNAME")
 PASSWORD=getenv("PASSWORD")
 
 TOKEN_EXPIRATION_TIME=int(getenv("TOKEN_EXPIRATION_TIME"))
+NB_GROUPES=int(getenv("NB_GROUPES"))
 
 
 months = {

@@ -204,6 +204,28 @@
             "error": ""
         },
         {
+            "name": "/api/saison/mois",
+            "done": true,
+            "method": "GET",
+            "description": "Retourne les mois de la saison actuelle",
+            "input": null,
+            "output": {
+                "mois": [1,2,3,4,5,6,7,9,10,11,12]
+            },  
+            "error": ""
+        },
+        {
+            "name": "/api/saison/groupes",
+            "done": true,
+            "method": "GET",
+            "description": "Retourne les numeros de groupes de la saison actuelle",
+            "input": null,
+            "output": {
+                "groupes": [1,2,3,4,5]
+            },  
+            "error": ""
+        },
+        {
             "name": "/api/saison/enfants/<id_enfant>",
             "done": true,
             "method": "POST",
