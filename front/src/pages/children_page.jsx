@@ -3,27 +3,51 @@ import NavBar from "../components/nav_bar";
 import { FaSearch } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { addChild, removeChild, updateChild } from '../slices/children_slice';
+import DeleteConfirmation from "../components/delete_confirmation";
+import AddChildForm from "../components/add_child_form";
 
 export default function ChildrenPage() {
     const children = useSelector(state => state.children);
     const dispatch = useDispatch();
     let [id,setId] = useState(0); 
-    const handleAddChild = () => {
+    const handleAddChild = (formData) => {
         dispatch(addChild({
           id: id,
-          nom: 'Nom'+id.toString(),
-          prenom: 'Prenom',
-          date_naissance: '01/01/2024',
-          nom_tuteur: 'Nom Tuteur',
-          prenom_tuteur: 'Prenom Tuteur',
-          tel_tuteur: '0677777777',
-          email_tuteur: 'something@something.com'
+          ...formData,
         }));
         setId(id+1);
       };
       const handleRemoveChild = (id) => {
         dispatch(removeChild({ id }));
       };
+    //   --------------------------------- delete confirmation
+    const [isDeleteOpen, setisDeleteOpen] = useState(false);
+    const handleDeleteClick = () => {
+        setisDeleteOpen(true);
+    };
+    const handleCloseDeleteModal = () => {
+        setisDeleteOpen(false);
+    };
+    const handleConfirmDelete = (id) => {
+        dispatch(removeChild({ id }));
+        console.log('Item deleted');
+        setisDeleteOpen(false);
+    };
+    //   --------------------------------- add child form
+    const [isAddFormOpen, setIsAddFormOpen] = useState(false);
+
+    const handleAddClick = () => {
+        setIsAddFormOpen(true);
+    };
+
+    const handleCloseAddForm = () => {
+        setIsAddFormOpen(false);
+    };
+
+    // const handleAddChild = (childData) => {
+    //     setChildren((prevChildren) => [...prevChildren, childData]);
+    // };
+
     return (
         <div>
             <NavBar/>
@@ -39,7 +63,7 @@ export default function ChildrenPage() {
                 </div>
                 <div className=" w-[90%] ">
                     {/* header */}
-                    <div className="h-[10vh] w-[100%] flex flex-row sticky top-0 z-10" >
+                    <div className="h-[10vh] w-[100%] flex flex-row ---sticky top-0 ---z-10" >
                         <div className="h-[100%] w-[20%] bg-myyellow rounded-tl-3xl flex items-center justify-center">
                             <p className="text-white font-bold text-lg ">Enfants</p>
                         </div>
@@ -73,9 +97,15 @@ export default function ChildrenPage() {
                                     <div className="h-[10vh] w-[40%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
                                         <button onClick={() => { console.log("update here") }} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Voir plus</button>
                                         <button onClick={() => {
-                                            handleRemoveChild(child.id);
+                                            handleDeleteClick(); 
                                         }} className="bg-myorange text-white px-8 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Supprimer</button>
                                     </div>
+                                    <DeleteConfirmation
+                                    isOpen={isDeleteOpen}
+                                    onClose={handleCloseDeleteModal}
+                                    onConfirm={()=>{handleConfirmDelete(child.id)}}
+                                    name={child.nom}
+                                    />
                                 </div>
                             ))
                         )}
@@ -83,9 +113,18 @@ export default function ChildrenPage() {
 
                     <div className="h-[10vh]"></div>
                 </div>
-                <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2">
-                    <button onClick={handleAddChild} className="bg-myblue text-white px-8 py-2 rounded-3xl shadow-slate-300 border-2 border-white  shadow-xl">Ajouter</button>
+                {isDeleteOpen || (
+                <div>
+                    <div className="fixed z-0 bottom-4 left-1/2 transform -translate-x-1/2">
+                        <button onClick={handleAddClick} className="bg-myblue text-white px-8 py-2 rounded-3xl shadow-slate-300 border-2 border-white  shadow-xl">Ajouter</button>
+                    </div>
+                    <AddChildForm
+                        isOpen={isAddFormOpen}
+                        onClose={handleCloseAddForm}
+                        onAdd={handleAddChild}
+                    />
                 </div>
+                )}
             </div>
         </div>
     );
