@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addChild, removeChild, updateChild } from '../slices/children_slice';
 import DeleteConfirmation from "../components/delete_confirmation";
 import AddChildForm from "../components/add_child_form";
+import EditChildForm from "../components/edit_child_form";
 
 export default function ChildrenPage() {
     const children = useSelector(state => state.children);
@@ -43,10 +44,21 @@ export default function ChildrenPage() {
     const handleCloseAddForm = () => {
         setIsAddFormOpen(false);
     };
-
-    // const handleAddChild = (childData) => {
-    //     setChildren((prevChildren) => [...prevChildren, childData]);
-    // };
+    //   --------------------------------- update child form
+    const [isUpdateFormOpen, setIsUpdateFormOpen] = useState(false);
+    const handleUpdateClick = () => {
+        setIsUpdateFormOpen(true);
+    };
+    const handleCloseUpdateForm = () => {
+        setIsUpdateFormOpen(false);
+    };  
+    const handleUpdateChild = (formData) => {
+        dispatch(updateChild({
+          ...formData,
+        }));
+        // setId(id+1);
+      };
+    
 
     return (
         <div>
@@ -95,7 +107,7 @@ export default function ChildrenPage() {
                                         </div>
                                     </div>
                                     <div className="h-[10vh] w-[40%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
-                                        <button onClick={() => { console.log("update here") }} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Voir plus</button>
+                                        <button onClick={() => {handleUpdateClick()}} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Voir plus</button>
                                         <button onClick={() => {
                                             handleDeleteClick(); 
                                         }} className="bg-myorange text-white px-8 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Supprimer</button>
@@ -105,6 +117,12 @@ export default function ChildrenPage() {
                                     onClose={handleCloseDeleteModal}
                                     onConfirm={()=>{handleConfirmDelete(child.id)}}
                                     name={child.nom}
+                                    />
+                                    <EditChildForm
+                                    isOpen={isUpdateFormOpen}
+                                    onClose={handleCloseUpdateForm}
+                                    onUpdate={handleUpdateChild}
+                                    child={child}
                                     />
                                 </div>
                             ))
