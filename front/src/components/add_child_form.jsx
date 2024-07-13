@@ -9,7 +9,7 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
     prenom_tuteur: '',
     tel_tuteur: '',
     email_tuteur: '',
-    adresse_tuteur: ''
+    addresse: ''
   });
 
   const handleChange = (e) => {
@@ -30,10 +30,10 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-35">
-      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[80vh] w-[40%] ">
-        <h2 className="text-xl px-2 font-bold mb-2">Enfant</h2>
-        <form onSubmit={handleSubmit}>
-            <div className='mb-2 flex flex-row justify-between px-8 w-full'>
+      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[80vh] w-[40%] flex flex-col justify-between ">
+        <h2 className="text-xl px-2 font-bold ">Enfant</h2>
+        <form onSubmit={handleSubmit} className='flex flex-col justify-evenly h-[95%]'>
+            <div className=' flex flex-row justify-between px-8 w-full'>
                 <div className="w-[40%] ">
                     <label className="text-black font-bold">Nom :</label>
                     <input
@@ -57,7 +57,7 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
                     />
                 </div>
             </div>
-          <div className="mb-2 px-8 w-[45%]">
+          <div className=" px-8 w-[45%]">
             <label className="text-black font-bold">Date de naissance :</label>
             <input
               type="date"
@@ -68,8 +68,8 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
               required
             />
           </div>
-          <h2 className="text-xl px-2 font-bold mb-2">Parent</h2>
-          <div className='mb-2 flex flex-row justify-between px-8 w-full'>
+          <h2 className="text-xl px-2 font-bold ">Parent</h2>
+          <div className=' flex flex-row justify-between px-8 w-full'>
             <div className="w-[40%]">
                 <label className="text-black font-bold">Nom du tuteur :</label>
                 <input
@@ -93,7 +93,7 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
                 />
             </div>
           </div>
-          <div className='mb-2 flex flex-row justify-between px-8 w-full'>
+          <div className=' flex flex-row justify-between px-8 w-full'>
             <div className="w-[40%]">
                 <label className="text-black font-bold">Téléphone du tuteur :</label>
                 <input
@@ -117,12 +117,12 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
                 />
             </div>
           </div>
-          <div className="mb-2  justify-between px-8 w-[65%]">
+          <div className="  justify-between px-8 w-[65%]">
                 <label className="text-black font-bold">Adresse : </label>
                 <input
                 type="text"
-                name="adresse_tuteur"
-                value={formData.adresse_tuteur}
+                name="addresse"
+                value={formData.addresse}
                 onChange={handleChange}
                 className="p-2 border w-full border-myyellow bg-mygray rounded-xl mt-1"
                 required
