@@ -12,7 +12,7 @@ class Enfants(db.Model):
     prenom_tuteur = db.Column(db.String(255), nullable=False)
     tel_tuteur = db.Column(db.String(255), nullable=False)
     email_tuteur = db.Column(db.String(255), nullable=False)
-    addresse = db.Column(db.String(512), nullable=False)
+    adresse = db.Column(db.String(512), nullable=False)
     
 class Saisons(db.Model):
     __tablename__ = 'Saisons'

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Enfants (
     prenom_tuteur VARCHAR(255),
     tel_tuteur VARCHAR(255),
     email_tuteur VARCHAR(255),
-    addresse VARCHAR(512)
+    adresse VARCHAR(512)
 ) ;
 
 CREATE TABLE IF NOT EXISTS Saisons (

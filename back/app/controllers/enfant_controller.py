@@ -25,7 +25,7 @@ def add_enfant():
         prenom_tuteur=data['prenom_tuteur'],
         tel_tuteur=data['tel_tuteur'],
         email_tuteur=data['email_tuteur'],
-        addresse=data['addresse']
+        adresse=data['adresse']
     )
     
     db.session.add(new_enfant)
@@ -50,13 +50,13 @@ def update_enfant(id):
     data = request.get_json()
     enfant = db.session.query(Enfants).query.get_or_404(id)
     enfant.nom = data['nom']
-    enfant.prenom = data['prenim']
+    enfant.prenom = data['prenom']
     enfant.date_naissance = datetime.strptime(data['date_naissance'], '%d-%m-%Y')
     enfant.nom_tuteur = data['nom_tuteur']
     enfant.prenom_tuteur = data['prenom_tuteur']
     enfant.tel_tuteur = data['tel_tuteur']
     enfant.email_tuteur = data['email_tuteur']
-    enfant.addresse = data['addresse']
+    enfant.adresse = data['adresse']
     
     db.session.commit()
     
