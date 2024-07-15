@@ -22,8 +22,9 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAdd(formData);
-    onClose();
+    console.log(formData);
+    // onAdd(formData);
+    // onClose();
   };
 
   if (!isOpen) return null;
