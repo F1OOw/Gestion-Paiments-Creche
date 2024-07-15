@@ -8,17 +8,20 @@ import store from './store/store';
 
 function App() {
   return (
-    // LoginPage()
-      <Router>
-        <Routes>
-          <Route path="/" element={<ProtectedRoute />}>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/children" element={<ChildrenPage />} />
-          </Route>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="*" element={<p>Not Found oops</p>} />
-        </Routes>
-      </Router>
+    // <p className="underline">
+    //   AAAAAAAAAAAAA
+    // </p>
+    LoginPage()
+      // <Router>
+      //   <Routes>
+      //     <Route path="/" element={<ProtectedRoute />}>
+      //       <Route path="/" element={<LandingPage />} />
+      //       {/* <Route path="/children" element={<ChildrenPage />} /> */}
+      //     </Route>
+      //     <Route path="/login" element={<LoginPage />} />
+      //     {/* <Route path="*" element={<p>Not Found oops</p>} /> */}
+      //   </Routes>
+      // </Router>
   );
 }
 
