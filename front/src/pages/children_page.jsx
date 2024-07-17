@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavBar from "../components/nav_bar";
+import NavBarUser from "../components/navbar";
 import { FaSearch } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { addChild, removeChild, updateChild } from '../slices/children_slice';
@@ -62,7 +62,7 @@ export default function ChildrenPage() {
 
     return (
         <div>
-            <NavBar/>
+            <NavBarUser/>
             {/* children display */}
             <div className="flex flex-col items-center">
                 <div className="h-[10vh] w-[90%] flex flex-row justify-around items-center"> 

@@ -1,15 +1,24 @@
+import LoginPage from "./pages/login_page"
+import ChildrenPage from './pages/children_page';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./protected_route";
-import LoginPage from "./pages/login_page";
 import LandingPage from "./pages/landing_page";
-import ChildrenPage from "./pages/children_page";
-import { Provider } from 'react-redux';
-import store from './store/store';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { validateToken } from "./actions/user_actions";
+
 
 function App() {
-  return (
-    // LoginPage()
-      <Router>
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      dispatch(validateToken(token));
+    }
+  }, [dispatch]);
+  return(
+    <Router>
         <Routes>
           <Route path="/" element={<ProtectedRoute />}>
             <Route path="/" element={<LandingPage />} />
@@ -19,7 +28,7 @@ function App() {
           <Route path="*" element={<p>Not Found oops</p>} />
         </Routes>
       </Router>
-  );
+  ); 
 }
 
-export default App;
+export default App

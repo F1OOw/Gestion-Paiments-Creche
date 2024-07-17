@@ -1,17 +1,32 @@
 import React, { useState } from 'react';
 import logo from '../assets/logo_v1.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';;
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { loginUser } from '../actions/user_actions'; 
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+
 
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.username);
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Login attempt with:', username, password);
+    dispatch(loginUser(username, password));
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/', { replace: true });
+    }
+  }, [user, navigate]);
 
   return (
     <div className="h-[100vh] flex flex-row">

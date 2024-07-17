@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../assets/logo_v2.png';
 
-const NavBar = () => {
+const NavBarUser = () => {
     return (
         <nav className="flex items-center justify-around p-4 h-[15%]">
             <img src={logo} alt="Logo" className="w-[20%] h-[100%]" />
@@ -14,4 +14,4 @@ const NavBar = () => {
     );
 };
 
-export default NavBar;
+export default NavBarUser;
