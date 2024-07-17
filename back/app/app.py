@@ -11,7 +11,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     CORS(app, resources={r"/*": {"origins": "*"}})
-    db.init_app(app)    
+    db.init_app(app)
     app.register_blueprint(routes, url_prefix='')
     return app 
 

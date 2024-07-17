@@ -1,15 +1,22 @@
-import axios from 'axios';
 import { setUser, clearUser } from '../slices/user_slice';
+import {api} from "../utils/api"
+
 
 export const loginUser = (username, password) => async (dispatch) => {
   console.log(username, password);
   try {
-    // const response = await axios.post('URL_DE_VOTRE_API/login', {
-    //   username,
-    //   password,
-    // });
-    // const { token } = response.data;
-    const token = 'mock_token';
+    var response = await api.post(
+      '/api/auth/login', 
+      JSON.stringify(
+        {
+          username,
+          password
+        }
+      )
+    );
+
+    const { token } = response.data;
+    // const token = 'mock_token';
     localStorage.setItem('token', token);
     console.log("token", localStorage.getItem('token'));
     // Mettre à jour le state Redux
