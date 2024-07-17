@@ -11,6 +11,7 @@ services:
     
     volumes:
       - ./back/app:/app
+      - ./back/archives:${ARCHIVE_FOLDER}
     
     networks:
       - app

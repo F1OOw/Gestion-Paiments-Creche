@@ -1,8 +1,23 @@
 {
     "routes": [
         {
+            "name": "/api/auth/login",
+            "done": true,
+            "method": "POST",
+            "description": "Retourner un jwt token d'authenitfication",
+            "input": {
+                "username": "username",
+                "password": "password"
+            },
+            "output": {
+                "token": "jwt_token"
+            },
+            "error": ""
+        
+        },
+        {
             "name": "/api/enfants",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourner la liste de tous les enfants de la bdd",
             "input": null,
@@ -11,39 +26,49 @@
                     "id": 1,
                     "nom": "nom",
                     "prenom": "prenom",
-                    "date_naissance": "01/01/2024",
+                    "date_naissance": "01-01-2024",
                     "nom_tuteur": "nom",
                     "prenom_tuteur": "prenom",
                     "tel_tuteur": "0677777777",
-                    "email_tuteur": "something@something.com"
+                    "email_tuteur": "something@something.com",
+                    "adresse": "some adresse"
                 }
             ],
             "error": ""
         },
         {
             "name": "/api/enfants",
-            "done": false,
+            "done": true,
             "method": "POST",
             "description": "Ajouter un enfant à la base de donnees",
             "input": {
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
+                "email_tuteur": "something@something.com",
+                "adresse": "some adresse"
             },
 
             "output": {
-                "id": 1
+                "id": 1,
+                "nom": "nom",
+                "prenom": "prenom",
+                "date_naissance": "01-01-2024",
+                "nom_tuteur": "nom",
+                "prenom_tuteur": "prenom",
+                "tel_tuteur": "0677777777",
+                "email_tuteur": "something@something.com",
+                "adresse": "some adresse"
             } ,
             
             "error":""
         },
         {
             "name": "/api/enfants/<id>",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourner les informations lies a un enfant",
             "input": null,
@@ -51,144 +76,126 @@
                 "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
+                "email_tuteur": "something@something.com",
+                "adresse": "some adresse"
             },
             "error": ""
         },
         {
             "name": "/api/enfants/<id>",
-            "done": false,
+            "done": true,
             "method": "DELETE",
             "description": "supprimer un enfant de la base de donnees",
             "input": null,
-            "output": {
-                "id": 1,
-                "nom": "nom",
-                "prenom": "prenom",
-                "date_naissance": "01/01/2024",
-                "nom_tuteur": "nom",
-                "prenom_tuteur": "prenom",
-                "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
-            },
+            "output": {"message": "Deleted succesfully"},
             "error": ""
         },
         {
             "name": "/api/enfants/<id>",
-            "done": false,
+            "done": true,
             "method": "PUT",
             "description": "Modifier les information d'un enfant",
             "input": {
                 "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
+                "email_tuteur": "something@something.com",
+                "adresse": "some adresse"
             },
             "output": {
                 "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
-                "email_tuteur": "something@something.com"
+                "email_tuteur": "something@something.com",
+                "adresse": "some adresse"
             },
             "error": ""
         },
         {
             "name": "/api/saison",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourne les informations de la saison actuelle",
             "input": null,
             "output": {
                 "id": 1 ,
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
+                "date_debut": "01-09-2024",
+                "date_fin": "30-06-2025"
             },
             "error": ""
         },
         {
             "name": "/api/saison",
-            "done": false,
+            "done": true,
             "method": "PUT",
             "description": "Modifier les informations de la saison actuelle",
             "input": {
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
+                "date_debut": "01-09-2024",
+                "date_fin": "30-06-2025"
             },
             "output": {
                 "id": 1 ,
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
+                "date_debut": "01-09-2024",
+                "date_fin": "30-06-2025"
             },
             "error": ""
         },
         {
             "name": "/api/saison",
-            "done": false,
+            "done": true,
             "method": "POST",
             "description": "Lancement d'une nouvelle saison",
             "input": {
-                "id": 1,
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
+                "date_debut": "01-09-2024",
+                "date_fin": "30-06-2025"
             },
-            "output": null,
-            "error": ""
-        },
-        {
-            "name": "/api/saison/archive",
-            "done": false,
-            "method": "POST",
-            "description": "Archiver la saison actuelle",
-            "input": null,
             "output": {
-                "id": 1,
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
+                "date_debut": "01-09-2024",
+                "date_fin": "30-06-2025",
+                "actuelle": true,
+                "id": 1
             },
             "error": ""
         },
         {
             "name": "/api/saison/<id_saison>",
-            "done": false,
+            "done": true,
             "method": "DELETE",
             "description": "Supprimer la saison indiquée",
             "input": null,
-            "output": {
-                "id": 1 ,
-                "date_debut": "01-01-2024",
-                "date_fin": "01-07-2024"
-            },
+            "output": {"message": "Deleted succesfully"},
             "error": ""
         },
         {
             "name": "/api/saison/enfants",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourne la liste des enfants de la saison actuelle",
             "input": null,
             "output": [
-                {
+                {   
                     "id_saison": 1,
-                    "id_enfant": 1,
+                    "id": 1,
                     "nom": "nom",
                     "prenom": "prenom",
-                    "date_naissance": "01/01/2024",
+                    "date_naissance": "01-01-2024",
                     "nom_tuteur": "nom",
                     "prenom_tuteur": "prenom",
                     "tel_tuteur": "0677777777",
                     "email_tuteur": "something@something.com",
+                    "adresse": "some adresse",
                     "groupe": 1,
                     "transport": true
                 }
@@ -197,12 +204,33 @@
             "error": ""
         },
         {
-            "name": "/api/saison/enfants",
-            "done": false,
+            "name": "/api/saison/mois",
+            "done": true,
+            "method": "GET",
+            "description": "Retourne les mois de la saison actuelle",
+            "input": null,
+            "output": {
+                "mois": [1,2,3,4,5,6,7,9,10,11,12]
+            },  
+            "error": ""
+        },
+        {
+            "name": "/api/saison/groupes",
+            "done": true,
+            "method": "GET",
+            "description": "Retourne les numeros de groupes de la saison actuelle",
+            "input": null,
+            "output": {
+                "groupes": [1,2,3,4,5]
+            },  
+            "error": ""
+        },
+        {
+            "name": "/api/saison/enfants/<id_enfant>",
+            "done": true,
             "method": "POST",
             "description": "Inscrire un enfant a la saison actuelle",
             "input": {
-                "id_enfant": 2,
                 "groupe": 3,
                 "transport": false
             },
@@ -216,42 +244,38 @@
         },
         {
             "name": "/api/saison/enfants/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourner les information d'un enfant lié à une saison",
             "input": null,
-            "output": {
+            "output": {   
                 "id_saison": 1,
-                "id_enfant": 2,
+                "id": 1,
                 "nom": "nom",
                 "prenom": "prenom",
-                "date_naissance": "01/01/2024",
+                "date_naissance": "01-01-2024",
                 "nom_tuteur": "nom",
                 "prenom_tuteur": "prenom",
                 "tel_tuteur": "0677777777",
                 "email_tuteur": "something@something.com",
-                "groupe": 4,
+                "adresse": "some adresse",
+                "groupe": 1,
                 "transport": true
             },
             "error": ""
         },
         {
             "name": "/api/saison/enfants/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "DELETE",
             "description": "Supprimer un enfant de la saison actuelle",
             "input": null,
-            "output": {
-                "id_enfant": 2,
-                "id_saison": 1,
-                "groupe": 3,
-                "transport": false
-            },
+            "output": {"message": "Deleted succesfully"},
             "error": ""
         },
         {
             "name": "/api/saison/enfants/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "PUT",
             "description": "Modifier les informations de l'enfant lié à la saison actuelle",
             "input": {
@@ -268,23 +292,24 @@
         },
         {
             "name": "/api/saison/paiements",
-            "done": false,
-            "method": "GET",
+            "done": true,
+            "method": "POST",
             "description": "Retourne la liste des enfants qui n'ont pas payé les dus du mois en question",
             "input": {
                 "mois": 12
             },
             "output": [
-                {
+                {   
                     "id_saison": 1,
-                    "id_enfant": 1,
+                    "id": 1,
                     "nom": "nom",
                     "prenom": "prenom",
-                    "date_naissance": "01/01/2024",
+                    "date_naissance": "01-01-2024",
                     "nom_tuteur": "nom",
                     "prenom_tuteur": "prenom",
                     "tel_tuteur": "0677777777",
                     "email_tuteur": "something@something.com",
+                    "adresse": "some adresse",
                     "groupe": 1,
                     "transport": true
                 }
@@ -293,7 +318,7 @@
         },
         {
             "name": "/api/saison/paiements/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "GET",
             "description": "Retourne l'etat des paiements de l'enfant pour chaque mois de la saison",
             "input": null,
@@ -312,7 +337,7 @@
         },
         {
             "name": "/api/saison/paiements/<id_enfant>",
-            "done": false,
+            "done": true,
             "method": "POST",
             "description": "Modifier l'etat de paiement du mois indiqué",
             "input": {
@@ -322,7 +347,45 @@
                 "1": true
             },
             "error": ""
+        },
+        {
+            "name": "/api/saison/<int:id>/archive",
+            "done": true,
+            "method": "GET",
+            "description": "Archiver la saison spécifié",
+            "input": null,
+            "output": {
+                "id": 1,
+                "date_debut": "2024-01-01",
+                "date_fin": "2024-07-01",
+                "fichier": "aaaaa"
+            },
+            "error": ""
+        },
+        {
+            "name": "/api/archives",
+            "done": true,
+            "method": "GET",
+            "description": "Retourner la liste des archives",
+            "input": null,
+            "output": [
+                {
+                    "id":1,
+                    "date_debut": "2024-01-01",
+                    "date_fin":"2025-04-01",
+                    "fichier": "aaaaa"
+                }
+            ],
+            "error": ""
+        },
+        {
+            "name": "/api/archive/<id>",
+            "done": true,
+            "method": "GET",
+            "description": "Telecharger l'archive",
+            "input": null,
+            "output": null,
+            "error": ""
         }
-        
     ]
 }
