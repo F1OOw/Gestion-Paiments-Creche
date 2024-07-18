@@ -19,7 +19,7 @@ function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    dispatch(loginUser(username, password));
+      dispatch(loginUser(username, password));
   };
 
   useEffect(() => {

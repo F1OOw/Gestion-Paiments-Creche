@@ -9,7 +9,7 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
     prenom_tuteur: '',
     tel_tuteur: '',
     email_tuteur: '',
-    addresse: ''
+    adresse: ''
   });
 
   const handleChange = (e) => {
@@ -24,6 +24,7 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
     e.preventDefault();
     // console.log(formData);
     onAdd(formData);
+    setFormData({}); // Clear form
     onClose();
   };
 
@@ -122,8 +123,8 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
                 <label className="text-black font-bold">Adresse : </label>
                 <input
                 type="text"
-                name="addresse"
-                value={formData.addresse}
+                name="adresse"
+                value={formData.adresse}
                 onChange={handleChange}
                 className="p-2 border w-full border-myyellow bg-mygray rounded-xl mt-1"
                 required
