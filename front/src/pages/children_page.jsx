@@ -91,7 +91,7 @@ export default function ChildrenPage() {
                             children.map(child => (
                                 <div key={child.id} className="flex flex-row">
                                     <div className="h-[10vh] border w-[20%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
-                                        <p className="text-xl font-semibold">{child.nom}</p>
+                                        <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>
                                     </div>
                                     <div className="h-[10vh] w-[40%] border border-l-myorange border-r-myorange border-b-myorange flex flex-row justify-around items-center">
                                         <div className="w-[60%] flex justify-center">
