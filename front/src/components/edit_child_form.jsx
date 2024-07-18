@@ -10,7 +10,7 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
     prenom_tuteur: '',
     tel_tuteur: '',
     email_tuteur: '',
-    addresse: ''
+    adresse: ''
   });
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
         prenom_tuteur: child.prenom_tuteur,
         tel_tuteur: child.tel_tuteur,
         email_tuteur: child.email_tuteur,
-        addresse: child.addresse
+        adresse: child.adresse
       });
     }
   }, [child]);
@@ -138,8 +138,8 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
                 <label className="text-black font-bold">Adresse : </label>
                 <input
                 type="text"
-                name="addresse"
-                value={formData.addresse}
+                name="adresse"
+                value={formData.adresse}
                 onChange={handleChange}
                 className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
                 required

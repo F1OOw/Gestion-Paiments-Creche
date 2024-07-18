@@ -3,7 +3,6 @@ import cuate from '../assets/cuate.png'
 
 const DeleteConfirmation = ({ isOpen, onClose, onConfirm, name}) => {
   if (!isOpen) return null;
-  console.log (name); 
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-35">
