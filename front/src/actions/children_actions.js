@@ -1,26 +1,39 @@
-import axios from 'axios';
-import { addChild, removeChild, updateChild } from '../slices/children_slice';
+import { addChild, removeChild, updateChild, loadChildren } from '../slices/children_slice';
+import {api, deleteToken} from "../utils/api"
 
 // Fetch initial children
 export const fetchChildren = () => async (dispatch) => {
-//   try {
-//     const response = await axios.get('api');
-//     const children = response.data; // here get a List of children 
-//     children.forEach(child => {
-//       dispatch(addChild(child));
-//     });
-//   } catch (error) {
-//     console.error('Erreur lors de la récupération des enfants:', error);
-//   }
+  try {
+    const response = await api.get('/api/enfants');
+    const children = response.data; // here get a List of children 
+    children.forEach(child => {
+      dispatch(addChild(child));
+    });
+  } catch (error) {
+    switch(error.response?.status){
+      case 403:
+      case 401:
+        deleteToken();
+        console.error('Erreur lors de la récupération des enfants:', error);
+        break;
+      case 500:
+        console.error('Erreur lors de la récupération des enfants:', error);
+        break;
+      default:
+        console.error('Erreur lors de la récupération des enfants:', error);
+        break ;
+    }
+  }
 };
 
 // Add a child
-export const addChildToDB = (formData) => async (dispatch) => {
+export const addChildToDB = ({formData}) => async (dispatch) => {
   try {
-    // const response = await axios.post('apiToAddEnfant', formData);
-    // const newChild = response.data;
-    formData.formData.id = Math.floor(Math.random() * 1000);
     console.log(formData);  
+    const response = await api.post('/api/enfants', 
+      JSON.stringify(formData)
+    );
+    const newChild = response.data;
     dispatch(addChild(formData.formData));
   } catch (error) {
     console.error('Erreur lors de l\'ajout de l\'enfant:', error);

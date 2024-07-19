@@ -17,6 +17,8 @@ def get_enfants():
 @controller_template
 def add_enfant():
     data = request.get_json()
+    data['date_naissance'] = datetime.fromtimestamp(data['date_naissance'])
+    print(data,file=sys.stderr)
     new_enfant = Enfants(
         nom=data['nom'],
         prenom=data['prenom'],
@@ -48,6 +50,8 @@ def delete_enfant(id):
 @controller_template
 def update_enfant(id):
     data = request.get_json()
+    data['date_naissance'] = datetime.fromtimestamp(data['date_naissance'])
+    
     enfant = db.session.query(Enfants).query.get_or_404(id)
     enfant.nom = data['nom']
     enfant.prenom = data['prenom']

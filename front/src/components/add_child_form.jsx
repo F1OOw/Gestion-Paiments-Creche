@@ -22,9 +22,16 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dt = new Date(formData.date_naissance)
+    timestamp = dt.getTime()
+
+    setFormData((prevData)=>({
+      ...prevData,
+      [date]: timestamp,
+    }))
     // console.log(formData);
     onAdd(formData);
-    setFormData({}); // Clear form
+    // setFormData({}); // Clear form
     onClose();
   };
 
