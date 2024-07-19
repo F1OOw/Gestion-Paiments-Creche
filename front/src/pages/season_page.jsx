@@ -3,7 +3,7 @@ import NavBarUser from "../components/navbar";
 import { useSelector } from 'react-redux';
 import { FaSearch } from 'react-icons/fa';
 import DeleteConfirmation from "../components/delete_confirmation";
-import AddChildForm from "../components/add_child_form";
+import AddChildToSeason from "../components/add_child_to_season";
 import EditChildForm from "../components/edit_child_form";
 import { useDispatch } from "react-redux";
 import { useEffect , useState} from "react";
@@ -127,7 +127,7 @@ export default function SeasonPage() {
                         <div className="fixed z-0 bottom-4 left-1/2 transform -translate-x-1/2">
                             <button onClick={handleAddClick} className="bg-myblue text-white px-8 py-2 rounded-3xl shadow-slate-300 border-2 border-white shadow-xl">Ajouter</button>
                         </div>
-                        <AddChildForm
+                        <AddChildToSeason
                             isOpen={isAddFormOpen}
                             onClose={handleCloseAddForm}
                             onAdd={handleAddChild}
