@@ -3,6 +3,7 @@ import ChildrenPage from './pages/children_page';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./protected_route";
 import LandingPage from "./pages/landing_page";
+import SeasonPage from "./pages/season_page";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { validateToken } from "./actions/user_actions";
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute />}>
             <Route path="/" element={<LandingPage />} />
             <Route path="/children" element={<ChildrenPage />} />
+            <Route path="/season" element={<SeasonPage />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<p>Not Found oops</p>} />

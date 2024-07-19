@@ -5,9 +5,16 @@ import children from "../assets/children.png";
 import saison from "../assets/saison.png";
 import archive from "../assets/archive.png";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchSeason } from "../actions/season_actions";
 
 export default function LandingPage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchSeason());
+    }, [dispatch]);
     
     return (
         <div className="h-[100vh] flex flex-col justify-between">
@@ -17,7 +24,7 @@ export default function LandingPage() {
                 <div className="h-[80%] w-[100%] flex flex-row justify-evenly items-center">
                     {/* here we display the different options */}
                     <Option image={children} color={"myblue"} description={"Gérer l’ensemble des enfants"} title={"Enfants"} onClick={()=>{navigate('/children')}}/>
-                    <Option image={saison} color={"myorange"} description={"Gérer la saison actuelle"} title={"Saison"} onClick={()=>{}}/>
+                    <Option image={saison} color={"myorange"} description={"Gérer la saison actuelle"} title={"Saison"} onClick={()=>{navigate('/season')}}/>
                     <Option  image={archive} color={"myyellow"} description={"voir l’archive des saisons"} title={"Archive"} onClick={()=>{console.log("archive")}}/>
                 </div>
             </div>
