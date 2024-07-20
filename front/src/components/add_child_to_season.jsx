@@ -9,7 +9,7 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
     prenom_tuteur: '',
     tel_tuteur: '',
     email_tuteur: '',
-    adresse: ''
+    adresse: '' 
   });
 
   const handleChange = (e) => {

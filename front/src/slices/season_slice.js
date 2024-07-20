@@ -6,6 +6,7 @@ const initialState = {
   date_debut: '',
   date_fin: '',
   enfants: [],
+  groupes:[],
   status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
   erreur: null,
 };
@@ -20,6 +21,7 @@ const seasonSlice = createSlice({
       state.date_debut = action.payload.date_debut;
       state.date_fin = action.payload.date_fin;
       state.enfants = action.payload.enfants;
+      state.groupes = acttion.payload.groupes; 
       state.status = 'succeeded';
     },
     removeSeason(state) {
@@ -27,6 +29,7 @@ const seasonSlice = createSlice({
       state.date_debut = '';
       state.date_fin = '';
       state.enfants = [];
+      state.groupes = []; 
       state.archived = false;
       state.status = 'idle';
     },
@@ -34,6 +37,7 @@ const seasonSlice = createSlice({
       state.date_debut = action.payload.date_debut;
       state.date_fin = action.payload.date_fin;
       state.enfants = action.payload.enfants;
+      state.groupes = action.payload.groupes; 
     },
     addChildToSeason(state, action) {
       state.enfants.push(action.payload);
