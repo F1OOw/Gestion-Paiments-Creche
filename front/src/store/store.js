@@ -22,7 +22,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../slices/user_slice';
 import childrenReducer from '../slices/children_slice';
-import seasonReducer from '../slices/seasonSlice';
+import seasonReducer from '../slices/season_slice';
 
 const store = configureStore({
   reducer: {

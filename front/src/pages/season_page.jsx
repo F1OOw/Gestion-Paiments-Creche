@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import NavBarUser from "../components/navbar";
+import { useSelector } from 'react-redux';
 import { FaSearch } from 'react-icons/fa';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchChildren, addChildToDB, updateChildInDB, removeChildFromDB } from '../actions/children_actions';
 import DeleteConfirmation from "../components/delete_confirmation";
-import AddChildForm from "../components/add_child_form";
+import AddChildToSeason from "../components/add_child_to_season";
 import EditChildForm from "../components/edit_child_form";
-    
-export default function ChildrenPage() {
-    const children = useSelector(state => state.children);
+import { useDispatch } from "react-redux";
+import { useEffect , useState} from "react";
+import { removeChild } from "../actions/season_actions";
+
+export default function SeasonPage() {
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchChildren());
-    }, [dispatch]);
-
+    const season = useSelector(state => state.season);
+    console.log(season);    
+    const children = season.enfants; 
     const handleAddChild = (formData) => {
         dispatch(addChildToDB({
           formData,
@@ -22,7 +21,7 @@ export default function ChildrenPage() {
     };
 
     const handleRemoveChild = (id) => {
-        dispatch(removeChildFromDB(id));
+        dispatch(removeChild(id));
     };
 
     const handleUpdateChild = (formData) => {
@@ -76,7 +75,7 @@ export default function ChildrenPage() {
                             <p className="text-white font-bold text-lg">Enfants</p>
                         </div>
                         <div className="h-[100%] w-[40%] bg-myorange flex items-center justify-center">
-                            <p className="text-white font-bold text-lg">Parents</p>
+                            <p className="text-white font-bold text-lg">Etat</p>
                         </div>
                         <div className="h-[100%] w-[40%] bg-myblue rounded-tr-3xl flex items-center justify-center">
                             <p className="text-white font-bold text-lg">Actions</p>
@@ -94,11 +93,11 @@ export default function ChildrenPage() {
                                         <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>
                                     </div>
                                     <div className="h-[10vh] w-[40%] border border-l-myorange border-r-myorange border-b-myorange flex flex-row justify-around items-center">
-                                        <div className="w-[60%] flex justify-center">
-                                            <p className="text-xl font-semibold">{child.nom_tuteur} {child.prenom_tuteur}</p>
+                                        <div className="w-[40%] flex justify-center">
+                                            <p className="text-xl font-semibold">Groupe {child.groupe}</p>
                                         </div>
-                                        <div className="w-[35%] flex justify-center">
-                                            <p className="text-xl font-semibold">{child.tel_tuteur}</p>
+                                        <div className="w-[40%] flex justify-center">
+                                            <p className={`text-xl font-semibold ${child.transport?"text-green-600":"text-red-600"}`}>Transport</p>
                                         </div>
                                     </div>
                                     <div className="h-[10vh] w-[40%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
@@ -128,7 +127,7 @@ export default function ChildrenPage() {
                         <div className="fixed z-0 bottom-4 left-1/2 transform -translate-x-1/2">
                             <button onClick={handleAddClick} className="bg-myblue text-white px-8 py-2 rounded-3xl shadow-slate-300 border-2 border-white shadow-xl">Ajouter</button>
                         </div>
-                        <AddChildForm
+                        <AddChildToSeason
                             isOpen={isAddFormOpen}
                             onClose={handleCloseAddForm}
                             onAdd={handleAddChild}
