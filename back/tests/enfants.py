@@ -1,5 +1,6 @@
 import random
 import requests
+from datetime import datetime
 from faker import Faker
 
 url = "http://localhost:8000"
@@ -9,7 +10,8 @@ faker = Faker()
 def ajouter_enfant_bdd():
     child_name = faker.first_name()
     child_surname = faker.last_name()
-    birth_date = faker.date_of_birth(minimum_age=0, maximum_age=10).strftime("%d-%m-%Y")
+    birth_date = datetime.combine(faker.date_of_birth(minimum_age=0, maximum_age=10),datetime.min.time()).timestamp()
+    
     tutor_name = faker.first_name()
     tutor_surname = faker.last_name()
     tutor_phone = faker.phone_number()
@@ -24,7 +26,7 @@ def ajouter_enfant_bdd():
         "prenom_tuteur": tutor_name,
         "tel_tuteur": tutor_phone,
         "email_tuteur": tutor_email,
-        "addresse": address
+        "adresse": address
     }
     
     r = requests.post(

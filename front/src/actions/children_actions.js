@@ -1,9 +1,10 @@
-import { addChild, removeChild, updateChild, loadChildren } from '../slices/children_slice';
+import { addChild, removeChild, updateChild } from '../slices/children_slice';
 import {api, deleteToken} from "../utils/api"
 
 // Fetch initial children
 export const fetchChildren = () => async (dispatch) => {
   try {
+    console.log("yooooooooo");
     const response = await api.get('/api/enfants');
     const children = response.data; // here get a List of children 
     children.forEach(child => {

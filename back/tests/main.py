@@ -3,14 +3,13 @@ from enfants import *
 from saisons import *
 
 
-supprimer_enfants_bdd()
 
 # ajouter 200 enfants a la bdd
-ajouter_enfants_bdd(200)
+ajouter_enfants_bdd(5)
 
 # creer une nouvelle saison
-creer_nouvelle_saison("01-09-2024","30-06-2025")
+# creer_nouvelle_saison("01-09-2024","30-06-2025")
 
 # ajouter tous les enfants a cette saison
-ajouter_enfants_bdd_saison()
+# ajouter_enfants_bdd_saison()
 

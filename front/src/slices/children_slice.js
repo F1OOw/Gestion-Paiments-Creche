@@ -22,5 +22,5 @@ const childrenSlice = createSlice({
   },
 });
 
-export const { addChild, removeChild, updateChild, loadChildren } = childrenSlice.actions;
+export const { addChild, removeChild, updateChild } = childrenSlice.actions;
 export default childrenSlice.reducer;

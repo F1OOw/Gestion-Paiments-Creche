@@ -17,12 +17,12 @@ def get_enfants():
 @controller_template
 def add_enfant():
     data = request.get_json()
-    data['date_naissance'] = datetime.fromtimestamp(data['date_naissance'])
+    data['date_naissance'] = datetime.fromtimestamp(data['date_naissance']//1000)
     print(data,file=sys.stderr)
     new_enfant = Enfants(
         nom=data['nom'],
         prenom=data['prenom'],
-        date_naissance=datetime.strptime(data['date_naissance'], '%d-%m-%Y'),
+        date_naissance=data['date_naissance'],
         nom_tuteur=data['nom_tuteur'],
         prenom_tuteur=data['prenom_tuteur'],
         tel_tuteur=data['tel_tuteur'],
