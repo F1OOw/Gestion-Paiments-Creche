@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { FaSearch } from 'react-icons/fa';
 
 const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
-  const [formData, setFormData] = useState({
-    nom: '',
-    prenom: '',
-    date_naissance: '',
-    nom_tuteur: '',
-    prenom_tuteur: '',
-    tel_tuteur: '',
-    email_tuteur: '',
-    adresse: '' 
-  });
+  const children = useSelector((state) => state.children);
+  console.log(children);
+
+  const [selectedChildren, setSelectedChildren] = useState({});
+
+  const handleCheckboxChange = (e, childId) => {
+    setSelectedChildren((prevSelected) => ({
+      ...prevSelected,
+      [childId]: e.target.checked,
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,8 +25,12 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(formData);
-    onAdd(formData);
+    const selectedChildData = Object.keys(selectedChildren)
+      .filter((childId) => selectedChildren[childId])
+      .map((childId) => children.find((child) => child.id === childId));
+
+    onAdd(selectedChildData);
+    setSelectedChildren({}); // Clear selected children
     setFormData({}); // Clear form
     onClose();
   };
@@ -32,104 +39,37 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-35">
-      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[80vh] w-[40%] flex flex-col justify-between ">
-        <h2 className="text-xl px-2 font-bold ">Enfant</h2>
-        <form onSubmit={handleSubmit} className='flex flex-col justify-evenly h-[95%]'>
-            <div className=' flex flex-row justify-between px-8 w-full'>
-                <div className="w-[40%] ">
-                    <label className="text-black font-bold">Nom :</label>
-                    <input
-                    type="text"
-                    name="nom"
-                    value={formData.nom}
-                    onChange={handleChange}
-                    className="p-2 border w-full border-myyellow bg-mygray rounded-xl mt-1"
-                    required
-                />
-                </div>
-                <div className="w-[40%]">
-                    <label className="text-black font-bold">Prénom :</label>
-                    <input
-                    type="text"
-                    name="prenom"
-                    value={formData.prenom}
-                    onChange={handleChange}
-                    className="p-2 border w-full border-myyellow bg-mygray rounded-xl mt-1"
-                    required
-                    />
-                </div>
-            </div>
-          <div className=" px-8 w-[45%]">
-            <label className="text-black font-bold">Date de naissance :</label>
+      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[80vh] w-[40%] flex flex-col justify-between items-center">
+        <div className="w-[100%] flex flex-row justify-around items-center">
+          <h2 className="text-xl px-2 font-bold">Enfant</h2>
+          <div className="relative w-[70%]">
             <input
-              type="date"
-              name="date_naissance"
-              value={formData.date_naissance}
-              onChange={handleChange}
-              className="p-2 border w-full border-myyellow bg-mygray rounded-xl mt-1"
-              required
+              type="text"
+              placeholder="Introduisez un nom d'enfant ..."
+              className="w-full border border-myyellow rounded-3xl py-2 px-4 focus:outline-none focus:border-myyellow"
             />
+            <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-myorange" />
           </div>
-          <h2 className="text-xl px-2 font-bold ">Parent</h2>
-          <div className=' flex flex-row justify-between px-8 w-full'>
-            <div className="w-[40%]">
-                <label className="text-black font-bold">Nom du tuteur :</label>
-                <input
-                type="text"
-                name="nom_tuteur"
-                value={formData.nom_tuteur}
-                onChange={handleChange}
-                className="p-2 border w-full border-myyellow bg-mygray rounded-xl mt-1"
-                required
-                />
-            </div>
-            <div className="w-[40%]">
-                <label className="text-black font-bold">Prénom du tuteur :</label>
-                <input
-                type="text"
-                name="prenom_tuteur"
-                value={formData.prenom_tuteur}
-                onChange={handleChange}
-                className="p-2 border w-full border-myyellow bg-mygray rounded-xl mt-1"
-                required
-                />
+        </div>
+        <form onSubmit={handleSubmit} className="flex flex-col items-center h-[50%] w-[90%] border-myyellow border border-b-0 rounded-3xl overflow-y-auto">
+          <div className="h-[10vh] w-[100%] flex flex-row sticky top-0 z-10">
+            <div className="w-[100%] bg-myyellow  flex items-center justify-center">
+              <p className="text-white font-bold text-lg">Séléctionnez un enfant</p>
             </div>
           </div>
-          <div className=' flex flex-row justify-between px-8 w-full'>
-            <div className="w-[40%]">
-                <label className="text-black font-bold">Téléphone du tuteur :</label>
+          <div className="w-[100%] flex flex-col h-[80%] overflow-y-auto">
+            {children.map((child) => (
+              <label key={child.id} className="flex items-center border-b border-myyellow w-[100%] h-[50%]  space-x-2">
                 <input
-                type="tel"
-                name="tel_tuteur"
-                value={formData.tel_tuteur}
-                onChange={handleChange}
-                className="p-2 border w-full border-myyellow bg-mygray rounded-xl mt-1"
-                required
+                  type="checkbox"
+                  checked={!!selectedChildren[child.id]}
+                  onChange={(e) => handleCheckboxChange(e, child.id)}
                 />
-            </div>
-            <div className="w-[40%]">
-                <label className="text-black font-bold">Email du tuteur :</label>
-                <input
-                type="email"
-                name="email_tuteur"
-                value={formData.email_tuteur}
-                onChange={handleChange}
-                className="p-2 border w-full border-myyellow bg-mygray rounded-xl mt-1"
-                required
-                />
-            </div>
+                <div c>{child.nom} {child.prenom}</div>
+              </label>
+            ))}
           </div>
-          <div className="  justify-between px-8 w-[65%]">
-                <label className="text-black font-bold">Adresse : </label>
-                <input
-                type="text"
-                name="adresse"
-                value={formData.adresse}
-                onChange={handleChange}
-                className="p-2 border w-full border-myyellow bg-mygray rounded-xl mt-1"
-                required
-                />
-            </div>
+        </form>
           <div className="flex  justify-evenly">
             <button
               type="button"
@@ -144,8 +84,7 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
             >
               Ajouter
             </button>
-          </div>
-        </form>
+            </div>
       </div>
     </div>
   );

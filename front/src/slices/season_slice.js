@@ -21,8 +21,9 @@ const seasonSlice = createSlice({
       state.date_debut = action.payload.date_debut;
       state.date_fin = action.payload.date_fin;
       state.enfants = action.payload.enfants;
-      state.groupes = acttion.payload.groupes; 
+      state.groupes = action.payload.groupes; 
       state.status = 'succeeded';
+      state.erreur =  null;
     },
     removeSeason(state) {
       state.id = null;
@@ -32,12 +33,15 @@ const seasonSlice = createSlice({
       state.groupes = []; 
       state.archived = false;
       state.status = 'idle';
+      state.erreur = null;
     },
     updateSeason(state, action) {
       state.date_debut = action.payload.date_debut;
       state.date_fin = action.payload.date_fin;
       state.enfants = action.payload.enfants;
       state.groupes = action.payload.groupes; 
+      state.status = 'succeeded';
+      state.erreur = null;
     },
     addChildToSeason(state, action) {
       state.enfants.push(action.payload);
@@ -51,8 +55,11 @@ const seasonSlice = createSlice({
         state.enfants[index] = action.payload;
       }
     },
+    updateErrorSeason(state, action) {
+      state.erreur = action.payload;
+    },
   },
 });
 
-export const { createSeason, removeSeason, updateSeason, addChildToSeason, removeChildFromSeason, updateChildInSeason } = seasonSlice.actions;
+export const { createSeason, removeSeason, updateSeason, addChildToSeason, removeChildFromSeason, updateChildInSeason , updateErrorSeason } = seasonSlice.actions;
 export default seasonSlice.reducer;

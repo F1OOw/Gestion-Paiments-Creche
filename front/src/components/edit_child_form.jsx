@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
+  
   const [formData, setFormData] = useState({
     id: child.id,
     nom: '',

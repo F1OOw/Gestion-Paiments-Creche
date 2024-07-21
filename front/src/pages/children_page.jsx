@@ -6,7 +6,7 @@ import { fetchChildren, addChildToDB, updateChildInDB, removeChildFromDB } from 
 import DeleteConfirmation from "../components/delete_confirmation";
 import AddChildForm from "../components/add_child_form";
 import EditChildForm from "../components/edit_child_form";
-
+    
 export default function ChildrenPage() {
     const children = useSelector(state => state.children);
     const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {removeSeason, updateSeason, createSeason ,removeChildFromSeason } from "../slices/season_slice";
+import {removeSeason, updateSeason, createSeason ,removeChildFromSeason , updateErrorSeason } from "../slices/season_slice";
 
 // Fetch initial 
 export const fetchSeason = () => async (dispatch) => {
@@ -19,6 +19,10 @@ export const fetchSeason = () => async (dispatch) => {
     // const responseChildren = await axios.get(`/api/saison/enfants`); //recuperer les enfants de la saison
     // const enfants = responseChildren.data;
     // season.enfants = enfants;
+    // const responseGroupes = await axios.get(`/api/saison/groupes`); //recuperer les groupes de la saison
+    // const groupes = responseGroupes.data;
+    const groupes = [1,2,3,4,5]; 
+    season.groupes = groupes;
     season.enfants = [
       {
           "id_saison": 1,
@@ -171,13 +175,24 @@ export const fetchSeason = () => async (dispatch) => {
 // Create a new season
 export const createNewSeason = (date_debut, date_fin) => async (dispatch) => {
   try {
-    const response = await axios.post("/api/saison")//we send request with the two date;
-    const season = response.data;
+    console.log(date_debut, date_fin);
+    // const response = await axios.post("/api/saison")//we send request with the two date;
+    // const season = response.data;
+    // const responseGroupes = await axios.get(`/api/saison/groupes`); //recuperer les groupes de la saison
+    // const groupes = responseGroupes.data;
+    const season = {
+      id: 2,
+      date_debut: date_debut,
+      date_fin: date_fin,
+      enfants: [],
+      // groupes: groupes,
+    };
     const seasonInfo = {
       id: season.id,
       date_debut: season.date_debut,
       date_fin: season.date_fin,
       enfants: [],
+      // groupes: groupes,
     };
     dispatch(createSeason(season));
   } catch (error) {
