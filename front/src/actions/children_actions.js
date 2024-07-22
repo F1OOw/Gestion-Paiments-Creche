@@ -51,21 +51,42 @@ export const addChildToDB = ({formData}) => async (dispatch) => {
 export const updateChildInDB = (formData) => async (dispatch) => {
   try {
     console.log(formData);
-    // const response = await api.put(`/api/enfants/${formData.id}`, JSON.stringify(formData));
+    const response = await api.put(`/api/enfants/${formData.id}`, JSON.stringify(formData));
     
-    // const updatedChild = response.data;
-    // dispatch(updateChild(updatedChild));
+    const updatedChild = response.data;
+    dispatch(updateChild(updatedChild));
+    
   } catch (error) {
-    console.error('Erreur lors de la mise à jour de l\'enfant:', error);
+    console.log(error);
+    switch(error.response?.status){
+      case 403:
+      case 401:
+        deleteToken();
+        break;
+      case 500:
+        break;
+      default:
+        break ;
+    }
   }
 };
 
 // Remove a child
 export const removeChildFromDB = (id) => async (dispatch) => {
   try {
-    // await axios.delete(`apiTodelete/${id}`);
+    const response = await api.delete(`/api/enfants/${id}`);
     dispatch(removeChild({ id }));
   } catch (error) {
-    console.error('Erreur lors de la suppression de l\'enfant:', error);
+    console.log(error);
+    switch(error.response?.status){
+      case 403:
+      case 401:
+        deleteToken();
+        break;
+      case 500:
+        break;
+      default:
+        break ;
+    }
   }
 };

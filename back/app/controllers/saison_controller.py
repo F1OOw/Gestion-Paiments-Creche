@@ -22,8 +22,6 @@ def update_current_saison():
     if not saison:
         return jsonify({'error': 'No current season found'}), 404
     
-    data['date_debut'] = datetime.fromtimestamp(data['date_debut']//1000)
-    data['date_fin'] = datetime.fromtimestamp(data['date_fin']//1000)
     
     saison.date_debut = datetime.strptime(data['date_debut'], '%Y-%m-%d')
     saison.date_fin = datetime.strptime(data['date_fin'], '%Y-%m-%d')
@@ -39,8 +37,6 @@ def create_saison():
     
     
     data = request.get_json()
-    data['date_debut'] = datetime.fromtimestamp(data['date_debut']//1000)
-    data['date_fin'] = datetime.fromtimestamp(data['date_fin']//1000)
     
     date_debut=datetime.strptime(data['date_debut'], '%Y-%m-%d')
     date_fin=datetime.strptime(data['date_fin'], '%Y-%m-%d')
