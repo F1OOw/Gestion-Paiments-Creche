@@ -7,17 +7,15 @@ import AddChildToSeason from "../components/add_child_to_season";
 import EditChildForm from "../components/edit_child_form";
 import { useDispatch } from "react-redux";
 import { useEffect , useState} from "react";
-import { removeChild } from "../actions/season_actions";
+import { removeChild , addChild } from "../actions/season_actions";
 
 export default function SeasonPage() {
     const dispatch = useDispatch();
     const season = useSelector(state => state.season);
     console.log(season);    
     const children = season.enfants; 
-    const handleAddChild = (formData) => {
-        dispatch(addChildToDB({
-          formData,
-        }));
+    const handleAddChild = (child) => {
+        dispatch(addChild(child));
     };
 
     const handleRemoveChild = (id) => {

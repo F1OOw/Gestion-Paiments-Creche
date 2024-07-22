@@ -16,16 +16,29 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (selectedChild) {
-      onAdd([selectedChild]); // Pass the selected child as an array
+    // e.preventDefault();
+    if(!selectedChild) {
+      setError("Veuillez sélectionner un enfant");
+      return;
+    }else{
+      if(!selectedGroup){
+        setError("Veuillez sélectionner un groupe");
+        return;
+      }
     }
-    setSelectedChild(null); // Clear selected child
+    setError("");
+    const child  = { ...selectedChild , 
+      groupe: selectedGroup,
+      transport: isTransport
+    };
+    onAdd(child); 
+    setSelectedChild(null);
+    setSelectedGroup('');
     onClose();
   };
 
   const [selectedGroup, setSelectedGroup] = useState('');
-
+  const [error , setError] = useState("");
   const handleGroupChange = (e) => {
     setSelectedGroup(e.target.value);
   };
@@ -41,7 +54,7 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-35">
-      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[80vh] w-[40%] flex flex-col justify-between items-center">
+      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[85vh] w-[45%] flex flex-col justify-between items-center">
         <div className="w-[100%] flex flex-row justify-around items-center">
           <h2 className="text-xl px-2 font-bold">Enfant</h2>
           <div className="relative w-[70%]">
@@ -54,39 +67,47 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
           </div>
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col items-center h-[50%] w-[90%] border-myyellow border  rounded-3xl overflow-y-auto">
-          <div className="h-[10vh] w-[100%] flex flex-row sticky top-0 z-10">
+          <div className="h-[8vh] w-[100%] flex flex-row sticky top-0 z-10">
             <div className="w-[100%] bg-myyellow flex items-center justify-center">
               <p className="text-white font-bold text-lg">Séléctionnez un enfant</p>
             </div>
           </div>
-          <div className="w-[100%] flex flex-col h-[80%] overflow-y-auto">
-            {children.map((child) => (
-              <label key={child.id} className="flex  p-5 border-b border-myyellow w-[100%] h-[50%] flex-row justify-around items-center">
+          <div className="w-[100%] flex flex-col h-[75%] overflow-y-auto">
+          {children.length > 0 ? (
+            children.map((child) => (
+              <label
+                key={child.id}
+                className="flex p-5 border-b border-myyellow w-[100%] h-[50%] flex-row justify-around items-center"
+              >
                 <div className='font-semibold'>{child.nom} {child.prenom}</div>
                 <input
                   type="radio"
-                  className='h-5 w-5  bg-black border-red-300 rounded'
+                  className='h-5 w-5 bg-black border-red-300 rounded'
                   checked={selectedChild && selectedChild.id === child.id}
                   onChange={(e) => handleCheckboxChange(e, child)}
                 />
               </label>
-            ))}
+            ))
+          ) : (
+            <div className="text-center mt-5">Vous ne disposez pas d'enfants</div>
+          )}
+
           </div>
         </form>
-        <div className='h-[20%] w-full flex flex-col justify-between'>
+        <div className='h-[18%] w-full flex flex-col justify-between'>
           <p className='text-xl px-2 font-bold'>Situation</p>
           <div className='flex flex-row justify-around'>
-          <div className='flex flex-col w-[50%]'>
+          <div className='flex flex-col w-[40%]'>
             <label>Groupe :</label>
             <select
             value={selectedGroup}
             onChange={handleGroupChange}
-            className="mt-2  border text-black border-myyellow rounded-lg py-1 px-4 focus:outline-none focus:border-myyellow"
+            className="mt-2 bg-mygray  border text-black border-myyellow rounded-lg py-1 px-4 focus:outline-none focus:border-myyellow"
           >
-            <option value="" className='' disabled>Sélectionnez un groupe</option>
+            <option value="" className='' disabled></option>
             {groupes.map((groupe) => (
-              <option className='text-black' key={groupe} value={groupe}>
-                {groupe.nom}
+              <option className='' key={groupe} value={groupe}>
+                Groupe {groupe}
               </option>
             ))}
           </select>
@@ -108,17 +129,27 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
         <div className="flex w-[100%] justify-evenly">
           <button
             type="button"
-            onClick={onClose}
+            onClick={()=>{
+              setError(""); 
+              setIsTransport(false);
+              setSelectedChild(null);
+              setSelectedGroup('');
+              onClose(); 
+            }}
             className="bg-myblue text-white px-6 py-1 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl"
           >
             Annuler
           </button>
           <button
+          onClick={handleSubmit}
             type="submit"
             className="bg-myyellow text-white px-6 py-1 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl"
           >
             Ajouter
           </button>
+        </div>
+        <div>
+          <p className='text-red-600'>{error}</p>
         </div>
       </div>
     </div>
