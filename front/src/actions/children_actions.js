@@ -4,7 +4,6 @@ import {api, deleteToken} from "../utils/api"
 // Fetch initial children
 export const fetchChildren = () => async (dispatch) => {
   try {
-    console.log("yooooooooo");
     const response = await api.get('/api/enfants');
     const children = response.data; // here get a List of children 
     children.forEach(child => {
@@ -30,7 +29,6 @@ export const fetchChildren = () => async (dispatch) => {
 // Add a child
 export const addChildToDB = ({formData}) => async (dispatch) => {
   try {
-    console.log(formData);  
     const response = await api.post('/api/enfants', 
       JSON.stringify(formData)
     );
@@ -44,7 +42,8 @@ export const addChildToDB = ({formData}) => async (dispatch) => {
 // Update a child
 export const updateChildInDB = (formData) => async (dispatch) => {
   try {
-    const response = await axios.put(`apitoupdate/${formData.id}`, formData);
+    const response = await api.put(`/api/enfants/${formData.id}`, JSON.stringify(formData));
+    
     const updatedChild = response.data;
     dispatch(updateChild(updatedChild));
   } catch (error) {
