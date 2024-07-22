@@ -6,7 +6,7 @@ import { fetchChildren, addChildToDB, updateChildInDB, removeChildFromDB } from 
 import DeleteConfirmation from "../components/delete_confirmation";
 import AddChildForm from "../components/add_child_form";
 import EditChildForm from "../components/edit_child_form";
-    
+
 export default function ChildrenPage() {
     const children = useSelector(state => state.children);
     const dispatch = useDispatch();
@@ -58,6 +58,16 @@ export default function ChildrenPage() {
         setIsUpdateFormOpen(false);
     };
 
+    const [filter, setFilter] = useState('');
+    const handleFilterChange = (e) => {
+        setFilter(e.target.value);
+    };
+
+    const filteredChildren = children.filter(child =>
+        (child.nom.toLowerCase()+" "+child.prenom.toLowerCase()).includes(filter.toLowerCase()) 
+        || (child.prenom.toLowerCase()+" "+child.nom.toLowerCase()).includes(filter.toLowerCase()) 
+    );
+
     return (
         <div>
             <NavBarUser/>
@@ -65,8 +75,14 @@ export default function ChildrenPage() {
                 <div className="h-[10vh] w-[90%] flex flex-row justify-around items-center">
                     <h1 className="text-3xl text-myblue font-bold">Liste des enfants</h1>
                     <div className="w-[20%]"></div>
-                    <div className="relative w-[35%]">
-                        <input type="text" placeholder="Introduisez un nom d'enfant ..." className="w-full border-2 border-myyellow rounded-3xl py-2 px-4 focus:outline-none focus:border-myyellow" />
+                    <div className="relative w-[35%] z-0">
+                        <input
+                            type="text"
+                            placeholder="Introduisez un nom d'enfant ..."
+                            className="w-full border-2 border-myyellow rounded-3xl py-2 px-4 focus:outline-none focus:border-myyellow"
+                            value={filter}
+                            onChange={handleFilterChange}
+                        />
                         <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-myorange" />
                     </div>
                 </div>
@@ -83,12 +99,12 @@ export default function ChildrenPage() {
                         </div>
                     </div>
                     <div className="flex flex-col">
-                        {children.length === 0 ? (
+                        {filteredChildren.length === 0 ? (
                             <div className="h-[10vh] w-[100%] flex justify-center items-center">
                                 <p className="text-xl font-semibold">Pas d'enfants, veuillez ajouter</p>
                             </div>
                         ) : (
-                            children.map(child => (
+                            filteredChildren.map(child => (
                                 <div key={child.id} className="flex flex-row">
                                     <div className="h-[10vh] border w-[20%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
                                         <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>

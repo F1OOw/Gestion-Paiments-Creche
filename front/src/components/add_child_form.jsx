@@ -38,7 +38,7 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-35">
+    <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-800 bg-opacity-35">
       <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[80vh] w-[40%] flex flex-col justify-between ">
         <h2 className="text-xl px-2 font-bold ">Enfant</h2>
         <form onSubmit={handleSubmit} className='flex flex-col justify-evenly h-[95%]'>

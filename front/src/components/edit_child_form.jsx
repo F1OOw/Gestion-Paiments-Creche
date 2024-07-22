@@ -47,7 +47,7 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-35">
+    <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-800 bg-opacity-25">
       <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[80vh] w-[40%] ">
         <h2 className="text-xl px-2 font-bold mb-2">Modifier Enfant</h2>
         <form onSubmit={handleSubmit}>

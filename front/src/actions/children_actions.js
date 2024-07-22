@@ -54,7 +54,7 @@ export const updateChildInDB = (formData) => async (dispatch) => {
 // Remove a child
 export const removeChildFromDB = (id) => async (dispatch) => {
   try {
-    await axios.delete(`apiTodelete/${id}`);
+    // await axios.delete(`apiTodelete/${id}`);
     dispatch(removeChild({ id }));
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'enfant:', error);

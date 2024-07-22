@@ -42,7 +42,7 @@ export default function LandingPage() {
                     {/* here we display the different options */}
                     <Option image={children} color={"myblue"} description={"Gérer l’ensemble des enfants"} title={"Enfants"} onClick={()=>{navigate('/children')}}/>
                     <Option image={saison} color={"myorange"} description={"Gérer la saison actuelle"} title={"Saison"} onClick={()=>{
-                        if(seasona.date_debut){
+                        if(season.date_debut){
                             navigate('/season');
                         }else{
                             handleCreateClick();  
