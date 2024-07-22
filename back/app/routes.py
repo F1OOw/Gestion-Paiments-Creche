@@ -13,7 +13,7 @@ from db import db
 routes = Blueprint("routes",__name__)
 
 @routes.route('/api/enfants', methods=['GET',"POST"])
-# @token_required
+@token_required
 def handler1():
     if request.method == 'GET':
         return get_enfants()

@@ -18,7 +18,6 @@ def get_enfants():
 def add_enfant():
     data = request.get_json()
     data['date_naissance'] = datetime.fromtimestamp(data['date_naissance']//1000)
-    print(data,file=sys.stderr)
     new_enfant = Enfants(
         nom=data['nom'],
         prenom=data['prenom'],
