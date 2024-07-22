@@ -16,6 +16,7 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
 
   useEffect(() => {
     if (child) {
+      console.log(child);
       setFormData({
         id: child.id,
         nom: child.nom,

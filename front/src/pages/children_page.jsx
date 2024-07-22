@@ -67,7 +67,7 @@ export default function ChildrenPage() {
     const handleFilterChange = (e) => {
         setFilter(e.target.value);
     };
-
+    
     const filteredChildren = children.filter(child =>
         (child.nom.toLowerCase()+" "+child.prenom.toLowerCase()).includes(filter.toLowerCase()) 
         || (child.prenom.toLowerCase()+" "+child.nom.toLowerCase()).includes(filter.toLowerCase()) 

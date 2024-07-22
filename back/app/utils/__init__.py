@@ -19,7 +19,7 @@ def jsonify_alchemy(object):
         val = getattr(object,key)
         
         if isinstance(val,date):    
-            val = datetime.strftime(val,'%d-%m-%Y')
+            val = datetime.strftime(val,'%Y-%m-%d')
             
         json[key] = val
             

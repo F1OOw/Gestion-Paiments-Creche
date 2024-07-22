@@ -25,8 +25,8 @@ def update_current_saison():
     data['date_debut'] = datetime.fromtimestamp(data['date_debut']//1000)
     data['date_fin'] = datetime.fromtimestamp(data['date_fin']//1000)
     
-    saison.date_debut = datetime.strptime(data['date_debut'], '%d-%m-%Y')
-    saison.date_fin = datetime.strptime(data['date_fin'], '%d-%m-%Y')
+    saison.date_debut = datetime.strptime(data['date_debut'], '%Y-%m-%d')
+    saison.date_fin = datetime.strptime(data['date_fin'], '%Y-%m-%d')
     db.session.commit()
 
     return jsonify_alchemy(saison)
@@ -42,15 +42,15 @@ def create_saison():
     data['date_debut'] = datetime.fromtimestamp(data['date_debut']//1000)
     data['date_fin'] = datetime.fromtimestamp(data['date_fin']//1000)
     
-    date_debut=datetime.strptime(data['date_debut'], '%d-%m-%Y')
-    date_fin=datetime.strptime(data['date_fin'], '%d-%m-%Y')
+    date_debut=datetime.strptime(data['date_debut'], '%Y-%m-%d')
+    date_fin=datetime.strptime(data['date_fin'], '%Y-%m-%d')
     
     if (date_debut>= date_fin):
         return jsonify({'error': 'Incoherent dates'}), 400
     
     saison = Saisons(
-        date_debut=datetime.strptime(data['date_debut'], '%d-%m-%Y'),
-        date_fin=datetime.strptime(data['date_fin'], '%d-%m-%Y'),
+        date_debut=datetime.strptime(data['date_debut'], '%Y-%m-%d'),
+        date_fin=datetime.strptime(data['date_fin'], '%Y-%m-%d'),
         actuelle=True
     )
     

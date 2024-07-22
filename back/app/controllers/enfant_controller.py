@@ -54,7 +54,7 @@ def update_enfant(id):
     enfant = db.session.query(Enfants).query.get_or_404(id)
     enfant.nom = data['nom']
     enfant.prenom = data['prenom']
-    enfant.date_naissance = datetime.strptime(data['date_naissance'], '%d-%m-%Y')
+    enfant.date_naissance = datetime.strptime(data['date_naissance'], '%Y-%m-%d')
     enfant.nom_tuteur = data['nom_tuteur']
     enfant.prenom_tuteur = data['prenom_tuteur']
     enfant.tel_tuteur = data['tel_tuteur']
