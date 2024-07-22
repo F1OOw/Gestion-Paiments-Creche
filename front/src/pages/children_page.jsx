@@ -142,7 +142,7 @@ export default function ChildrenPage() {
                         isOpen={isUpdateFormOpen}
                         onClose={handleCloseUpdateForm}
                         onUpdate={handleUpdateChild}
-                        child={kid}
+                        child={updateFormData}
                     />
                 )}
 
