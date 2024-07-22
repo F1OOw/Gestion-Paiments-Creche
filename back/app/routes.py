@@ -31,6 +31,7 @@ def handler2(id):
         return update_enfant(id)
 
 @routes.route("/api/saison",methods=['GET','POST','PUT'])
+@token_required
 def handler3():
     if request.method=='GET':
         return get_current_saison()

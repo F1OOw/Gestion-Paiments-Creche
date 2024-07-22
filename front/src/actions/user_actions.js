@@ -26,20 +26,17 @@ export const loginUser = (username, password) => async (dispatch) => {
   }
 };
 
-export const logoutUser = () => (dispatch) => {
-  localStorage.removeItem('token');
-  dispatch(clearUser());
-};
+// export const logoutUser = () => (dispatch) => {
+//   localStorage.removeItem('token');
+//   dispatch(clearUser());
+// };
   
 export const validateToken = (token) => async (dispatch) => {
   try {
-    // const response = await axios.post('api', { token });
-    // const  username  = response.data;
-    const  username  = "response.data";
-    console.log("token", token);
+    const  username  = "admin";
     dispatch(setUser({ username }));
+
   } catch (error) {
-    console.error('Invalid token:', error);
     dispatch(clearUser());
     localStorage.removeItem('token');
   }

@@ -11,7 +11,6 @@ export default function SeasonPage() {
     const dispatch = useDispatch();
     const season = useSelector(state => state.season);
     const children = season.enfants;
-    console.log(children); 
 
     const handleAddChild = (child) => {
         dispatch(addChild(child));
@@ -38,7 +37,6 @@ export default function SeasonPage() {
     };
     const handleConfirmDelete = (id) => {
         handleRemoveChild(id);
-        console.log('Item deleted');
         setIsDeleteOpen(false);
     };
 
@@ -124,18 +122,6 @@ export default function SeasonPage() {
                                         <button onClick={() => { handleUpdateClick(child) }} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Voir plus</button>
                                         <button onClick={() => { handleDeleteClick(child); }} className="bg-myorange text-white px-8 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Supprimer</button>
                                     </div>
-                                    <DeleteConfirmationInSeason
-                                        isOpen={isDeleteOpen}
-                                        onClose={handleCloseDeleteModal}
-                                        onConfirm={() => { handleConfirmDelete(child.id) }}
-                                        name={child.nom}
-                                    />
-                                    <EditChildInSeason
-                                        isOpen={isUpdateFormOpen}
-                                        onClose={handleCloseUpdateForm}
-                                        onUpdate={handleUpdateChild}
-                                        child={child}
-                                    />
                                 </div>
                             ))
                         )}

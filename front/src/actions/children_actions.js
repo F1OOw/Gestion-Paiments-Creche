@@ -13,6 +13,8 @@ export const fetchChildren = () => async (dispatch) => {
     console.log(error);
     switch(error.response?.status){
       case 403:
+        deleteToken();
+        break ;
       case 401:
         deleteToken();
         break;

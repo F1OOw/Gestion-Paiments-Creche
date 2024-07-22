@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import NavBarUser from "../components/navbar";
 import { FaSearch } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,6 +13,7 @@ export default function ChildrenPage() {
 
     useEffect(() => {
         dispatch(fetchChildren());
+
     }, [dispatch]);
 
     const handleAddChild = (formData) => {
