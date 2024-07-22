@@ -51,7 +51,10 @@ export default function ChildrenPage() {
     };
 
     const [isUpdateFormOpen, setIsUpdateFormOpen] = useState(false);
-    const handleUpdateClick = () => {
+    const [updateFormData, setUpdateFormData] = useState(null);
+
+    const handleUpdateClick = (formData) => {
+        setUpdateFormData(formData);
         setIsUpdateFormOpen(true);
     };
     const handleCloseUpdateForm = () => {
@@ -118,7 +121,7 @@ export default function ChildrenPage() {
                                         </div>
                                     </div>
                                     <div className="h-[10vh] w-[40%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
-                                        <button onClick={() => { handleUpdateClick() }} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Voir plus</button>
+                                        <button onClick={() => { handleUpdateClick(child) }} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Voir plus</button>
                                         <button onClick={() => { handleDeleteClick(); }} className="bg-myorange text-white px-8 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Supprimer</button>
                                     </div>
                                     <DeleteConfirmation
@@ -127,18 +130,22 @@ export default function ChildrenPage() {
                                         onConfirm={() => { handleConfirmDelete(child.id) }}
                                         name={child.nom}
                                     />
-                                    <EditChildForm
-                                        isOpen={isUpdateFormOpen}
-                                        onClose={handleCloseUpdateForm}
-                                        onUpdate={handleUpdateChild}
-                                        child={child}
-                                    />
                                 </div>
                             ))
                         )}
                     </div>
                     <div className="h-[10vh]"></div>
                 </div>
+
+                { isUpdateFormOpen && (
+                    <EditChildForm
+                        isOpen={isUpdateFormOpen}
+                        onClose={handleCloseUpdateForm}
+                        onUpdate={handleUpdateChild}
+                        child={kid}
+                    />
+                )}
+
                 {isDeleteOpen || isUpdateFormOpen || (
                     <div>
                         <div className="fixed z-0 bottom-4 left-1/2 transform -translate-x-1/2">
