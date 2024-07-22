@@ -1,19 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NavBarUser from "../components/navbar";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FaSearch } from 'react-icons/fa';
-import DeleteConfirmation from "../components/delete_confirmation";
+import DeleteConfirmationInSeason from "../components/delete_confirmation_in_season";
 import AddChildToSeason from "../components/add_child_to_season";
-import EditChildForm from "../components/edit_child_form";
-import { useDispatch } from "react-redux";
-import { useEffect , useState} from "react";
-import { removeChild , addChild } from "../actions/season_actions";
+import EditChildInSeason from "../components/edit_child_in_season";
+import { removeChild, addChild, updateChild } from "../actions/season_actions";
 
 export default function SeasonPage() {
     const dispatch = useDispatch();
     const season = useSelector(state => state.season);
-    console.log(season);    
-    const children = season.enfants; 
+    const children = season.enfants;
+    console.log(children); 
+
     const handleAddChild = (child) => {
         dispatch(addChild(child));
     };
@@ -22,8 +21,9 @@ export default function SeasonPage() {
         dispatch(removeChild(id));
     };
 
-    const handleUpdateChild = (formData) => {
-        dispatch(updateChildInDB(formData));
+    const handleUpdateChild = (upadatedChild) => {
+        console.log(upadatedChild);
+        dispatch(updateChild(upadatedChild));
     };
 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -55,15 +55,31 @@ export default function SeasonPage() {
         setIsUpdateFormOpen(false);
     };
 
+    const [filter, setFilter] = useState('');
+    const handleFilterChange = (e) => {
+        setFilter(e.target.value);
+    };
+
+    const filteredChildren = children.filter(child =>
+        (child.nom.toLowerCase()+" "+child.prenom.toLowerCase()).includes(filter.toLowerCase()) 
+        || (child.prenom.toLowerCase()+" "+child.nom.toLowerCase()).includes(filter.toLowerCase()) 
+    );
+
     return (
         <div>
-            <NavBarUser/>
+            <NavBarUser />
             <div className="flex flex-col items-center">
                 <div className="h-[10vh] w-[90%] flex flex-row justify-around items-center">
                     <h1 className="text-3xl text-myblue font-bold">Liste des enfants</h1>
                     <div className="w-[20%]"></div>
                     <div className="relative w-[35%]">
-                        <input type="text" placeholder="Introduisez un nom d'enfant ..." className="w-full border-2 border-myyellow rounded-3xl py-2 px-4 focus:outline-none focus:border-myyellow" />
+                        <input
+                            type="text"
+                            placeholder="Introduisez un nom d'enfant ..."
+                            className="w-full border-2 border-myyellow rounded-3xl py-2 px-4 focus:outline-none focus:border-myyellow"
+                            value={filter}
+                            onChange={handleFilterChange}
+                        />
                         <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-myorange" />
                     </div>
                 </div>
@@ -80,12 +96,12 @@ export default function SeasonPage() {
                         </div>
                     </div>
                     <div className="flex flex-col">
-                        {children.length === 0 ? (
+                        {filteredChildren.length === 0 ? (
                             <div className="h-[10vh] w-[100%] flex justify-center items-center">
                                 <p className="text-xl font-semibold">Pas d'enfants, veuillez ajouter</p>
                             </div>
                         ) : (
-                            children.map(child => (
+                            filteredChildren.map(child => (
                                 <div key={child.id} className="flex flex-row">
                                     <div className="h-[10vh] border w-[20%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
                                         <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>
@@ -95,20 +111,20 @@ export default function SeasonPage() {
                                             <p className="text-xl font-semibold">Groupe {child.groupe}</p>
                                         </div>
                                         <div className="w-[40%] flex justify-center">
-                                            <p className={`text-xl font-semibold ${child.transport?"text-green-600":"text-red-600"}`}>Transport</p>
+                                            <p className={`text-xl font-semibold ${child.transport ? "text-green-600" : "text-red-600"}`}>Transport</p>
                                         </div>
                                     </div>
                                     <div className="h-[10vh] w-[40%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
                                         <button onClick={() => { handleUpdateClick() }} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Voir plus</button>
                                         <button onClick={() => { handleDeleteClick(); }} className="bg-myorange text-white px-8 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Supprimer</button>
                                     </div>
-                                    <DeleteConfirmation
+                                    <DeleteConfirmationInSeason
                                         isOpen={isDeleteOpen}
                                         onClose={handleCloseDeleteModal}
                                         onConfirm={() => { handleConfirmDelete(child.id) }}
                                         name={child.nom}
                                     />
-                                    <EditChildForm
+                                    <EditChildInSeason
                                         isOpen={isUpdateFormOpen}
                                         onClose={handleCloseUpdateForm}
                                         onUpdate={handleUpdateChild}

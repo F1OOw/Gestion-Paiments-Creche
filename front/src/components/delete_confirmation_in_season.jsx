@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import cuate from '../assets/cuate.png'
 
-const DeleteConfirmation = ({ isOpen, onClose, onConfirm, name}) => {
+const DeleteConfirmationInSeason = ({ isOpen, onClose, onConfirm, name}) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-800 bg-opacity-25">
+    <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-800 bg-opacity-15">
       <div className="bg-white p-6 h-[40vh] w-[40%] rounded-3xl shadow-lg flex flex-row justify-around items-center">
         <img src={cuate} alt="" className='w-[40%]' />
         <div className='w-[50%] h-[80%] flex flex-col justify-between items-center'>
@@ -24,4 +24,4 @@ const DeleteConfirmation = ({ isOpen, onClose, onConfirm, name}) => {
   );
 };
 
-export default DeleteConfirmation;
+export default DeleteConfirmationInSeason;
