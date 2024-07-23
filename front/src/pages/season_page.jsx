@@ -6,9 +6,11 @@ import DeleteConfirmationInSeason from "../components/delete_confirmation_in_sea
 import AddChildToSeason from "../components/add_child_to_season";
 import EditChildInSeason from "../components/edit_child_in_season";
 import { removeChild, addChild, updateChild } from "../actions/season_actions";
+import { useNavigate } from "react-router-dom";
 
 export default function SeasonPage() {
     const dispatch = useDispatch();
+    const navigate = useNavigate(); 
     const season = useSelector(state => state.season);
     const children = season.enfants;
     console.log(children); 
@@ -46,6 +48,9 @@ export default function SeasonPage() {
     const handleAddClick = () => {
         setIsAddFormOpen(true);
     };
+    const handleEditPayment = (id) => {
+        navigate(`/edit_payment/${id}`); 
+    }
     const handleCloseAddForm = () => {
         setIsAddFormOpen(false);
     };
@@ -102,43 +107,60 @@ export default function SeasonPage() {
                         </div>
                     </div>
                     <div className="flex flex-col">
-                        {filteredChildren.length === 0 ? (
-                            <div className="h-[10vh] w-[100%] flex justify-center items-center">
-                                <p className="text-xl font-semibold">Pas d'enfants, veuillez ajouter</p>
-                            </div>
-                        ) : (
-                            filteredChildren.map(child => (
-                                <div key={child.id} className="flex flex-row">
-                                    <div className="h-[10vh] border w-[20%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
-                                        <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>
-                                    </div>
-                                    <div className="h-[10vh] w-[40%] border border-l-myorange border-r-myorange border-b-myorange flex flex-row justify-around items-center">
-                                        <div className="w-[40%] flex justify-center">
-                                            <p className="text-xl font-semibold">Groupe {child.groupe}</p>
-                                        </div>
-                                        <div className="w-[40%] flex justify-center">
-                                            <p className={`text-xl font-semibold ${child.transport ? "text-green-600" : "text-red-600"}`}>Transport</p>
-                                        </div>
-                                    </div>
-                                    <div className="h-[10vh] w-[40%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
-                                        <button onClick={() => { handleUpdateClick(child) }} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Voir plus</button>
-                                        <button onClick={() => { handleDeleteClick(child); }} className="bg-myorange text-white px-8 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Supprimer</button>
-                                    </div>
-                                    <DeleteConfirmationInSeason
-                                        isOpen={isDeleteOpen}
-                                        onClose={handleCloseDeleteModal}
-                                        onConfirm={() => { handleConfirmDelete(child.id) }}
-                                        name={child.nom}
-                                    />
-                                    <EditChildInSeason
-                                        isOpen={isUpdateFormOpen}
-                                        onClose={handleCloseUpdateForm}
-                                        onUpdate={handleUpdateChild}
-                                        child={child}
-                                    />
+                    {filteredChildren.length === 0 ? (
+                        <div className="h-[10vh] w-[100%] flex justify-center items-center">
+                            <p className="text-xl font-semibold">Pas d'enfants, veuillez ajouter</p>
+                        </div>
+                    ) : (
+                        filteredChildren.map(child => (
+                            <div onClick={() => handleEditPayment(child.id)} key={child.id} className="flex cursor-pointer flex-row">
+                                <div className="h-[10vh] border w-[20%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
+                                    <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>
                                 </div>
-                            ))
-                        )}
+                                <div className="h-[10vh] w-[40%] border border-l-myorange border-r-myorange border-b-myorange flex flex-row justify-around items-center">
+                                    <div className="w-[40%] flex justify-center">
+                                        <p className="text-xl font-semibold">Groupe {child.groupe}</p>
+                                    </div>
+                                    <div className="w-[40%] flex justify-center">
+                                        <p className={`text-xl font-semibold ${child.transport ? "text-green-600" : "text-red-600"}`}>Transport</p>
+                                    </div>
+                                </div>
+                                <div className="h-[10vh] w-[40%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Prevent click propagation
+                                            handleUpdateClick(child);
+                                        }}
+                                        className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl"
+                                    >
+                                        Voir plus
+                                    </button>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Prevent click propagation
+                                            handleDeleteClick(child);
+                                        }}
+                                        className="bg-myorange text-white px-8 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl"
+                                    >
+                                        Supprimer
+                                    </button>
+                                </div>
+                                <DeleteConfirmationInSeason
+                                    isOpen={isDeleteOpen}
+                                    onClose={handleCloseDeleteModal}
+                                    onConfirm={() => { handleConfirmDelete(child.id) }}
+                                    name={child.nom}
+                                />
+                                <EditChildInSeason
+                                    isOpen={isUpdateFormOpen}
+                                    onClose={handleCloseUpdateForm}
+                                    onUpdate={handleUpdateChild}
+                                    child={child}
+                                />
+                            </div>
+                        ))
+                    )}
+
                     </div>
                     <div className="h-[10vh]"></div>
                 </div>
