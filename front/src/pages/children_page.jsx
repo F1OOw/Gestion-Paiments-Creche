@@ -11,11 +11,6 @@ export default function ChildrenPage() {
     const children = useSelector(state => state.children);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchChildren());
-
-    }, [dispatch]);
-
     const handleAddChild = (formData) => {
         dispatch(addChildToDB({
           formData,

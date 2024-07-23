@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchSeason } from "../actions/season_actions";
+import { fetchChildren } from "../actions/children_actions";
 import { createNewSeason } from "../actions/season_actions";
 import { useState } from "react";
 import CreateSeason from "../components/create_season";
@@ -30,6 +31,7 @@ export default function LandingPage() {
     };
 
     useEffect(() => {
+        dispatch(fetchChildren());
         dispatch(fetchSeason());
     }, [dispatch]);
     

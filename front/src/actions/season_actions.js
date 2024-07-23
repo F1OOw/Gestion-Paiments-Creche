@@ -45,6 +45,8 @@ export const createNewSeason = (date_debut, date_fin) => async (dispatch) => {
     const season = response.data;
     const responseGroupes = await api.get(`/api/saison/groupes`); //recuperer les groupes de la saison
     const groupes = responseGroupes.data['groupes'];
+    season.groupes = groupes;
+    season.enfants = [] ;
 
     dispatch(createSeason(season));
   } catch (error) {
