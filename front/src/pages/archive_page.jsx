@@ -1,17 +1,30 @@
 import React, { useEffect , useState } from "react";
 import NavBarUser from "../components/navbar";
 import { FaSearch } from 'react-icons/fa';
+import { api } from "../utils/api";
 
 const ArchivePage = () => {
-    const archive = []; 
-    archive.push({
-        id: 1,
-        date_debut: "2021-09-01",
-        date_fin: "2022-06-30",
-    }); 
+    const [archive, setArchive] = useState([]);
+    // const archive = []; 
+    // archive.push({
+    //     id: 1,
+    //     date_debut: "2021-09-01",
+    //     date_fin: "2022-06-30",
+    // }); 
     useEffect(() => {
         // fetch archive data
-    }, archive);
+        const fetchArchive = async () =>{
+            try {
+                const response = await api.get("/api/archives");
+                setArchive(response.data);
+                
+            } catch(error){
+                console.log(error);
+            }
+        }
+
+        fetchArchive();
+    }, []);
 
     const [filter, setFilter] = useState('');
     const handleFilterChange = (e) => {

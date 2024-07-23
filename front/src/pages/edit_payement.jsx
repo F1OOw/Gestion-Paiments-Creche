@@ -2,24 +2,15 @@ import React, { Children, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import NavbarUser from '../components/navbar';
+import { api } from '../utils/api';
 
 const EditPayment = () => {
   const { id } = useParams(); 
   const dispatch = useDispatch(); 
   const season = useSelector(state => state.season);
   const child = season.enfants.find(enf => enf.id == id);
-  const [payments, setPayements] = useState({
-    "1":false,
-    "2":false,
-    "3":false,
-    "4":false,
-    "5":false,
-    "6":false,
-    "10":true,
-    "11":true,
-    "12":true
-}); 
-const months = [
+  const [payments, setPayements] = useState({}); 
+  const months = [
     { id: 1, name: 'Jan', number: '01' },
     { id: 2, name: 'Fev', number: '02' },
     { id: 3, name: 'Mar', number: '03' },
@@ -35,7 +26,34 @@ const months = [
   ];
   useEffect(() => {
     //fetch child payment details
+    const fetchChildPaymentDetails = async () => {
+      try {
+        const response = await api.get(`/api/saison/paiements/${id}`);
+        const data = await response.data;
+        setPayements(data);
+
+      } catch (error) {
+        console.error('Error fetching child payment details:', error);
+      }
+    };
+
+    if (child) {
+      fetchChildPaymentDetails();
+    }
   }, [child]);
+
+  const handleClick = async(month) => {
+    try {
+      await api.post(`/api/saison/paiements/${id}`,JSON.stringify({"mois": month.id}));
+      setPayements({...payments, [month.id]: !payments[month.id]});
+
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+ 
+
   return (
     <div className='h-[100vh] w-full flex flex-col'>
         <NavbarUser />
@@ -165,7 +183,7 @@ const months = [
         <div
           key={month.id}
           onClick={() => {
-            setPayements({...payments, [month.id]: !payments[month.id]});
+            handleClick(month);
           }}
           className={`p-5 border cursor-pointer rounded-lg flex flex-col items-center ${
             payments[month.id] ? 'bg-myblue px-8' : 'bg-myorange'
