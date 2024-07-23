@@ -53,19 +53,28 @@ const NavBarUser = () => {
                     </button>
                     {isDropDownOpen && (
                         <div className="absolute mt-2 w-48 bg-white rounded shadow-lg border border-t-0 border-myorange ---z-10">
-                            <button onClick={()=>navigate('/season')} className="block text-center w-full px-4 py-2 text-black font-bold hover:bg-gray-200">
+                            <button onClick={()=>{
+                                toggleDropdown();
+                                handleNavigate('/season'); 
+                            }} className="block text-center w-full px-4 py-2 text-black font-bold hover:bg-gray-200">
                                 Enfants Inscrits
                             </button>
                             <button className="block text-center w-full px-4 py-2 text-black font-bold hover:bg-gray-200">
                                 État des Paiements
                             </button>
-                            <button className="block text-center w-full px-4 py-2 text-black font-bold hover:bg-gray-200">
+                            <button onClick={()=>{
+                                toggleDropdown(); 
+                                handleNavigate('/edit_season'); 
+                            }} className="block text-center w-full px-4 py-2 text-black font-bold hover:bg-gray-200">
                                 Paramètres
                             </button>
                         </div>
                     )}
                 </div>
-                <button className="text-black font-bold text-lg tracking-wide hover:text-gray-300 border-b-2 border-myyellow pb-2">
+                <button onClick={()=>{
+                    toggleDropdown();
+                    handleNavigate('/archive'); 
+                }} className="text-black font-bold text-lg tracking-wide hover:text-gray-300 border-b-2 border-myyellow pb-2">
                     Archive
                 </button>
             </div>

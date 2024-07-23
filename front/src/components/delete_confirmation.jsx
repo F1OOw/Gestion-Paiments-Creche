@@ -11,7 +11,7 @@ const DeleteConfirmation = ({ isOpen, onClose, onConfirm, name}) => {
         <div className='w-[50%] h-[80%] flex flex-col justify-between items-center'>
             <p className="text-xl md:text-2xl font-bold  text-center">Attention !</p>
             <p className="text-center text-sm md:text-base font-bold">{"Voulez vous vraiment supprimer "+name+" ?"}</p>
-            <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between">
             <button onClick={onClose}
             className="bg-myyellow text-white px-5 py-1 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Annuler</button>
             <button 

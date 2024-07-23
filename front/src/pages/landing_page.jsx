@@ -4,7 +4,7 @@ import Option from "../components/option";
 import children from "../assets/children.png";
 import saison from "../assets/saison.png";
 import archive from "../assets/archive.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchSeason } from "../actions/season_actions";
@@ -29,6 +29,12 @@ export default function LandingPage() {
     const handleCreateSeason = (seasonData) => {
         dispatch(createNewSeason(seasonData.date_debut, seasonData.date_fin));
     };
+    const location = useLocation();
+    const handleNavigate = (path) => {
+        if (location.pathname !== path) {
+            navigate(path);
+        }
+    };
 
     useEffect(() => {
         dispatch(fetchChildren());
@@ -42,15 +48,15 @@ export default function LandingPage() {
                 <h1 className="text-4xl text-myblue font-bold ">Choisissez ce que vous voulez faire</h1>
                 <div className="h-[80%] w-[100%] flex flex-row justify-evenly items-center">
                     {/* here we display the different options */}
-                    <Option image={children} color={"myblue"} description={"Gérer l’ensemble des enfants"} title={"Enfants"} onClick={()=>{navigate('/children')}}/>
+                    <Option image={children} color={"myblue"} description={"Gérer l’ensemble des enfants"} title={"Enfants"} onClick={()=>{handleNavigate('/children')}}/>
                     <Option image={saison} color={"myorange"} description={"Gérer la saison actuelle"} title={"Saison"} onClick={()=>{
                         if(season.date_debut){
-                            navigate('/season');
+                            handleNavigate('/season');
                         }else{
                             handleCreateClick();  
                         }
                          }}/>
-                    <Option  image={archive} color={"myyellow"} description={"voir l’archive des saisons"} title={"Archive"} onClick={()=>{console.log("archive")}}/>
+                    <Option  image={archive} color={"myyellow"} description={"voir l’archive des saisons"} title={"Archive"} onClick={()=>{handleNavigate('archive')}}/>
                 </div>
             </div>
             {!isCreateSeason || (
