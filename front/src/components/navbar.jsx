@@ -71,7 +71,10 @@ const NavBarUser = () => {
                         </div>
                     )}
                 </div>
-                <button className="text-black font-bold text-lg tracking-wide hover:text-gray-300 border-b-2 border-myyellow pb-2">
+                <button onClick={()=>{
+                    toggleDropdown();
+                    handleNavigate('/archive'); 
+                }} className="text-black font-bold text-lg tracking-wide hover:text-gray-300 border-b-2 border-myyellow pb-2">
                     Archive
                 </button>
             </div>

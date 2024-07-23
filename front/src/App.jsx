@@ -5,6 +5,7 @@ import ProtectedRoute from "./protected_route";
 import LandingPage from "./pages/landing_page";
 import SeasonPage from "./pages/season_page";
 import EditSeason from "./pages/edit_season";
+import ArchivePage from "./pages/archive_page";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { validateToken } from "./actions/user_actions";
@@ -27,6 +28,7 @@ function App() {
             <Route path="/children" element={<ChildrenPage />} />
             <Route path="/season" element={<SeasonPage />} />
             <Route path="/edit_season" element={<EditSeason />} />
+            <Route path="/archive" element={<ArchivePage />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<p>Not Found oops</p>} />
