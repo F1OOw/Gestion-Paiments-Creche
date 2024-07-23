@@ -30,7 +30,9 @@ export default function ChildrenPage() {
     };
 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-    const handleDeleteClick = () => {
+    const [deleteData, setDeleteData] = useState(null);
+    const handleDeleteClick = (child) => {
+        setDeleteData(child);
         setIsDeleteOpen(true);
     };
     const handleCloseDeleteModal = () => {
@@ -122,14 +124,8 @@ export default function ChildrenPage() {
                                     </div>
                                     <div className="h-[10vh] w-[40%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
                                         <button onClick={() => { handleUpdateClick(child) }} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Voir plus</button>
-                                        <button onClick={() => { handleDeleteClick(); }} className="bg-myorange text-white px-8 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Supprimer</button>
+                                        <button onClick={() => { handleDeleteClick(child); }} className="bg-myorange text-white px-8 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Supprimer</button>
                                     </div>
-                                    <DeleteConfirmation
-                                        isOpen={isDeleteOpen}
-                                        onClose={handleCloseDeleteModal}
-                                        onConfirm={() => { handleConfirmDelete(child.id) }}
-                                        name={child.nom}
-                                    />
                                 </div>
                             ))
                         )}
@@ -143,6 +139,15 @@ export default function ChildrenPage() {
                         onClose={handleCloseUpdateForm}
                         onUpdate={handleUpdateChild}
                         child={updateFormData}
+                    />
+                )}
+
+                {isDeleteOpen && (
+                    <DeleteConfirmation
+                        isOpen={isDeleteOpen}
+                        onClose={handleCloseDeleteModal}
+                        onConfirm={() => { handleConfirmDelete(deleteData.id) }}
+                        name={deleteData.nom}
                     />
                 )}
 
