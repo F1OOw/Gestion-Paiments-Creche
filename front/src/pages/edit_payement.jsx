@@ -21,13 +21,13 @@ const EditPayment = () => {
 }); 
 const months = [
     { id: 1, name: 'Jan', number: '01' },
-    { id: 2, name: 'Feb', number: '02' },
+    { id: 2, name: 'Fev', number: '02' },
     { id: 3, name: 'Mar', number: '03' },
-    { id: 4, name: 'Apr', number: '04' },
-    { id: 5, name: 'May', number: '05' },
+    { id: 4, name: 'Avr', number: '04' },
+    { id: 5, name: 'Mai', number: '05' },
     { id: 6, name: 'Jun', number: '06' },
     { id: 7, name: 'Jul', number: '07' },
-    { id: 8, name: 'Aug', number: '08' },
+    { id: 8, name: 'Aou', number: '08' },
     { id: 9, name: 'Sep', number: '09' },
     { id: 10, name: 'Oct', number: '10' },
     { id: 11, name: 'Nov', number: '11' },
@@ -165,9 +165,7 @@ const months = [
         <div
           key={month.id}
           onClick={() => {
-            if(!payments[month.id]){
-                setPayements({...payments, [month.id]: true});
-            }
+            setPayements({...payments, [month.id]: !payments[month.id]});
           }}
           className={`p-5 border cursor-pointer rounded-lg flex flex-col items-center ${
             payments[month.id] ? 'bg-myblue px-8' : 'bg-myorange'
