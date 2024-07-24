@@ -1,41 +1,44 @@
 import React, { useEffect , useState } from "react";
 import NavBarUser from "../components/navbar";
-import { FaSearch } from 'react-icons/fa';
 import { api } from "../utils/api";
+import { saveAs } from 'file-saver';
 
 const ArchivePage = () => {
     const [archive, setArchive] = useState([]);
-    // const archive = []; 
-    // archive.push({
-    //     id: 1,
-    //     date_debut: "2021-09-01",
-    //     date_fin: "2022-06-30",
-    // }); 
+
     useEffect(() => {
         // fetch archive data
         const fetchArchive = async () =>{
             try {
+                api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
                 const response = await api.get("/api/archives");
                 setArchive(response.data);
                 
             } catch(error){
-                console.log(error);
+                console.error(error);
             }
         }
 
         fetchArchive();
     }, []);
 
-    const [filter, setFilter] = useState('');
-    const handleFilterChange = (e) => {
-        setFilter(e.target.value);
-    };
+    const downloadArchive = async (id)=>{
+        try {
+            api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            const response = await api.get(`/api/archives/${id}`, {
+                responseType: 'blob' // Important for handling binary data
+            });
 
-    const filtredArchive = archive.filter(child =>
-        child
-        // (child.nom.toLowerCase()+" "+child.prenom.toLowerCase()).includes(filter.toLowerCase()) 
-        // || (child.prenom.toLowerCase()+" "+child.nom.toLowerCase()).includes(filter.toLowerCase()) 
-    );
+            console.log(response.data);
+            
+            saveAs(response.data,`archive_${id}.csv`)
+
+        } catch(error){
+            console.error(error);
+        }
+        
+    }
+
     return (
          <div>
             <NavBarUser/>
@@ -43,16 +46,6 @@ const ArchivePage = () => {
                 <div className="h-[10vh] w-[90%] flex flex-row justify-around items-center">
                     <h1 className="text-3xl text-myblue font-bold">Liste des archives :</h1>
                     <div className="w-[20%]"></div>
-                    <div className="relative w-[35%] z-0">
-                        <input
-                            type="text"
-                            placeholder="Introduisez une date ... "
-                            className="w-full border-2 border-myyellow rounded-3xl py-2 px-4 focus:outline-none focus:border-myyellow"
-                            value={filter}
-                            onChange={handleFilterChange}
-                        />
-                        <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-myorange" />
-                    </div>
                 </div>
                 <div className="w-[90%]">
                     <div className="h-[10vh] w-[100%] flex flex-row ---sticky top-0 ---z-10">
@@ -86,7 +79,7 @@ const ArchivePage = () => {
                                         </div>
                                     </div>
                                     <div className="h-[10vh] w-[30%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
-                                        <button onClick={() => {}} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Télécharger</button>
+                                        <button onClick={() => {downloadArchive(season.id)}} className="bg-myyellow text-white px-10 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Télécharger</button>
                                     </div>
                                 </div>
                             ))

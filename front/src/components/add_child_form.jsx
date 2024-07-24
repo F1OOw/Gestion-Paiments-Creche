@@ -24,7 +24,7 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
     e.preventDefault();
 
     onAdd(formData);
-    // setFormData({}); // Clear form
+    setFormData({}); // Clear form
     onClose();
   };
 

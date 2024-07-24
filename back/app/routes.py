@@ -85,10 +85,10 @@ def handler8(id):
     else:
         return update_paiement(id)
 
-@routes.route("/api/saison/<int:id>/archive",methods=['GET'])
+@routes.route("/api/saison/archive",methods=['GET'])
 @token_required
-def handler9(id):
-    return archive_saison(id)
+def handler9():
+    return archive_saison()
 
 
 @routes.route("/api/archives",methods=['GET'])

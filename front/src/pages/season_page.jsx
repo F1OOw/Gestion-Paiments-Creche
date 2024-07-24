@@ -23,7 +23,6 @@ export default function SeasonPage() {
     };
 
     const handleUpdateChild = (upadatedChild) => {
-        console.log(upadatedChild);
         dispatch(updateChild(upadatedChild));
     };
 

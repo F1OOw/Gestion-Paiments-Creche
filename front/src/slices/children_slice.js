@@ -1,26 +1,35 @@
 // slices/childrenSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = [];
+// const initialState = [];
+
+const initialState = {
+  children: [] ,
+};
+
 
 const childrenSlice = createSlice({
   name: 'children',
   initialState,
   reducers: {
+    loadChildren(state,action){
+      state.children = action.payload
+    },
     addChild(state, action) {
-      state.push(action.payload);
+      state.children.push(action.payload);
     },
     removeChild(state, action) {
-      return state.filter(child => child.id !== action.payload.id);
+      const index = state.children.findIndex(child => child.id === action.payload.id);
+      state.children.splice(index,index);
     },
     updateChild(state, action) {
-      const index = state.findIndex(child => child.id === action.payload.id);
+      const index = state.children.findIndex(child => child.id === action.payload.id);
       if (index !== -1) {
-        state[index] = action.payload;
+        state.children[index] = action.payload;
       }
     },
   },
 });
 
-export const { addChild, removeChild, updateChild } = childrenSlice.actions;
+export const { addChild, removeChild, updateChild, loadChildren } = childrenSlice.actions;
 export default childrenSlice.reducer;

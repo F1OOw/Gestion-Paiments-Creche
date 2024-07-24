@@ -18,7 +18,6 @@ export default function LandingPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const season = useSelector((state) => state.season);
-    console.log(season); 
     const [isCreateSeason, setIsCreateSeason] = useState(false);
     const handleCreateClick = () => {
         setIsCreateSeason(true);

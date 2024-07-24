@@ -349,10 +349,10 @@
             "error": ""
         },
         {
-            "name": "/api/saison/<int:id>/archive",
+            "name": "/api/saison/archive",
             "done": true,
             "method": "GET",
-            "description": "Archiver la saison spécifié",
+            "description": "Archiver la saison actuelle",
             "input": null,
             "output": {
                 "id": 1,

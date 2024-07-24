@@ -41,7 +41,7 @@ def create_saison():
     date_debut=datetime.strptime(data['date_debut'], '%Y-%m-%d')
     date_fin=datetime.strptime(data['date_fin'], '%Y-%m-%d')
     
-    if (date_debut>= date_fin):
+    if ((date_debut>= date_fin) or (len(get_months(date_debut,date_fin))>11)):
         return jsonify({'error': 'Incoherent dates'}), 400
     
     saison = Saisons(

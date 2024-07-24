@@ -4,6 +4,7 @@ import {api, deleteToken} from "../utils/api"
 // Fetch initial 
 export const fetchSeason = () => async (dispatch) => {
   try {
+    api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     const response = await api.get("/api/saison"); //connaitre si il y'a une saison actuelle
     const season = response.data; 
     
@@ -17,7 +18,7 @@ export const fetchSeason = () => async (dispatch) => {
     dispatch(createSeason(season));
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
     switch(error.response?.status){
       case 403:
         deleteToken();
@@ -36,7 +37,7 @@ export const fetchSeason = () => async (dispatch) => {
 // Create a new season
 export const createNewSeason = (date_debut, date_fin) => async (dispatch) => {
   try {
-    console.log(date_debut, date_fin);
+    api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     var data = {
       date_debut,
       date_fin
@@ -50,7 +51,7 @@ export const createNewSeason = (date_debut, date_fin) => async (dispatch) => {
 
     dispatch(createSeason(season));
   } catch (error) {
-    console.log(error);
+    console.error(error);
     switch(error.response?.status){
       case 403:
         deleteToken();
@@ -69,10 +70,11 @@ export const createNewSeason = (date_debut, date_fin) => async (dispatch) => {
 //remove child from a season 
 export const removeChild = (id) => async (dispatch) => {
   try {
+    api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     await api.delete(`/api/saison/enfants/${id}`);
     dispatch(removeChildFromSeason({ id }));
   } catch (error) {
-    console.log(error);
+    console.error(error);
     switch(error.response?.status){
       case 403:
         deleteToken();
@@ -94,10 +96,11 @@ export const addChild = (child) => async (dispatch) => {
       "groupe": child.groupe,
       "transport": child.transport
     }
+    api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     await api.post(`/api/saison/enfants/${child.id}`, JSON.stringify(data));
     dispatch(addChildToSeason(child));
   } catch (error) {
-    console.log(error);
+    console.error(error);
     switch(error.response?.status){
       case 403:
         deleteToken();
@@ -115,6 +118,7 @@ export const addChild = (child) => async (dispatch) => {
 
 export const updateChild = (child) => async (dispatch) => {
   try {
+    api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     var data = {
       "transport": child.transport,
       "groupe": child.groupe
@@ -122,7 +126,7 @@ export const updateChild = (child) => async (dispatch) => {
     await api.put(`/api/saison/enfants/${child.id}`, JSON.stringify(data));
     dispatch(updateChildInSeason(child));
   } catch (error) {
-    console.log(error);
+    console.error(error);
     switch(error.response?.status){
       case 403:
         deleteToken();

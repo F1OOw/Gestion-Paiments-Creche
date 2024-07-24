@@ -6,8 +6,8 @@ from models import *
 import csv
 
 @controller_template
-def archive_saison(saison_id):
-    saison = db.session.query(Saisons).get_or_404(saison_id)
+def archive_saison():
+    saison = db.session.query(Saisons).filter_by(actuelle=True).first()
     inscriptions = db.session.query(Inscriptions).filter_by(id_saison=saison.id).all()
     
 

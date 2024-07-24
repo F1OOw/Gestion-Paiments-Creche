@@ -28,6 +28,7 @@ const EditPayment = () => {
     //fetch child payment details
     const fetchChildPaymentDetails = async () => {
       try {
+        api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
         const response = await api.get(`/api/saison/paiements/${id}`);
         const data = await response.data;
         setPayements(data);
@@ -44,8 +45,9 @@ const EditPayment = () => {
 
   const handleClick = async(month) => {
     try {
-      await api.post(`/api/saison/paiements/${id}`,JSON.stringify({"mois": month.id}));
-      setPayements({...payments, [month.id]: !payments[month.id]});
+      api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+      await api.post(`/api/saison/paiements/${id}`,JSON.stringify({"mois": month}));
+      setPayements({...payments, [month]: !payments[month]});
 
     } catch(error){
       console.log(error);
@@ -179,7 +181,23 @@ const EditPayment = () => {
       <div className='w-[40%] h-full  flex flex-col items-center'>
       <h2 className="text-xl px-2 font-bold mb-2">Etat du paiement de l’enfant :</h2>
       <div className="grid grid-cols-3 gap-4 p-4">
-      {months.map(month => (
+      {Object.keys(payments).map(p=>(
+        <div
+        key={parseInt(p)}
+        onClick={() => {
+          handleClick(parseInt(p));
+        }}
+        className={`p-5 border cursor-pointer rounded-lg flex flex-col items-center ${
+          payments[p] ? 'bg-myblue px-8' : 'bg-myorange'
+        }`}
+        >
+        <p className="text-lg font-semibold">{months[parseInt(p)-1].name}</p>
+        <p className="text-md">{months[parseInt(p)-1].number}</p>
+        <p className="text-sm">{payments[p] ? 'Payé' : 'Non payé'}</p>
+      </div>
+      ))}
+      
+      {/* {months.map(month => (
         <div
           key={month.id}
           onClick={() => {
@@ -193,7 +211,7 @@ const EditPayment = () => {
           <p className="text-md">{month.number}</p>
           <p className="text-sm">{payments[month.id] ? 'Payé' : 'Non payé'}</p>
         </div>
-      ))}
+      ))} */}
     </div>
       </div>
      </div>

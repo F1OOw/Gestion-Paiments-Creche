@@ -16,7 +16,6 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
 
   useEffect(() => {
     if (child) {
-      console.log(child);
       setFormData({
         id: child.id,
         nom: child.nom,
@@ -49,7 +48,7 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
 
   return (
     <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-800 bg-opacity-25">
-      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[80vh] w-[40%] ">
+      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[65vh] w-[40%] ">
         <h2 className="text-xl px-2 font-bold mb-2">Modifier Enfant</h2>
         <form onSubmit={handleSubmit}>
             <div className='mb-2 flex flex-row justify-between px-8 w-full'>
@@ -136,9 +135,9 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
                 />
             </div>
           </div>
-          <div className="mb-2  justify-between px-8 w-[65%]">
+          <div className="mb-5  justify-between px-8 w-[65%]">
                 <label className="text-black font-bold">Adresse : </label>
-                <input
+                <textarea
                 type="text"
                 name="adresse"
                 value={formData.adresse}

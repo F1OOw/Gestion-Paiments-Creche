@@ -3,19 +3,21 @@ import { useSelector } from 'react-redux';
 import { FaSearch } from 'react-icons/fa';
 
 const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
-  const children = useSelector((state) => state.children);
+  const children = useSelector((state) => state.children.children);
+  const season = useSelector((state) => state.season)
   const groupes = useSelector((state) => state.season.groupes);
-  const [selectedChild, setSelectedChild] = useState(null);
+  const [selectedChild, setSelectedChild] = useState({});
   const [selectedGroup, setSelectedGroup] = useState('');
   const [isTransport, setIsTransport] = useState(false);
   const [filter, setFilter] = useState('');
   const [error, setError] = useState('');
 
+
   const handleCheckboxChange = (e, child) => {
     if (e.target.checked) {
       setSelectedChild(child);
     } else {
-      setSelectedChild(null);
+      setSelectedChild({});
     }
   };
 
@@ -48,9 +50,21 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
     setIsTransport(e.target.checked);
   };
 
+  const checkAdded = (child) =>{
+    for (var i=0; i<season.enfants.length; i++){
+      if (season.enfants[i].id == child.id ){
+        return true;
+      }
+    }
+    return false ;
+  }
+
   const filteredChildren = children.filter(child => 
-    (child.nom.toLowerCase()+" "+child.prenom.toLowerCase()).includes(filter.toLowerCase()) 
-    || (child.prenom.toLowerCase()+" "+child.nom.toLowerCase()).includes(filter.toLowerCase()) 
+    (!checkAdded(child)) &&
+    (
+      (child.nom.toLowerCase()+" "+child.prenom.toLowerCase()).includes(filter.toLowerCase()) 
+      || (child.prenom.toLowerCase()+" "+child.nom.toLowerCase()).includes(filter.toLowerCase()) 
+    )
   );
 
   if (!isOpen) return null;

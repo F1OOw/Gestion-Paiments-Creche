@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 export default function EditSeason() {
     const navigate = useNavigate();
     const season = useSelector((state) => state.season);
-    console.log(season.enfants);
     const childrenNumber = season.enfants.length;
     return (
         <div className="h-[100vh] flex flex-col justify-between">

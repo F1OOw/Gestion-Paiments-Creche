@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import NavBarUser from "../components/navbar";
 import { FaSearch } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchChildren, addChildToDB, updateChildInDB, removeChildFromDB } from '../actions/children_actions';
+import { addChildToDB, updateChildInDB, removeChildFromDB } from '../actions/children_actions';
 import DeleteConfirmation from "../components/delete_confirmation";
 import AddChildForm from "../components/add_child_form";
 import EditChildForm from "../components/edit_child_form";
 
 export default function ChildrenPage() {
-    const children = useSelector(state => state.children);
+    const children = useSelector(state => state.children.children);
     const dispatch = useDispatch();
 
     const handleAddChild = (formData) => {
@@ -36,7 +36,6 @@ export default function ChildrenPage() {
     };
     const handleConfirmDelete = (id) => {
         handleRemoveChild(id);
-        console.log('Item deleted');
         setIsDeleteOpen(false);
     };
 
@@ -64,9 +63,9 @@ export default function ChildrenPage() {
         setFilter(e.target.value);
     };
     
-    const filteredChildren = children.filter(child =>
-        (child.nom.toLowerCase()+" "+child.prenom.toLowerCase()).includes(filter.toLowerCase()) 
-        || (child.prenom.toLowerCase()+" "+child.nom.toLowerCase()).includes(filter.toLowerCase()) 
+    var filteredChildren = children.filter(child =>
+        (child?.nom.toLowerCase()+" "+child?.prenom.toLowerCase()).includes(filter.toLowerCase()) 
+        || (child?.prenom.toLowerCase()+" "+child?.nom.toLowerCase()).includes(filter.toLowerCase()) 
     );
 
     return (
@@ -100,22 +99,22 @@ export default function ChildrenPage() {
                         </div>
                     </div>
                     <div className="flex flex-col">
-                        {filteredChildren.length === 0 ? (
+                        {filteredChildren?.length === 0 ? (
                             <div className="h-[10vh] w-[100%] flex justify-center items-center">
                                 <p className="text-xl font-semibold">Pas d'enfants, veuillez ajouter</p>
                             </div>
                         ) : (
                             filteredChildren.map(child => (
-                                <div key={child.id} className="flex flex-row">
+                                <div key={child?.id} className="flex flex-row">
                                     <div className="h-[10vh] border w-[20%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
-                                        <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>
+                                        <p className="text-xl font-semibold">{child?.nom} {child?.prenom}</p>
                                     </div>
                                     <div className="h-[10vh] w-[40%] border border-l-myorange border-r-myorange border-b-myorange flex flex-row justify-around items-center">
                                         <div className="w-[60%] flex justify-center">
-                                            <p className="text-xl font-semibold">{child.nom_tuteur} {child.prenom_tuteur}</p>
+                                            <p className="text-xl font-semibold">{child?.nom_tuteur} {child?.prenom_tuteur}</p>
                                         </div>
                                         <div className="w-[35%] flex justify-center">
-                                            <p className="text-xl font-semibold">{child.tel_tuteur}</p>
+                                            <p className="text-xl font-semibold">{child?.tel_tuteur}</p>
                                         </div>
                                     </div>
                                     <div className="h-[10vh] w-[40%] border border-r-myblue border-b-myblue flex flex-row justify-around items-center">
@@ -142,8 +141,8 @@ export default function ChildrenPage() {
                     <DeleteConfirmation
                         isOpen={isDeleteOpen}
                         onClose={handleCloseDeleteModal}
-                        onConfirm={() => { handleConfirmDelete(deleteData.id) }}
-                        name={deleteData.nom}
+                        onConfirm={() => { handleConfirmDelete(deleteData?.id) }}
+                        name={deleteData?.nom}
                     />
                 )}
 
