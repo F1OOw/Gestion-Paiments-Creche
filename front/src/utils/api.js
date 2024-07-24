@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-export const deleteToken = ()=>{
-    localStorage.removeItem('token')
+export const deleteToken = ()=>{   
+    localStorage.removeItem('token');
+    window.location.href="/"
 }
 
 export const api = axios.create({

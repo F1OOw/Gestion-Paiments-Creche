@@ -1,5 +1,5 @@
 import { setUser, clearUser } from '../slices/user_slice';
-import {api} from "../utils/api"
+import {api,deleteToken} from "../utils/api"
 
 
 export const loginUser = (username, password) => async (dispatch) => {
@@ -26,10 +26,10 @@ export const loginUser = (username, password) => async (dispatch) => {
     console.error(error);
     switch(error.response?.status){
       case 403:
-        deleteToken();
+        // deleteToken();
         break ;
       case 401:
-        deleteToken();
+        // deleteToken();
         break;
       case 500:
         break;

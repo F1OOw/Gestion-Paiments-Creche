@@ -1,6 +1,6 @@
 import React, { useEffect , useState } from "react";
 import NavBarUser from "../components/navbar";
-import { api } from "../utils/api";
+import { api, deleteToken } from "../utils/api";
 import { saveAs } from 'file-saver';
 
 const ArchivePage = () => {
@@ -14,9 +14,21 @@ const ArchivePage = () => {
                 const response = await api.get("/api/archives");
                 setArchive(response.data);
                 
-            } catch(error){
+            } catch (error) {
                 console.error(error);
-            }
+                switch(error.response?.status){
+                  case 403:
+                    deleteToken();
+                    break ;
+                  case 401:
+                    deleteToken();
+                    break;
+                  case 500:
+                    break;
+                  default:
+                    break ;
+                }
+              }
         }
 
         fetchArchive();
@@ -33,9 +45,21 @@ const ArchivePage = () => {
             
             saveAs(response.data,`archive_${id}.csv`)
 
-        } catch(error){
+        } catch (error) {
             console.error(error);
-        }
+            switch(error.response?.status){
+              case 403:
+                deleteToken();
+                break ;
+              case 401:
+                deleteToken();
+                break;
+              case 500:
+                break;
+              default:
+                break ;
+            }
+          }
         
     }
 

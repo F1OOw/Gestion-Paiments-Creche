@@ -2,7 +2,7 @@ import React, { Children, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import NavbarUser from '../components/navbar';
-import { api } from '../utils/api';
+import { api, deleteToken } from '../utils/api';
 
 const EditPayment = () => {
   const { id } = useParams(); 
@@ -34,7 +34,19 @@ const EditPayment = () => {
         setPayements(data);
 
       } catch (error) {
-        console.error('Error fetching child payment details:', error);
+        console.error(error);
+        switch(error.response?.status){
+          case 403:
+            deleteToken();
+            break ;
+          case 401:
+            deleteToken();
+            break;
+          case 500:
+            break;
+          default:
+            break ;
+        }
       }
     };
 
@@ -49,8 +61,20 @@ const EditPayment = () => {
       await api.post(`/api/saison/paiements/${id}`,JSON.stringify({"mois": month}));
       setPayements({...payments, [month]: !payments[month]});
 
-    } catch(error){
-      console.log(error);
+    } catch (error) {
+      console.error(error);
+      switch(error.response?.status){
+        case 403:
+          deleteToken();
+          break ;
+        case 401:
+          deleteToken();
+          break;
+        case 500:
+          break;
+        default:
+          break ;
+      }
     }
   }
 
