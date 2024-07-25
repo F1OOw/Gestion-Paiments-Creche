@@ -35,8 +35,8 @@ const NavBarUser = () => {
     };
 
     return (
-        <nav className="flex items-center justify-around p-4 h-[15%] z-10 relative">
-            <img src={logo} alt="Logo" className="w-[20%] h-[100%]" />
+        <nav className="flex items-center justify-around w-full p-4 h-[15%] z-10 relative">
+            <img onClick={()=>handleNavigate('/')} src={logo} alt="Logo" className=" cursor-pointer w-[20%] h-[100%]" />
             <div className="flex flex-row justify-evenly items-center w-[55%]">
                 <button onClick={() => handleNavigate('/children')} className="text-black font-bold text-lg tracking-wide hover:text-gray-300 border-b-2 border-myblue pb-2">
                     Enfants
@@ -59,7 +59,10 @@ const NavBarUser = () => {
                             }} className="block text-center w-full px-4 py-2 text-black font-bold hover:bg-gray-200">
                                 Enfants Inscrits
                             </button>
-                            <button className="block text-center w-full px-4 py-2 text-black font-bold hover:bg-gray-200">
+                            <button onClick={()=>{
+                                toggleDropdown();
+                                handleNavigate('/payments');
+                            }} className="block text-center w-full px-4 py-2 text-black font-bold hover:bg-gray-200">
                                 État des Paiements
                             </button>
                             <button onClick={()=>{
