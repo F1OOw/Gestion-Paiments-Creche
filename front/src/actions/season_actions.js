@@ -1,5 +1,5 @@
 import axios from "axios";
-import {addChildToSeason, updateSeason, updateChildInSeason,createSeason ,removeChildFromSeason , updateErrorSeason } from "../slices/season_slice";
+import {addChildToSeason, removeSeason, updateChildInSeason,createSeason ,removeChildFromSeason , updateErrorSeason } from "../slices/season_slice";
 
 // Fetch initial 
 export const fetchSeason = () => async (dispatch) => {
@@ -225,5 +225,23 @@ export const updateChild = (child) => async (dispatch) => {
     dispatch(updateChildInSeason(child));
   } catch (error) {
     console.error("Erreur lors de la modification de l'enfant de la saison:", error);
+  }
+}
+
+export const deleteSeason = () => async (dispatch) => {
+  try {
+    // await axios.delete(`api`);
+    dispatch(removeSeason());
+  } catch (error) {
+    console.error("Erreur lors de la suppression de la saison:", error);
+  }
+};
+
+export const archiveSeason = () => async (dispatch) => {
+  try {
+    // await axios.put(`api`);
+    dispatch(removeSeason());
+  } catch (error) {
+    console.error("Erreur lors de l'archivage de la saison:", error);
   }
 }
