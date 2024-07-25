@@ -57,8 +57,8 @@ def create_saison():
     return jsonify_alchemy(saison), 201
 
 @controller_template
-def delete_saison(id):
-    saison = db.session.query(Saisons).get_or_404(id)
+def delete_saison():
+    saison = db.session.query(Saisons).filter_by(actuelle=True).first()
     db.session.delete(saison)
     db.session.commit()
     return deleted_message()

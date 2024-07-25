@@ -1,4 +1,4 @@
-import {addChildToSeason, updateSeason, updateChildInSeason,createSeason ,removeChildFromSeason , updateErrorSeason } from "../slices/season_slice";
+import {addChildToSeason, removeSeason, updateSeason, updateChildInSeason,createSeason ,removeChildFromSeason , updateErrorSeason } from "../slices/season_slice";
 import {api, deleteToken} from "../utils/api"
 
 // Fetch initial 
@@ -144,36 +144,42 @@ export const updateChild = (child) => async (dispatch) => {
 
 export const deleteSeason = () => async (dispatch) => {
   try {
-    // await axios.delete(`api`);
+    await api.delete("/api/saison");
     dispatch(removeSeason());
   } catch (error) {
-    console.error("Erreur lors de la suppression de la saison:", error);
+    console.error(error);
+    switch(error.response?.status){
+      case 403:
+        deleteToken();
+        break ;
+      case 401:
+        deleteToken();
+        break;
+      case 500:
+        break;
+      default:
+        break ;
+    }
   }
 };
 
 export const archiveSeason = () => async (dispatch) => {
   try {
-    // await axios.put(`api`);
+    await api.get("/api/saison/archive");
     dispatch(removeSeason());
   } catch (error) {
-    console.error("Erreur lors de l'archivage de la saison:", error);
-  }
-}
-
-export const deleteSeason = () => async (dispatch) => {
-  try {
-    // await axios.delete(`api`);
-    dispatch(removeSeason());
-  } catch (error) {
-    console.error("Erreur lors de la suppression de la saison:", error);
-  }
-};
-
-export const archiveSeason = () => async (dispatch) => {
-  try {
-    // await axios.put(`api`);
-    dispatch(removeSeason());
-  } catch (error) {
-    console.error("Erreur lors de l'archivage de la saison:", error);
+    console.error(error);
+    switch(error.response?.status){
+      case 403:
+        deleteToken();
+        break ;
+      case 401:
+        deleteToken();
+        break;
+      case 500:
+        break;
+      default:
+        break ;
+    }
   }
 }

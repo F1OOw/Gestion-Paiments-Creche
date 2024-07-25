@@ -170,10 +170,10 @@
             "error": ""
         },
         {
-            "name": "/api/saison/<id_saison>",
+            "name": "/api/saison",
             "done": true,
             "method": "DELETE",
-            "description": "Supprimer la saison indiquée",
+            "description": "Supprimer la saison actuelle",
             "input": null,
             "output": {"message": "Deleted succesfully"},
             "error": ""

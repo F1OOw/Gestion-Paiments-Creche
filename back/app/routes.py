@@ -30,20 +30,17 @@ def handler2(id):
     else:
         return update_enfant(id)
 
-@routes.route("/api/saison",methods=['GET','POST','PUT'])
+@routes.route("/api/saison",methods=['GET','POST','PUT','DELETE'])
 @token_required
 def handler3():
     if request.method=='GET':
         return get_current_saison()
     elif request.method=='PUT':
         return update_current_saison()
+    elif request.method=='DELETE':
+        return delete_saison()
     else:
         return create_saison()
-
-@routes.route("/api/saison/<int:id>",methods=['DELETE'])
-@token_required
-def handler4(id):
-    return delete_saison(id)
 
 @routes.route("/api/saison/enfants",methods=['GET'])
 @token_required
