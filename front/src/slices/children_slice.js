@@ -1,5 +1,7 @@
 // slices/childrenSlice.js
 import { createSlice } from '@reduxjs/toolkit';
+import { removeChildFromSeason } from './season_slice';
+import { useDispatch } from 'react-redux';
 
 // const initialState = [];
 
@@ -20,7 +22,11 @@ const childrenSlice = createSlice({
     },
     removeChild(state, action) {
       const index = state.children.findIndex(child => child.id === action.payload.id);
-      state.children.splice(index,index);
+      if (index==0){
+        state.children.splice(0,1);
+      } else {
+        state.children.splice(index,index);
+      }
     },
     updateChild(state, action) {
       const index = state.children.findIndex(child => child.id === action.payload.id);

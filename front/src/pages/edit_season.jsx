@@ -5,7 +5,7 @@ import children from "../assets/Children-rafiki.png";
 import calender from "../assets/calender.png";
 import rafiki from "../assets/rafiki.png";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DeleteConfirmation from "../components/delete_confirmation"; 
 import ArchiveConfirmation from "../components/archive_confirmation";
 import { deleteSeason , archiveSeason } from "../actions/season_actions";
@@ -13,6 +13,7 @@ import { deleteSeason , archiveSeason } from "../actions/season_actions";
 export default function EditSeason() {
     const navigate = useNavigate();
     const season = useSelector((state) => state.season);
+    const dispatch = useDispatch();
 
     const childrenNumber = season.enfants.length;
     //confirmtion here (delete and archive)
@@ -21,8 +22,7 @@ export default function EditSeason() {
         setIsDeleteOpen(false);
     };
     const handleConfirmDelete = () => {
-        deleteSeason();
-        console.log('Item deleted');
+        dispatch(deleteSeason());
         setIsDeleteOpen(false);
         navigate('/'); 
     };
@@ -31,7 +31,7 @@ export default function EditSeason() {
         setIsArchiveOpen(false);
     };
     const handleConfirmArchive = () => {
-        archiveSeason();
+        dispatch(archiveSeason());
         console.log('Item archivé');
         setIsArchiveOpen(false);
         navigate('/'); 
@@ -68,7 +68,7 @@ export default function EditSeason() {
                     <DeleteConfirmation
                         isOpen={isDeleteOpen}
                         onClose={handleCloseDeleteModal}
-                        onConfirm={() => { handleConfirmDelete() }}
+                        onConfirm={()=>{handleConfirmDelete()}}
                         name={"cette saison"}
                     />
                 )}

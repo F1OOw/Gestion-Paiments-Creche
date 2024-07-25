@@ -121,7 +121,7 @@ const AddChildForm = ({ isOpen, onClose, onAdd }) => {
           </div>
           <div className="  justify-between px-8 w-[65%]">
                 <label className="text-black font-bold">Adresse : </label>
-                <input
+                <textarea
                 type="text"
                 name="adresse"
                 value={formData.adresse}

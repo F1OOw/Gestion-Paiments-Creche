@@ -52,7 +52,9 @@ const seasonSlice = createSlice({
     updateChildInSeason(state, action) {
       const index = state.enfants.findIndex(child => child.id === action.payload.id);
       if (index !== -1) {
-        state.enfants[index] = action.payload;
+        Object.keys(action.payload).forEach(key=>{
+          state.enfants[index][key]=action.payload[key]
+        })
       }
     },
     updateErrorSeason(state, action) {

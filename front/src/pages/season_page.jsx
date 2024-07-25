@@ -142,18 +142,6 @@ export default function SeasonPage() {
                                         Supprimer
                                     </button>
                                 </div>
-                                <DeleteConfirmationInSeason
-                                    isOpen={isDeleteOpen}
-                                    onClose={handleCloseDeleteModal}
-                                    onConfirm={() => { handleConfirmDelete(child.id) }}
-                                    name={child.nom}
-                                />
-                                <EditChildInSeason
-                                    isOpen={isUpdateFormOpen}
-                                    onClose={handleCloseUpdateForm}
-                                    onUpdate={handleUpdateChild}
-                                    child={child}
-                                />
                             </div>
                         ))
                     )}

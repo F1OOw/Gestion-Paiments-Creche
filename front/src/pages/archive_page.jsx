@@ -40,9 +40,6 @@ const ArchivePage = () => {
             const response = await api.get(`/api/archives/${id}`, {
                 responseType: 'blob' // Important for handling binary data
             });
-
-            console.log(response.data);
-            
             saveAs(response.data,`archive_${id}.csv`)
 
         } catch (error) {

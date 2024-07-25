@@ -102,7 +102,7 @@ export default function Payment() {
         <div className='flex flex-col items-center'>
             <NavBarUser />
             <div className="h-[10vh] mb-4 w-[90%] flex flex-row justify-around items-center">
-                <h1 className="text-2xl text-myblue">Enfants qui n’ont pas payés dans ce mois :</h1>
+                <h1 className="text-2xl text-myblue">Enfants qui n’ont pas payés dans ce mois : <b>{children.length}</b></h1>
                 <div className="w-[20%]"></div>
                 <div className="relative w-[35%] z-0">
                     <input

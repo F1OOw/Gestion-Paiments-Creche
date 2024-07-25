@@ -1,4 +1,5 @@
 import { addChild, loadChildren, removeChild, updateChild } from '../slices/children_slice';
+import { removeChildFromSeason, updateChildInSeason } from '../slices/season_slice';
 import {api, deleteToken} from "../utils/api"
 
 // Fetch initial children
@@ -60,6 +61,7 @@ export const updateChildInDB = (formData) => async (dispatch) => {
     
     const updatedChild = response.data;
     dispatch(updateChild(updatedChild));
+    dispatch(updateChildInSeason(updatedChild));
     
   } catch (error) {
     console.error(error);
@@ -83,6 +85,7 @@ export const removeChildFromDB = (id) => async (dispatch) => {
   try {
     api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     const response = await api.delete(`/api/enfants/${id}`);
+    dispatch(removeChildFromSeason({id}));
     dispatch(removeChild({id}));
   } catch (error) {
     console.error(error);
