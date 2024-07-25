@@ -141,3 +141,39 @@ export const updateChild = (child) => async (dispatch) => {
     }
   }
 }
+
+export const deleteSeason = () => async (dispatch) => {
+  try {
+    // await axios.delete(`api`);
+    dispatch(removeSeason());
+  } catch (error) {
+    console.error("Erreur lors de la suppression de la saison:", error);
+  }
+};
+
+export const archiveSeason = () => async (dispatch) => {
+  try {
+    // await axios.put(`api`);
+    dispatch(removeSeason());
+  } catch (error) {
+    console.error("Erreur lors de l'archivage de la saison:", error);
+  }
+}
+
+export const deleteSeason = () => async (dispatch) => {
+  try {
+    // await axios.delete(`api`);
+    dispatch(removeSeason());
+  } catch (error) {
+    console.error("Erreur lors de la suppression de la saison:", error);
+  }
+};
+
+export const archiveSeason = () => async (dispatch) => {
+  try {
+    // await axios.put(`api`);
+    dispatch(removeSeason());
+  } catch (error) {
+    console.error("Erreur lors de l'archivage de la saison:", error);
+  }
+}

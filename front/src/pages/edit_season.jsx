@@ -1,4 +1,4 @@
-// import React from "react";
+import React, {useState} from "react";
 import NavBarUser from "../components/navbar";
 import SettingOption from "../components/setting_option";
 import children from "../assets/Children-rafiki.png";
@@ -6,11 +6,36 @@ import calender from "../assets/calender.png";
 import rafiki from "../assets/rafiki.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import DeleteConfirmation from "../components/delete_confirmation"; 
+import ArchiveConfirmation from "../components/archive_confirmation";
+import { deleteSeason , archiveSeason } from "../actions/season_actions";
 
 export default function EditSeason() {
     const navigate = useNavigate();
     const season = useSelector((state) => state.season);
+
     const childrenNumber = season.enfants.length;
+    //confirmtion here (delete and archive)
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const handleCloseDeleteModal = () => {
+        setIsDeleteOpen(false);
+    };
+    const handleConfirmDelete = () => {
+        deleteSeason();
+        console.log('Item deleted');
+        setIsDeleteOpen(false);
+        navigate('/'); 
+    };
+    const [isArchiverOpen, setIsArchiveOpen] = useState(false);
+    const handleCloseArchiveModal = () => {
+        setIsArchiveOpen(false);
+    };
+    const handleConfirmArchive = () => {
+        archiveSeason();
+        console.log('Item archivé');
+        setIsArchiveOpen(false);
+        navigate('/'); 
+    };
     return (
         <div className="h-[100vh] flex flex-col justify-between">
             <NavBarUser/>
@@ -24,11 +49,37 @@ export default function EditSeason() {
                 </div>
                 <div className="flex flex-row  w-[60%] justify-evenly">
                     <button 
+                    onClick={
+                        () => {
+                            setIsDeleteOpen(true);
+                        }
+                    }
                     className="bg-myorange text-white px-6 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Supprimer</button>
                     <button 
+                    onClick={
+                        () => {
+                            setIsArchiveOpen(true);
+                        }
+                    }
                     className="bg-myyellow text-white px-6 py-2 rounded-xl shadow-slate-300 border-2 border-white text-sm shadow-xl">Archiver</button>
                  </div>
             </div>
+            {isDeleteOpen && (
+                    <DeleteConfirmation
+                        isOpen={isDeleteOpen}
+                        onClose={handleCloseDeleteModal}
+                        onConfirm={() => { handleConfirmDelete() }}
+                        name={"cette saison"}
+                    />
+                )}
+            {isArchiverOpen && (
+                    <ArchiveConfirmation
+                        isOpen={isArchiverOpen}
+                        onClose={handleCloseArchiveModal}
+                        onConfirm={() => { handleConfirmArchive() }}
+                        name={"cette saison"}
+                    />
+                )}
         </div>
     );
 }
