@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import NavBarUser from '../components/navbar';
 import { useSelector } from 'react-redux';
 import { FaSearch } from 'react-icons/fa';
-import axios from 'axios';
+import { api } from '../utils/api';
 
 const months = [
     { id: 1, name: 'Jan', number: '01' },
-    { id: 2, name: 'Feb', number: '02' },
+    { id: 2, name: 'Fev', number: '02' },
     { id: 3, name: 'Mar', number: '03' },
-    { id: 4, name: 'Apr', number: '04' },
-    { id: 5, name: 'May', number: '05' },
+    { id: 4, name: 'Avr', number: '04' },
+    { id: 5, name: 'Mai', number: '05' },
     { id: 6, name: 'Jun', number: '06' },
     { id: 7, name: 'Jul', number: '07' },
-    { id: 8, name: 'Aug', number: '08' },
+    { id: 8, name: 'Aou', number: '08' },
     { id: 9, name: 'Sep', number: '09' },
     { id: 10, name: 'Oct', number: '10' },
     { id: 11, name: 'Nov', number: '11' },
@@ -21,7 +21,7 @@ const months = [
 
 export default function Payment() {
     // const children = useSelector(state => state.season.enfants);
-    const [children, setChildren] = useState([]); 
+    const [children, setChildren] = useState([]);
     const [filter, setFilter] = useState('');
     const [selectedMonth, setSelectedMonth] = useState(null);
 
@@ -29,18 +29,68 @@ export default function Payment() {
 
     const handleMonthClick = (monthId) => setSelectedMonth(monthId);
     const enfs = useSelector(state => state.season.enfants);
+
+    const [moisSaison, setMoisSaison] = useState([]);
+
+    useEffect(()=>{
+        const fetchMonths = async ()=>{
+            try {
+                api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+                const response = await api.get("/api/saison/mois")
+                setMoisSaison(response.data.mois);
+
+            }catch (error) {
+                console.error(error);
+                switch(error.response?.status){
+                  case 403:
+                    deleteToken();
+                    break ;
+                  case 401:
+                    deleteToken();
+                    break;
+                  case 500:
+                    break;
+                  default:
+                    break ;
+                }
+              }
+        }
+
+        fetchMonths();
+    },[]);
+
     useEffect(() => {
+        
+        const fetchChildren = async ()=>{
+            try {
+                api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+
+                const response = await api.post("/api/saison/paiements",JSON.stringify({"mois": selectedMonth}));
+
+                setChildren(response.data)
+
+                
+            } catch (error) {
+                console.error(error);
+                switch(error.response?.status){
+                  case 403:
+                    deleteToken();
+                    break ;
+                  case 401:
+                    deleteToken();
+                    break;
+                  case 500:
+                    break;
+                  default:
+                    break ;
+                }
+              }
+        }
+        
         if (selectedMonth !== null) {
-            setChildren(enfs);
-            console.log('Fetching children data for month:', selectedMonth);
-            // axios.get(`/api/saison/paiements?month=${selectedMonth}`)
-            //     .then(response => {
-            //         setChildren(response.data);
-            //     })
-            //     .catch(error => {
-            //         console.error('Error fetching children data:', error);
-            //     });
-        } // change just thus
+            fetchChildren();  
+        } 
+
     }, [selectedMonth]);
 
     const filteredChildren = children.filter(child =>
@@ -79,7 +129,7 @@ export default function Payment() {
                         <div className="flex flex-col">
                             {filteredChildren.length === 0 ? (
                                 <div className="h-[10vh] w-[100%] flex justify-center items-center">
-                                    <p className="text-xl font-semibold">Pas d'enfants, veuillez ajouter</p>
+                                    <p className="text-xl font-semibold">Pas de Retard</p>
                                 </div>
                             ) : (
                                 filteredChildren.map(child => (
@@ -105,14 +155,14 @@ export default function Payment() {
                 <div className='w-[35%]  h-full flex flex-col items-center'>
                     <h2 className="text-3xl px-2  mb-2 text-myblue">Veuiller choisir un mois :</h2>
                     <div className="grid grid-cols-3 gap-4 p-4">
-                        {months.map(month => (
+                        {moisSaison.map(month => (
                             <div
-                                key={month.id}
-                                onClick={() => handleMonthClick(month.id)}
-                                className={`px-7 py-5 shadow-2xl border cursor-pointer rounded-xl flex flex-col items-center ${selectedMonth === month.id ? 'bg-myblue' : 'bg-[#f6f6f6]'}`}
+                                key={months[month-1].id}
+                                onClick={() => handleMonthClick(months[month-1].id)}
+                                className={`px-7 py-5 shadow-2xl border cursor-pointer rounded-xl flex flex-col items-center ${selectedMonth === months[month-1].id ? 'bg-myblue' : 'bg-[#f6f6f6]'}`}
                             >
-                                <p className="text-lg font-semibold">{month.name}</p>
-                                <p className="text-md">{month.number}</p>
+                                <p className="text-lg font-semibold">{months[month-1].name}</p>
+                                <p className="text-md">{months[month-1].number}</p>
                             </div>
                         ))}
                     </div>
