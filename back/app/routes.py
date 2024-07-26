@@ -13,7 +13,7 @@ from db import db
 routes = Blueprint("routes",__name__)
 
 @routes.route('/api/enfants', methods=['GET',"POST"])
-# @token_required
+@token_required
 def handler1():
     if request.method == 'GET':
         return get_enfants()
@@ -21,7 +21,7 @@ def handler1():
         return add_enfant()
 
 @routes.route("/api/enfants/<int:id>",methods=['GET','DELETE','PUT'])
-# @token_required
+@token_required
 def handler2(id):
     if request.method == 'GET':
         return get_enfant(id)
@@ -31,7 +31,7 @@ def handler2(id):
         return update_enfant(id)
 
 @routes.route("/api/saison",methods=['GET','POST','PUT','DELETE'])
-# @token_required
+@token_required
 def handler3():
     if request.method=='GET':
         return get_current_saison()
@@ -43,22 +43,22 @@ def handler3():
         return create_saison()
 
 @routes.route("/api/saison/enfants",methods=['GET'])
-# @token_required
+@token_required
 def handler5():
     return get_saison_enfants()
 
 @routes.route("/api/saison/mois",methods=['GET'])
-# @token_required
+@token_required
 def handler13():
     return get_current_saison_months()
 
 @routes.route("/api/saison/groupes",methods=['GET'])
-# @token_required
+@token_required
 def handler14():
     return get_current_saison_groupes()
 
 @routes.route("/api/saison/enfants/<int:id>",methods=['GET',"POST",'PUT','DELETE'])
-# @token_required
+@token_required
 def handler6(id):
     if request.method=='POST':
         return enroll_enfant_saison(id)
@@ -70,12 +70,12 @@ def handler6(id):
         return update_enfant_saison(id)
 
 @routes.route('/api/saison/paiements', methods=['POST'])
-# @token_required
+@token_required
 def handler7():
     return get_unpaid_enfants()
 
 @routes.route('/api/saison/paiements/<int:id>', methods=['GET',"POST"])
-# @token_required
+@token_required
 def handler8(id):
     if request.method == "GET":
         return get_enfant_paiements(id)
@@ -83,18 +83,18 @@ def handler8(id):
         return update_paiement(id)
 
 @routes.route("/api/saison/archive",methods=['GET'])
-# @token_required
+@token_required
 def handler9():
     return archive_saison()
 
 
 @routes.route("/api/archives",methods=['GET'])
-# @token_required
+@token_required
 def handler10():
     return get_archives()
 
 @routes.route("/api/archives/<int:id>",methods=['GET'])
-# @token_required
+@token_required
 def handler11(id):
     return download_archive(id)
 
