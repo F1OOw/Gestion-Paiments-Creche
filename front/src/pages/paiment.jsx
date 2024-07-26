@@ -3,6 +3,7 @@ import NavBarUser from '../components/navbar';
 import { useSelector } from 'react-redux';
 import { FaSearch } from 'react-icons/fa';
 import { api } from '../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 const months = [
     { id: 1, name: 'Jan', number: '01' },
@@ -26,9 +27,12 @@ export default function Payment() {
     const [selectedMonth, setSelectedMonth] = useState(null);
 
     const handleFilterChange = (e) => setFilter(e.target.value);
+    const navigate = useNavigate(); 
+    const handleEditPayment = (id) => {
+        navigate(`/edit_payment/${id}`); 
+    }
 
     const handleMonthClick = (monthId) => setSelectedMonth(monthId);
-    const enfs = useSelector(state => state.season.enfants);
 
     const [moisSaison, setMoisSaison] = useState([]);
 
@@ -135,7 +139,7 @@ export default function Payment() {
                                 </div>
                             ) : (
                                 filteredChildren.map(child => (
-                                    <div key={child.id} className="flex flex-row">
+                                    <div onClick={() => handleEditPayment(child.id)} key={child.id} className="flex cursor-pointer hover:bg-mygray  flex-row">
                                         <div className="h-[10vh] border w-[40%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
                                             <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>
                                         </div>

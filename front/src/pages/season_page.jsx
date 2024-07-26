@@ -110,7 +110,7 @@ export default function SeasonPage() {
                         </div>
                     ) : (
                         filteredChildren.map(child => (
-                            <div onClick={() => handleEditPayment(child.id)} key={child.id} className="flex cursor-pointer flex-row">
+                            <div onClick={() => handleEditPayment(child.id)} key={child.id} className="flex cursor-pointer hover:bg-mygray flex-row">
                                 <div className="h-[10vh] border w-[20%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
                                     <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>
                                 </div>
