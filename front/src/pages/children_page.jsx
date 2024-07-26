@@ -79,7 +79,7 @@ export default function ChildrenPage() {
                         <input
                             type="text"
                             placeholder="Introduisez un nom d'enfant ..."
-                            className="w-full border-2 border-myyellow rounded-3xl py-2 px-4 focus:outline-none focus:border-myyellow"
+                            className="w-full  border-2 border-myyellow rounded-3xl py-2 px-4 focus:outline-none focus:border-myyellow"
                             value={filter}
                             onChange={handleFilterChange}
                         />

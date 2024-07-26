@@ -24,7 +24,7 @@ const CreateSeason = ({ isOpen, onClose, onAdd }) => {
 
   return (
       <div className="fixed inset-0 z-100 flex items-center justify-center bg-gray-800 bg-opacity-35">
-      <div className="bg-[#FFFBFB] p-2 rounded-3xl shadow-lg h-[40vh] w-[40%] flex flex-col justify-evenly items-center">
+      <div className="bg-[#FFFBFB] p-2 rounded-3xl shadow-lg h-[40vh] w-[40%] flex  z-50 flex-col justify-evenly items-center">
         <div className='h-[30%] text-center'>
             <h2 className="text-2xl tracking-wide px-2 pb-2 font-bold">Aucune saison actuelle !</h2>
             <p className="text px-2 ">Ajout d'une nouvelle saison</p>

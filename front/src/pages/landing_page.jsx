@@ -42,7 +42,7 @@ export default function LandingPage() {
     
     return (
         <div className="h-[100vh] flex flex-col justify-between">
-            <NavBarUser/>
+            <NavBarUser openCreateSeason={handleCreateClick} / >
             <div className="h-[85%]  flex flex-col justify-evenly items-center ">
                 <h1 className="text-4xl text-myblue font-bold ">Choisissez ce que vous voulez faire</h1>
                 <div className="h-[80%] w-[100%] flex flex-row justify-evenly items-center">

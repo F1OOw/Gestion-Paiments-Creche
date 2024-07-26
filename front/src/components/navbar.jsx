@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createNewSeason } from "../actions/season_actions";
 import CreateSeason from './create_season'; 
 
-const NavBarUser = () => {
+const NavBarUser = ({openCreateSeason}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -34,8 +34,11 @@ const NavBarUser = () => {
         }
     };
 
+    const isLanding = location.pathname === '/';
+
     return (
-        <nav className="flex items-center justify-around w-full p-4 h-[15%] z-10 relative">
+        <div>
+            <nav className="flex items-center justify-around w-[100%] p-4 h-[15vh] z-10 relative">
             <img onClick={()=>handleNavigate('/')} src={logo} alt="Logo" className=" cursor-pointer w-[20%] h-[100%]" />
             <div className="flex flex-row justify-evenly items-center w-[55%]">
                 <button onClick={() => handleNavigate('/children')} className="text-black font-bold text-lg tracking-wide hover:text-gray-300 border-b-2 border-myblue pb-2">
@@ -46,7 +49,11 @@ const NavBarUser = () => {
                         if(season.date_debut){
                             toggleDropdown(); 
                         }else{
-                            handleCreateClick();  
+                            if(isLanding){
+                                openCreateSeason(); 
+                            }else{
+                                handleCreateClick();  
+                            }
                         }
                     }} className="text-black font-bold text-lg tracking-wide hover:text-gray-300 border-b-2 border-myorange pb-2">
                         Saison
@@ -81,16 +88,15 @@ const NavBarUser = () => {
                     Archive
                 </button>
             </div>
-            {!isCreateSeason || (
-                <div>
-                    <CreateSeason
-                        isOpen={isCreateSeason}
-                        onClose={handleCloseCreate}
-                        onAdd={handleCreateSeason}
-                    />
-                </div>
-            )}
         </nav>
+        {!isCreateSeason || (
+            <CreateSeason
+                isOpen={isCreateSeason}
+                onClose={handleCloseCreate}
+                onAdd={handleCreateSeason}
+            />
+        )}
+        </div>
     );
 };
 
