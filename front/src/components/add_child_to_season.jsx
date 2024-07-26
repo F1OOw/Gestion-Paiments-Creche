@@ -96,9 +96,9 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
               filteredChildren.map((child) => (
                 <label
                   key={child.id}
-                  className="flex p-5 border-b border-myyellow w-[100%] h-[50%] flex-row justify-around items-center"
+                  className="flex cursor-pointer p-5 border-b border-myyellow w-[100%] h-[50%] flex-row justify-around items-center"
                 >
-                  <div className='font-semibold'>{child.nom} {child.prenom}</div>
+                  <p className='font-semibold w-[45%]'>{child.nom} {child.prenom}</p>
                   <input
                     type="radio"
                     className='h-5 w-5 bg-black border-red-300 rounded'
@@ -120,11 +120,11 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
               <select
                 value={selectedGroup}
                 onChange={handleGroupChange}
-                className="mt-2 bg-mygray border text-black border-myyellow rounded-lg py-1 px-4 focus:outline-none focus:border-myyellow"
+                className="mt-2 bg-mygray cursor-pointer border text-black border-myyellow rounded-lg py-1 px-4 focus:outline-none focus:border-myyellow"
               >
                 <option value="" disabled></option>
                 {groupes.map((groupe) => (
-                  <option key={groupe} value={groupe}>
+                  <option key={groupe}  value={groupe}>
                     Groupe {groupe}
                   </option>
                 ))}
@@ -139,7 +139,7 @@ const AddChildToSeason = ({ isOpen, onClose, onAdd }) => {
                 id="transport-checkbox"
                 checked={isTransport}
                 onChange={handleCheckboxTransport}
-                className="text-myyellow h-5 w-5"
+                className="text-myyellow h-5 w-5 cursor-pointer"
               />
             </div>
           </div>

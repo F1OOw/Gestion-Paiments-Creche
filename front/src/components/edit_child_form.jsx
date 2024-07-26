@@ -48,7 +48,7 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
 
   return (
     <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-800 bg-opacity-25">
-      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[65vh] w-[40%] ">
+      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[75vh] w-[40%] ">
         <h2 className="text-xl px-2 font-bold mb-2">Modifier Enfant</h2>
         <form onSubmit={handleSubmit}>
             <div className='mb-2 flex flex-row justify-between px-8 w-full'>
