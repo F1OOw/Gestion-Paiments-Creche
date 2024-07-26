@@ -13,6 +13,10 @@ import { createNewSeason } from "../actions/season_actions";
 import { useState } from "react";
 import CreateSeason from "../components/create_season";
 import { useSelector } from "react-redux";
+//use setNotification to display a notification everywhere u need to display a notification
+//import setNotification and dispatch and use it like this : dispatch(setNotification({message: "message"}))
+//and it will display as a notification
+import { setNotification } from '../slices/notification_slice';
 
 export default function LandingPage() {
     const navigate = useNavigate();
@@ -49,11 +53,12 @@ export default function LandingPage() {
                     {/* here we display the different options */}
                     <Option image={children} color={"myblue"} description={"Gérer l’ensemble des enfants"} title={"Enfants"} onClick={()=>{handleNavigate('/children')}}/>
                     <Option image={saison} color={"myorange"} description={"Gérer la saison actuelle"} title={"Saison"} onClick={()=>{
-                        if(season.date_debut){
-                            handleNavigate('/season');
-                        }else{
-                            handleCreateClick();  
-                        }
+                        // if(season.date_debut){
+                        //     handleNavigate('/season');
+                        // }else{
+                        //     handleCreateClick();  
+                        // }
+                        dispatch(setNotification({message: "La saison est déjà créée"}));
                          }}/>
                     <Option  image={archive} color={"myyellow"} description={"voir l’archive des saisons"} title={"Archive"} onClick={()=>{handleNavigate('archive')}}/>
                 </div>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'; 
 import NavBarUser from '../components/navbar';
-import { useSelector } from 'react-redux';
 import { FaSearch } from 'react-icons/fa';
 import { api } from '../utils/api';
 import { useNavigate } from 'react-router-dom';

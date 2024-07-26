@@ -11,11 +11,14 @@ import Payment from "./pages/paiment";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { validateToken } from "./actions/user_actions";
+import { useSelector } from "react-redux";
+import Notification from "./components/notification_popup";
 
 
 
 function App() {
   const dispatch = useDispatch();
+  const message = useSelector((state) => state.notification.message);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -24,7 +27,9 @@ function App() {
     }
   }, [dispatch]);
   return(
-    <Router>
+    <div>
+      {message && <Notification message={message} />}
+      <Router>
         <Routes>
           <Route path="/" element={<ProtectedRoute />}>
             <Route path="/" element={<LandingPage />} />
@@ -39,6 +44,7 @@ function App() {
           <Route path="*" element={<p>Not Found oops</p>} />
         </Routes>
       </Router>
+    </div>
   ); 
 }
 
