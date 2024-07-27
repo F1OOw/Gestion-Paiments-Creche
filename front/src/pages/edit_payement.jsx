@@ -205,7 +205,7 @@ const EditPayment = () => {
           </div>
           <div className="mb-2  justify-between px-8 w-[65%]">
                 <label className="text-black font-bold">Adresse : </label>
-                <input
+                <textarea
                 type="text"
                 name="adresse"
                 readOnly
