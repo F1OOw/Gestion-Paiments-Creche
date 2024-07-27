@@ -32,7 +32,6 @@ export default function EditSeason() {
     };
     const handleConfirmArchive = () => {
         dispatch(archiveSeason());
-        console.log('Item archivé');
         setIsArchiveOpen(false);
         navigate('/'); 
     };

@@ -37,12 +37,18 @@ const EditPayment = () => {
         console.error(error);
         switch(error.response?.status){
           case 403:
+            dispatch(setNotification({message: "Session expirée",isError: true}))
             deleteToken();
             break ;
           case 401:
+            dispatch(setNotification({message: "Session expirée",isError: true}))
             deleteToken();
             break;
+          case 404:
+            dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+            break;
           case 500:
+            dispatch(setNotification({message: "Erreur du serveur", isError: true}))
             break;
           default:
             break ;
@@ -65,12 +71,18 @@ const EditPayment = () => {
       console.error(error);
       switch(error.response?.status){
         case 403:
+          dispatch(setNotification({message: "Session expirée",isError: true}))
           deleteToken();
           break ;
         case 401:
+          dispatch(setNotification({message: "Session expirée",isError: true}))
           deleteToken();
           break;
+        case 404:
+          dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+          break;
         case 500:
+          dispatch(setNotification({message: "Erreur du serveur", isError: true}))
           break;
         default:
           break ;

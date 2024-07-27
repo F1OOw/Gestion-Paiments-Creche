@@ -13,10 +13,6 @@ import { createNewSeason } from "../actions/season_actions";
 import { useState } from "react";
 import CreateSeason from "../components/create_season";
 import { useSelector } from "react-redux";
-//use setNotification to display a notification everywhere u need to display a notification
-//import setNotification and dispatch and use it like this : dispatch(setNotification({message: "message"}))
-//and it will display as a notification
-import { setNotification } from '../slices/notification_slice';
 
 export default function LandingPage() {
     const navigate = useNavigate();
@@ -46,19 +42,18 @@ export default function LandingPage() {
     
     return (
         <div className="h-[100vh] flex flex-col justify-between">
-            <NavBarUser openCreateSeason={handleCreateClick} / >
+            <NavBarUser openCreateSeason={handleCreateClick} />
             <div className="h-[85%]  flex flex-col justify-evenly items-center ">
                 <h1 className="text-4xl text-myblue font-bold ">Choisissez ce que vous voulez faire</h1>
                 <div className="h-[80%] w-[100%] flex flex-row justify-evenly items-center">
                     {/* here we display the different options */}
                     <Option image={children} color={"myblue"} description={"Gérer l’ensemble des enfants"} title={"Enfants"} onClick={()=>{handleNavigate('/children')}}/>
                     <Option image={saison} color={"myorange"} description={"Gérer la saison actuelle"} title={"Saison"} onClick={()=>{
-                        // if(season.date_debut){
-                        //     handleNavigate('/season');
-                        // }else{
-                        //     handleCreateClick();  
-                        // }
-                        dispatch(setNotification({message: "La saison est déjà créée"}));
+                        if(season.date_debut){
+                            handleNavigate('/season');
+                        }else{
+                            handleCreateClick();  
+                        }
                          }}/>
                     <Option  image={archive} color={"myyellow"} description={"voir l’archive des saisons"} title={"Archive"} onClick={()=>{handleNavigate('archive')}}/>
                 </div>

@@ -1,4 +1,5 @@
 import { addChild, loadChildren, removeChild, updateChild } from '../slices/children_slice';
+import { setNotification } from '../slices/notification_slice';
 import { removeChildFromSeason, updateChildInSeason } from '../slices/season_slice';
 import {api, deleteToken} from "../utils/api"
 
@@ -14,12 +15,15 @@ export const fetchChildren = () => async (dispatch) => {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;
@@ -36,16 +40,20 @@ export const addChildToDB = ({formData}) => async (dispatch) => {
     );
     const newChild = response.data;
     dispatch(addChild(newChild));
+    dispatch(setNotification({message: "Enfant ajouté avec succés",isError: false}))
   } catch (error) {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;
@@ -62,17 +70,21 @@ export const updateChildInDB = (formData) => async (dispatch) => {
     const updatedChild = response.data;
     dispatch(updateChild(updatedChild));
     dispatch(updateChildInSeason(updatedChild));
+    dispatch(setNotification({message: "Modification effectuée avec succés",isError: false}));
     
   } catch (error) {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;
@@ -87,16 +99,21 @@ export const removeChildFromDB = (id) => async (dispatch) => {
     const response = await api.delete(`/api/enfants/${id}`);
     dispatch(removeChildFromSeason({id}));
     dispatch(removeChild({id}));
+    dispatch(setNotification({message: "Suppression effectuée avec succés",isError: false}));
+
   } catch (error) {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;

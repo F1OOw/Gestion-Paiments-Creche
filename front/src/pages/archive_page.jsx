@@ -2,9 +2,12 @@ import React, { useEffect , useState } from "react";
 import NavBarUser from "../components/navbar";
 import { api, deleteToken } from "../utils/api";
 import { saveAs } from 'file-saver';
+import { setNotification } from "../slices/notification_slice";
+import { useDispatch } from "react-redux";
 
 const ArchivePage = () => {
     const [archive, setArchive] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         // fetch archive data
@@ -18,12 +21,18 @@ const ArchivePage = () => {
                 console.error(error);
                 switch(error.response?.status){
                   case 403:
+                    dispatch(setNotification({message: "Session expirée",isError: true}))
                     deleteToken();
                     break ;
                   case 401:
+                    dispatch(setNotification({message: "Session expirée",isError: true}))
                     deleteToken();
                     break;
+                  case 404:
+                    dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+                    break;
                   case 500:
+                    dispatch(setNotification({message: "Erreur du serveur", isError: true}))
                     break;
                   default:
                     break ;
@@ -46,12 +55,18 @@ const ArchivePage = () => {
             console.error(error);
             switch(error.response?.status){
               case 403:
+                dispatch(setNotification({message: "Session expirée",isError: true}))
                 deleteToken();
                 break ;
               case 401:
+                dispatch(setNotification({message: "Session expirée",isError: true}))
                 deleteToken();
                 break;
+              case 404:
+                dispatch(setNotification({message: "Cet archive n'existe pas", isError: true}))
+                break;
               case 500:
+                dispatch(setNotification({message: "Erreur du serveur", isError: true}))
                 break;
               default:
                 break ;

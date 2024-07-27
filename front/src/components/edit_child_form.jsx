@@ -48,7 +48,7 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
 
   return (
     <div className="fixed inset-0 z-20 flex items-center justify-center bg-gray-800 bg-opacity-25">
-      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[75vh] w-[40%] ">
+      <div className="bg-[#FFFBFB] p-6 rounded-xl shadow-lg h-[68vh] w-[40%] ">
         <h2 className="text-xl px-2 font-bold mb-2">Modifier Enfant</h2>
         <form onSubmit={handleSubmit}>
             <div className='mb-2 flex flex-row justify-between px-8 w-full'>
@@ -61,7 +61,7 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
                     onChange={handleChange}
                     className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
                     required
-                />
+                    />
                 </div>
                 <div className="w-[40%]">
                     <label className="text-black font-bold">Prénom :</label>
@@ -75,17 +75,17 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
                     />
                 </div>
             </div>
-          <div className="mb-2 px-8 w-[45%]">
-            <label className="text-black font-bold">Date de naissance :</label>
-            <input
-              type="date"
-              name="date_naissance"
-              value={formData.date_naissance}
-              onChange={handleChange}
-              className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
-              required
-            />
-          </div>
+            <div className="mb-2 px-8 w-[45%]">
+              <label className="text-black font-bold">Date de naissance :</label>
+              <input
+                type="date"
+                name="date_naissance"
+                value={formData.date_naissance}
+                onChange={handleChange}
+                className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
+                required
+              />
+            </div>
           <h2 className="text-xl px-2 font-bold mb-2">Parent</h2>
           <div className='mb-2 flex flex-row justify-between px-8 w-full'>
             <div className="w-[40%]">
@@ -146,7 +146,7 @@ const EditChildForm = ({ isOpen, onClose, onUpdate, child }) => {
                 required
                 />
             </div>
-          <div className="flex  justify-evenly">
+          <div className="flex justify-evenly">
             <button
               type="button"
               onClick={onClose}

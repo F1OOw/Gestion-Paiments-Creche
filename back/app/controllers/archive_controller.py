@@ -8,6 +8,8 @@ import csv
 @controller_template
 def archive_saison():
     saison = db.session.query(Saisons).filter_by(actuelle=True).first()
+    if not saison:
+        return jsonify({'error': 'No current season found'}), 404
     inscriptions = db.session.query(Inscriptions).filter_by(id_saison=saison.id).all()
     
 
@@ -63,5 +65,7 @@ def get_archives():
 @controller_template
 def download_archive(id):
     archive = db.session.query(Archives).filter_by(id=id).first()
+    if not archive:
+        return jsonify({'error': 'No archive season found'}), 404
     return send_file(ARCHIVE_FOLDER+f"{archive.fichier}.csv",as_attachment=True)
     

@@ -18,7 +18,7 @@ import Notification from "./components/notification_popup";
 
 function App() {
   const dispatch = useDispatch();
-  const message = useSelector((state) => state.notification.message);
+  const {message,isError} = useSelector((state) => state.notification);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -28,7 +28,7 @@ function App() {
   }, [dispatch]);
   return(
     <div>
-      {message && <Notification message={message} />}
+      {message && <Notification message={message} isError={isError} />}
       <Router>
         <Routes>
           <Route path="/" element={<ProtectedRoute />}>

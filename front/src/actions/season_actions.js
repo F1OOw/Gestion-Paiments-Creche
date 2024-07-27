@@ -1,3 +1,4 @@
+import { setNotification } from "../slices/notification_slice";
 import {addChildToSeason, removeSeason, updateSeason, updateChildInSeason,createSeason ,removeChildFromSeason , updateErrorSeason } from "../slices/season_slice";
 import {api, deleteToken} from "../utils/api"
 
@@ -17,16 +18,23 @@ export const fetchSeason = () => async (dispatch) => {
     
     dispatch(createSeason(season));
 
+
   } catch (error) {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
+      case 404:
+        dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+        break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;
@@ -50,16 +58,24 @@ export const createNewSeason = (date_debut, date_fin) => async (dispatch) => {
     season.enfants = [] ;
 
     dispatch(createSeason(season));
+    dispatch(setNotification({message: "Saison Crée avec Succées",isError: false}))
+
   } catch (error) {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
+      case 400:
+        dispatch(setNotification({message: "Données Incohérentes", isError: true}))
+        break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;
@@ -73,16 +89,24 @@ export const removeChild = (id) => async (dispatch) => {
     api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     await api.delete(`/api/saison/enfants/${id}`);
     dispatch(removeChildFromSeason({ id }));
+    dispatch(setNotification({message: "Enfant supprimé de la saison",isError: false}))
+
   } catch (error) {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
+      case 404:
+        dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+        break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;
@@ -99,16 +123,27 @@ export const addChild = (child) => async (dispatch) => {
     api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
     await api.post(`/api/saison/enfants/${child.id}`, JSON.stringify(data));
     dispatch(addChildToSeason(child));
+    dispatch(setNotification({message: "Enfant inscrit avec succes",isError: false}))
+
   } catch (error) {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
+      case 404:
+        dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+        break;
+      case 409:
+          dispatch(setNotification({message: "Enfant déja inscrit", isError: true}))
+          break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;
@@ -125,16 +160,24 @@ export const updateChild = (child) => async (dispatch) => {
     }
     await api.put(`/api/saison/enfants/${child.id}`, JSON.stringify(data));
     dispatch(updateChildInSeason(child));
+    dispatch(setNotification({message: "Mofifications effectuées avec succes",isError: false}))
+
   } catch (error) {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
+      case 404:
+        dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+        break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;
@@ -146,16 +189,24 @@ export const deleteSeason = () => async (dispatch) => {
   try {
     await api.delete("/api/saison");
     dispatch(removeSeason());
+    dispatch(setNotification({message: "Saison Supprimée avec Succes",isError: false}))
+
   } catch (error) {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
+      case 404:
+        dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+        break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;
@@ -167,16 +218,24 @@ export const archiveSeason = () => async (dispatch) => {
   try {
     await api.get("/api/saison/archive");
     dispatch(removeSeason());
+    dispatch(setNotification({message: "Saison archivée avec Succées",isError: false}))
+
   } catch (error) {
     console.error(error);
     switch(error.response?.status){
       case 403:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break ;
       case 401:
+        dispatch(setNotification({message: "Session expirée",isError: true}))
         deleteToken();
         break;
+      case 404:
+        dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+        break;
       case 500:
+        dispatch(setNotification({message: "Erreur du serveur", isError: true}))
         break;
       default:
         break ;
