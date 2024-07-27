@@ -2,6 +2,8 @@ CREATE DATABASE IF NOT EXISTS creche ;
 
 USE creche ;
 
+-- SET @NB_GROUPES = 5 ;
+
 CREATE TABLE IF NOT EXISTS Enfants (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255),
@@ -10,7 +12,8 @@ CREATE TABLE IF NOT EXISTS Enfants (
     nom_tuteur VARCHAR(255),
     prenom_tuteur VARCHAR(255),
     tel_tuteur VARCHAR(255),
-    email_tuteur VARCHAR(255)
+    email_tuteur VARCHAR(255),
+    adresse VARCHAR(512)
 ) ;
 
 CREATE TABLE IF NOT EXISTS Saisons (
@@ -21,9 +24,9 @@ CREATE TABLE IF NOT EXISTS Saisons (
 ) ;
 
 CREATE TABLE IF NOT EXISTS Inscriptions(
-    id_enfant INT ,
+    id_enfant INT,
     id_saison INT ,
-    groupe INT CHECK(groupe>0 AND groupe<=8),
+    groupe INT CHECK(groupe>0 AND groupe<= 5 ),
     transport BOOLEAN,
     FOREIGN KEY (id_enfant) REFERENCES Enfants(id) ON DELETE CASCADE ,
     FOREIGN KEY (id_saison) REFERENCES Saisons(id) ON DELETE CASCADE ,
@@ -42,5 +45,6 @@ CREATE TABLE IF NOT EXISTS Paiements (
 CREATE TABLE IF NOT EXISTS Archives (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date_debut DATE,
-    date_fin DATE
+    date_fin DATE,
+    fichier VARCHAR(255)
 ) ;
