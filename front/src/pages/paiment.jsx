@@ -133,42 +133,43 @@ export default function Payment() {
                 </div>
             </div>
             <div className='flex flex-row justify-around  w-[100%]'>
-                <div className='flex flex-col items-center w-[50%]'>
-                    <div className="w-full">
-                        <div className="h-[10vh] w-[100%] flex flex-row ---sticky top-0 ---z-10">
-                            <div className="h-[100%] w-[40%] bg-myyellow rounded-tl-3xl flex items-center justify-center">
-                                <p className="text-white font-bold text-lg">Enfants</p>
-                            </div>
-                            <div className="h-[100%] w-[60%] bg-myorange rounded-tr-3xl flex items-center justify-center">
-                                <p className="text-white font-bold text-lg">Etat</p>
-                            </div>
+            <div className='flex flex-col items-center w-[50%] h-[80vh] overflow-auto'>
+                <div className="w-full">
+                    <div className="h-[10vh] w-[100%] flex flex-row   z-10">
+                        <div className="h-[100%] w-[40%] bg-myyellow rounded-tl-3xl flex items-center justify-center">
+                            <p className="text-white font-bold text-lg">Enfants</p>
                         </div>
-                        <div className="flex flex-col">
-                            {filteredChildren.length === 0 ? (
-                                <div className="h-[10vh] w-[100%] flex justify-center items-center">
-                                    <p className="text-xl font-semibold">Pas de Retard</p>
-                                </div>
-                            ) : (
-                                filteredChildren.map(child => (
-                                    <div onClick={() => handleEditPayment(child.id)} key={child.id} className="flex cursor-pointer hover:bg-mygray  flex-row">
-                                        <div className="h-[10vh] border w-[40%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
-                                            <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>
+                        <div className="h-[100%] w-[60%] bg-myorange rounded-tr-3xl flex items-center justify-center">
+                            <p className="text-white font-bold text-lg">Etat</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-col">
+                        {filteredChildren.length === 0 ? (
+                            <div className="h-[10vh] w-[100%] flex justify-center items-center">
+                                <p className="text-xl font-semibold">Pas de Retard</p>
+                            </div>
+                        ) : (
+                            filteredChildren.map(child => (
+                                <div onClick={() => handleEditPayment(child.id)} key={child.id} className="flex cursor-pointer hover:bg-mygray  flex-row">
+                                    <div className="h-[10vh] border w-[40%] border-r-myyellow border-l-myyellow border-b-myyellow flex justify-center items-center">
+                                        <p className="text-xl font-semibold">{child.nom} {child.prenom}</p>
+                                    </div>
+                                    <div className="h-[10vh] w-[60%] border border-l-myorange border-r-myorange border-b-myorange flex flex-row justify-around items-center">
+                                        <div className="w-[60%] flex justify-center">
+                                            <p className="text-xl font-semibold">Groupe 0{child.groupe}</p>
                                         </div>
-                                        <div className="h-[10vh] w-[60%] border border-l-myorange border-r-myorange border-b-myorange flex flex-row justify-around items-center">
-                                            <div className="w-[60%] flex justify-center">
-                                                <p className="text-xl font-semibold">Groupe 0{child.groupe}</p>
-                                            </div>
-                                            <div className="w-[35%] flex justify-center">
-                                                <p className={`text-xl font-semibold ${child.transport ? "text-green-600" : "text-red-600"}`}>Transport</p>
-                                            </div>
+                                        <div className="w-[35%] flex justify-center">
+                                            <p className={`text-xl font-semibold ${child.transport ? "text-green-600" : "text-red-600"}`}>Transport</p>
                                         </div>
                                     </div>
-                                ))
-                            )}
-                        </div>
-                        <div className="h-[10vh]"></div>
+                                </div>
+                            ))
+                        )}
                     </div>
+                    <div className="h-[10vh]"></div>
                 </div>
+            </div>
+
                 <div className='w-[35%]  h-full flex flex-col items-center'>
                     <h2 className="text-3xl px-2  mb-2 text-myblue">Veuiller choisir un mois :</h2>
                     <div className="grid grid-cols-3 gap-4 p-4">
