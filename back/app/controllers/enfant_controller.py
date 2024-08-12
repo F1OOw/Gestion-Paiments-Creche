@@ -20,7 +20,7 @@ def add_enfant():
     new_enfant = Enfants(
         nom=data['nom'],
         prenom=data['prenom'],
-        date_naissance=data['date_naissance'],
+        date_naissance=datetime.strptime(data['date_naissance'], "%Y-%m-%d").date(),
         nom_tuteur=data['nom_tuteur'],
         prenom_tuteur=data['prenom_tuteur'],
         tel_tuteur=data['tel_tuteur'],

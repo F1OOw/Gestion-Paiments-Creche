@@ -1,9 +1,3 @@
-CREATE DATABASE IF NOT EXISTS creche ;
-
-USE creche ;
-
--- SET @NB_GROUPES = 5 ;
-
 CREATE TABLE IF NOT EXISTS Enfants (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255),
@@ -48,3 +42,5 @@ CREATE TABLE IF NOT EXISTS Archives (
     date_fin DATE,
     fichier VARCHAR(255)
 ) ;
+
+.exit
