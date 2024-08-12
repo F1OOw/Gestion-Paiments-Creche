@@ -151,7 +151,7 @@ def print_receipt(id_enfant):
     printer.set(underline=1)
     printer.text("Fb :")
     printer.set(underline=0)
-    printer.text(" creche benmeziane le chateau des enfants\n\n")
+    printer.text(" Creche Benmeziane \"le chateau des enfants\"\n\n")
     
     printer.set(align='center', width=2,height=2, bold=True)
     printer.text("Bon De Paiement\n\n")
