@@ -10,7 +10,6 @@ def get_enfants():
     result = [
         jsonify_alchemy(en) for en in enfants
     ]
-
     return jsonify(result)
     
 
@@ -20,7 +19,7 @@ def add_enfant():
     new_enfant = Enfants(
         nom=data['nom'],
         prenom=data['prenom'],
-        date_naissance=datetime.strptime(data['date_naissance'], "%Y-%m-%d").date(),
+        date_naissance=datetime.strptime(data['date_naissance'], "%Y-%m-%d"),
         nom_tuteur=data['nom_tuteur'],
         prenom_tuteur=data['prenom_tuteur'],
         tel_tuteur=data['tel_tuteur'],
@@ -41,6 +40,18 @@ def get_enfant(id):
 @controller_template
 def delete_enfant(id):
     enfant = db.session.query(Enfants).get_or_404(id)
+    saison = db.session.query(Saisons).filter_by(actuelle=True).first()
+    
+    if saison:
+        insc = db.session.query(Inscriptions).filter_by(id_saison=saison.id,id_enfant=enfant.id).first()
+        
+        paiements = db.session.query(Paiements).filter_by(id_saison=saison.id,id_enfant=enfant.id).all()
+        
+        for p in paiements:
+            db.session.delete(p)
+        
+        db.session.delete(insc)    
+    
     db.session.delete(enfant)
     db.session.commit()
     return deleted_message()
@@ -62,4 +73,3 @@ def update_enfant(id):
     db.session.commit()
     
     return jsonify_alchemy(enfant)
-    

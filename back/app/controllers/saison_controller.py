@@ -59,7 +59,17 @@ def create_saison():
 @controller_template
 def delete_saison():
     saison = db.session.query(Saisons).filter_by(actuelle=True).first()
+    paiements = db.session.query(Paiements).filter_by(id_saison=saison.id).all()
+    for p in paiements:
+        db.session.delete(p)
+
+    inscriptions = db.session.query(Inscriptions).filter_by(id_saison=saison.id).all()
+    
+    for i in inscriptions:
+        db.session.delete(i)
+    
     db.session.delete(saison)
+    
     db.session.commit()
     return deleted_message()
 
@@ -94,6 +104,16 @@ def init_paiements(id_enfant,id_saison):
         )
         
         db.session.add(p)
+    
+    db.session.commit()
+    
+
+def delete_paiements(id_enfant,id_saison):
+    paiements = db.session.query(Paiements).filter_by(id_enfant=id_enfant, id_saison=id_saison).all()
+    
+    
+    for p in paiements:
+        db.session.delete(p)
     
     db.session.commit()
     
@@ -147,8 +167,11 @@ def delete_enfant_saison(id_enfant):
     if not saison:
         return jsonify({'error': 'No current season found'}), 404
     
+    delete_paiements(id_enfant,saison.id)
+    
     inscription = db.session.query(Inscriptions).filter_by(id_saison=saison.id, id_enfant=id_enfant).first_or_404()
     db.session.delete(inscription)
+    
     db.session.commit()
     return deleted_message()
 
