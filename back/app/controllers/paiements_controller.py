@@ -56,3 +56,8 @@ def update_paiement(id_enfant):
     db.session.commit()
     
     return jsonify({mois: paiement.paye})
+
+@controller_template
+def print_receipt(id):
+    data = request.get_json()
+    pass
