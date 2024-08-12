@@ -6,3 +6,4 @@ cryptography==42.0.8
 pyjwt==2.8.0
 flask-cors==4.0.1
 Pillow==10.4.0
+pyusb==1.2.1

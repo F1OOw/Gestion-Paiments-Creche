@@ -13,19 +13,28 @@ SECRET_KEY=getenv("SECRET_KEY")
 USERNAME=getenv("USERNAME")
 PASSWORD=getenv("PASSWORD")
 
+
 TOKEN_EXPIRATION_TIME=int(getenv("TOKEN_EXPIRATION_TIME"))
 NB_GROUPES=int(getenv("NB_GROUPES"))
 
+VENDOR_ID=int(getenv("VENDOR_ID"))
+PRODUCT_ID=int(getenv("PRODUCT_ID"))
+
+EP_IN=int(getenv("EP_IN"))
+EP_OUT=int(getenv("EP_OUT"))
+
+FRAIS_MENSUELS=9000
+FRAIS_TRANSPORT=2000
 
 months = {
     1: "Janvier",
-    2: "Février",
+    2: "Fevrier",
     3: "Mars",
     4: "Avril",
     5: "Mai",
     6: "Juin",
     7: "Juillet",
-    8: "Août",
+    8: "Aout",
     9: "Septembre",
     10: "Octobre",
     11: "Novembre",

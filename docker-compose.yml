@@ -14,6 +14,12 @@ services:
   back:
     container_name: backend
     build: ./back/
+    
+    privileged: true
+
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    
     ports:
       - "8000:8000"
     

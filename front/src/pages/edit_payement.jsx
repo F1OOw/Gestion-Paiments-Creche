@@ -14,6 +14,8 @@ const EditPayment = () => {
 
   const [isPrintOpen, setIsPrintOpen] = useState(false);
 
+  const [chosenMonth,setChosenMonth] = useState(null);
+
 
 
   const months = [
@@ -68,7 +70,7 @@ const EditPayment = () => {
   }, [child]);
 
   const handleClick = async(month) => {
-    
+    setChosenMonth(month);
     try {
       api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
       await api.post(`/api/saison/paiements/${id}`,JSON.stringify({"mois": month}));
@@ -100,17 +102,68 @@ const EditPayment = () => {
     }
   }
 
-  const handleClosePrint = () => {
+  const handleClosePrint = async (month) => {
+    try {
+      api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+      await api.post(`/api/saison/paiements/${id}`,JSON.stringify({"mois": month}));
+      if (!payments[month]){
+        setIsPrintOpen(true);
+      }
+      setPayements({...payments, [month]: !payments[month]});
+
+    } catch (error) {
+      console.error(error);
+      switch(error.response?.status){
+        case 403:
+          dispatch(setNotification({message: "Session expirée",isError: true}))
+          deleteToken();
+          break ;
+        case 401:
+          dispatch(setNotification({message: "Session expirée",isError: true}))
+          deleteToken();
+          break;
+        case 404:
+          dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+          break;
+        case 500:
+          dispatch(setNotification({message: "Erreur du serveur", isError: true}))
+          break;
+        default:
+          break ;
+      }
+    }
     setIsPrintOpen(false);
   };
 
-  const handleConfirmPrint = (id) => {
-    // handleRemoveChild(id);
-    //api kalli here
+  const handleConfirmPrint = async () => {
     setIsPrintOpen(false);
+    try {
+      api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+      await api.post(`/api/saison/paiements/bon/${id}`,JSON.stringify({"mois": chosenMonth}));
+
+    } catch (error) {
+      console.error(error);
+      switch(error.response?.status){
+        case 403:
+          dispatch(setNotification({message: "Session expirée",isError: true}))
+          deleteToken();
+          break ;
+        case 401:
+          dispatch(setNotification({message: "Session expirée",isError: true}))
+          deleteToken();
+          break;
+        case 404:
+          dispatch(setNotification({message: "Pas de saison actuelle", isError: true}))
+          break;
+        case 500:
+          dispatch(setNotification({message: "Erreur du serveur", isError: true}))
+          break;
+        default:
+          break ;
+      }
+    }
   };
 
- 
 
   return (
     <div className='h-[100vh] w-full flex flex-col'>
@@ -258,7 +311,7 @@ const EditPayment = () => {
           <PrintReceipt 
             isOpen={isPrintOpen}
             onClose={handleClosePrint}
-            onConfirm={handleConfirmPrint}
+            onConfirm={()=>{handleConfirmPrint()}}
           />
         )}
       </div>

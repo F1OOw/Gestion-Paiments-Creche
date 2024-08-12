@@ -82,6 +82,13 @@ def handler8(id):
     else:
         return update_paiement(id)
 
+@routes.route('/api/saison/paiements/bon/<int:id>', methods=['POST'])
+@token_required
+def handler88(id):
+    print_receipt(id)
+    print_receipt(id)
+
+
 @routes.route("/api/saison/archive",methods=['GET'])
 @token_required
 def handler9():
