@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import NavbarUser from '../components/navbar';
 import { api, deleteToken } from '../utils/api';
+import PrintReceipt from '../components/print_receipt';
 
 const EditPayment = () => {
   const { id } = useParams(); 
@@ -10,6 +11,11 @@ const EditPayment = () => {
   const season = useSelector(state => state.season);
   const child = season.enfants.find(enf => enf.id == id);
   const [payments, setPayements] = useState({}); 
+
+  const [isPrintOpen, setIsPrintOpen] = useState(false);
+
+
+
   const months = [
     { id: 1, name: 'Jan', number: '01' },
     { id: 2, name: 'Fev', number: '02' },
@@ -62,9 +68,13 @@ const EditPayment = () => {
   }, [child]);
 
   const handleClick = async(month) => {
+    
     try {
       api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
       await api.post(`/api/saison/paiements/${id}`,JSON.stringify({"mois": month}));
+      if (!payments[month]){
+        setIsPrintOpen(true);
+      }
       setPayements({...payments, [month]: !payments[month]});
 
     } catch (error) {
@@ -90,73 +100,83 @@ const EditPayment = () => {
     }
   }
 
+  const handleClosePrint = () => {
+    setIsPrintOpen(false);
+  };
+
+  const handleConfirmPrint = (id) => {
+    // handleRemoveChild(id);
+    //api kalli here
+    setIsPrintOpen(false);
+  };
+
  
 
   return (
     <div className='h-[100vh] w-full flex flex-col'>
         <NavbarUser />
-     <div className='flex flex-row justify-around'>
-     <div className="pl-6 rounded-xl pt-3 h-[80vh] w-[45%] ">
-        <h2 className="text-xl px-2 font-bold mb-2">Enfant</h2>
-            <div className='mb-2 flex flex-row justify-between px-8 w-full'>
-                <div className="w-[40%] ">
-                    <label className="text-black font-bold">Nom :</label>
-                    <input
-                    readOnly={true}
-                    type="text"
-                    name="nom"
-                    value={child.nom}
-                    className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
-                    required
-                />
-                </div>
-                <div className="w-[40%]">
-                    <label className="text-black font-bold">Prénom :</label>
-                    <input
-                    readOnly={true}
-                    type="text"
-                    name="prenom"
-                    value={child.prenom}
-                    className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
-                    required
-                    />
-                </div>
-            </div>
-            <div className='mb-2 flex flex-row justify-between px-8 w-full'>
-                <div className="w-[40%]">
-                    <label className="text-black font-bold">Date de naissance :</label>
-                    <input
-                    type="date"
-                    readOnly={true}
-                    name="date_naissance"
-                    value={child.date_naissance}
-                    className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
-                    />
-                </div>
-                <div className="w-[40%]">
-                    <label className="text-black font-bold">Groupe :</label>
-                    <input
-                    readOnly={true}
-                    type="text"
-                    name="groupe"
-                    value={child.groupe}
-                    className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
-                    required
-                    />
-                </div>
-            </div>
-            <div className="flex items-center mb-6 ml-6 flex-row justify-around w-[25%]">
-              <label htmlFor="transport-checkbox" className="text-lg font-medium">
-                Transport
-              </label>
+        <div className='flex flex-row justify-around'>
+        <div className="pl-6 rounded-xl pt-3 h-[80vh] w-[45%] ">
+          <h2 className="text-xl px-2 font-bold mb-2">Enfant</h2>
+          <div className='mb-2 flex flex-row justify-between px-8 w-full'>
+            <div className="w-[40%] ">
+              <label className="text-black font-bold">Nom :</label>
               <input
-                type="checkbox"
                 readOnly={true}
-                id="transport-checkbox"
-                checked={child.transport}
-                className=" text-myyellow h-5 w-5"
+                type="text"
+                name="nom"
+                value={child.nom}
+                className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
+                required
               />
             </div>
+            <div className="w-[40%]">
+              <label className="text-black font-bold">Prénom :</label>
+              <input
+              readOnly={true}
+              type="text"
+              name="prenom"
+              value={child.prenom}
+              className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
+              required
+              />
+            </div>
+          </div>
+          <div className='mb-2 flex flex-row justify-between px-8 w-full'>
+            <div className="w-[40%]">
+              <label className="text-black font-bold">Date de naissance :</label>
+              <input
+              type="date"
+              readOnly={true}
+              name="date_naissance"
+              value={child.date_naissance}
+              className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
+              />
+            </div>
+            <div className="w-[40%]">
+              <label className="text-black font-bold">Groupe :</label>
+              <input
+              readOnly={true}
+              type="text"
+              name="groupe"
+              value={child.groupe}
+              className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
+              required
+              />
+            </div>
+          </div>
+          <div className="flex items-center mb-6 ml-6 flex-row justify-around w-[25%]">
+            <label htmlFor="transport-checkbox" className="text-lg font-medium">
+              Transport
+            </label>
+            <input
+              type="checkbox"
+              readOnly={true}
+              id="transport-checkbox"
+              checked={child.transport}
+              className=" text-myyellow h-5 w-5"
+            />
+          </div>
           
           <h2 className="text-xl px-2 font-bold mb-2">Parent</h2>
           <div className='mb-2 flex flex-row justify-between px-8 w-full'>
@@ -193,64 +213,55 @@ const EditPayment = () => {
                 />
             </div>
             <div className="w-[40%]">
-                <label className="text-black font-bold">Email du tuteur :</label>
-                <input
-                type="email"
-                name="email_tuteur"
-                readOnly={true}
-                value={child.email_tuteur}
-                className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
-                />
+              <label className="text-black font-bold">Email du tuteur :</label>
+              <input
+              type="email"
+              name="email_tuteur"
+              readOnly={true}
+              value={child.email_tuteur}
+              className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
+              />
             </div>
           </div>
           <div className="mb-2  justify-between px-8 w-[65%]">
-                <label className="text-black font-bold">Adresse : </label>
-                <textarea
-                type="text"
-                name="adresse"
-                readOnly
-                value={child.adresse}
-                className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
-                />
-            </div>
-      </div>
-      <div className='w-[40%] h-full  flex flex-col items-center'>
-      <h2 className="text-xl px-2 font-bold mb-2">Etat du paiement de l’enfant :</h2>
-      <div className="grid grid-cols-3 gap-4 p-4">
-      {Object.keys(payments).map(p=>(
-        <div
-        key={parseInt(p)}
-        onClick={() => {
-          handleClick(parseInt(p));
-        }}
-        className={`p-5 border cursor-pointer rounded-lg flex flex-col items-center ${
-          payments[p] ? 'bg-myblue px-8' : 'bg-myorange'
-        }`}
-        >
-        <p className="text-lg font-semibold">{months[parseInt(p)-1].name}</p>
-        <p className="text-md">{months[parseInt(p)-1].number}</p>
-        <p className="text-sm">{payments[p] ? 'Payé' : 'Non payé'}</p>
-      </div>
-      ))}
-      
-      {/* {months.map(month => (
-        <div
-          key={month.id}
-          onClick={() => {
-            handleClick(month);
-          }}
-          className={`p-5 border cursor-pointer rounded-lg flex flex-col items-center ${
-            payments[month.id] ? 'bg-myblue px-8' : 'bg-myorange'
-          }`}
-        >
-          <p className="text-lg font-semibold">{month.name}</p>
-          <p className="text-md">{month.number}</p>
-          <p className="text-sm">{payments[month.id] ? 'Payé' : 'Non payé'}</p>
+            <label className="text-black font-bold">Adresse : </label>
+            <textarea
+            type="text"
+            name="adresse"
+            readOnly
+            value={child.adresse}
+            className="p-2 border w-full border-yellow-500 bg-gray-100 rounded-xl mt-1"
+            />
+          </div>
         </div>
-      ))} */}
-    </div>
+        <div className='w-[40%] h-full  flex flex-col items-center'>
+          <h2 className="text-xl px-2 font-bold mb-2">Etat du paiement de l’enfant :</h2>
+          <div className="grid grid-cols-3 gap-4 p-4">
+            {Object.keys(payments).map(p=>(
+              <div
+              key={parseInt(p)}
+              onClick={() => {
+                handleClick(parseInt(p));
+              }}
+              className={`p-5 border cursor-pointer rounded-lg flex flex-col items-center ${
+                payments[p] ? 'bg-myblue px-8' : 'bg-myorange'
+              }`}
+              >
+              <p className="text-lg font-semibold">{months[parseInt(p)-1].name}</p>
+              <p className="text-md">{months[parseInt(p)-1].number}</p>
+              <p className="text-sm">{payments[p] ? 'Payé' : 'Non payé'}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        {isPrintOpen && (
+          <PrintReceipt 
+            isOpen={isPrintOpen}
+            onClose={handleClosePrint}
+            onConfirm={handleConfirmPrint}
+          />
+        )}
       </div>
-     </div>
     </div>
   );
 }

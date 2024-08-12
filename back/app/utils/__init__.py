@@ -109,3 +109,6 @@ def generate_token(username):
     )
     
     return token
+
+def print_receipt(id_enfant,mois,transport):
+    pass
