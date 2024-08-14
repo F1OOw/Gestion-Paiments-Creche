@@ -54,3 +54,11 @@ Pour avoir acces au log de l'application
 docker-compose logs -f
 ```
 
+## Auteurs
+
+### Développeurs
+* [CHERGUELAINE Oussama](https://github.com/ousscher)
+* [DJERRAI Smail](https://github.com/F1OOw)
+
+### Designers
+* [BAITECHE Sami](https://github.com/sami)
