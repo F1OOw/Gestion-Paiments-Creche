@@ -158,26 +158,19 @@ def print_receipt(id_enfant):
     
     
     printer.set(align="left",width=1,height=1,bold=False)
-    printer.text("Je sousigne, Gestionnaire de l'Etablissement\nreconnais avoir recu de Mr/Mme.\n")
+    printer.text("Pour: ")
     printer.set(bold=True)
     printer.text(f"{enfant.nom} {enfant.prenom}\n")
     printer.set(bold=False)
-    printer.text("La somme de: ")
-    printer.set(bold=True)
     
     somme = frais_mensuels
     if (inscr.transport):
         somme += frais_transport
     
-    printer.text(f"{somme}.00 DZD\n\n")
-    printer.set(underline=1,bold=False)
-    
-    printer.text("Detailles:\n")
     printer.set(underline=1)
-    printer.text("Type De Paiement:\n")
+    printer.text("Type De Paiement:")
     printer.set(underline=0)
-    printer.text("[ ] Especes\n")
-    printer.text("[ ] Carte Magnetique\n\n")
+    printer.text("  [ ] Especes - [ ] Carte\n")
     
     printer.set(underline=1,bold=False)
     printer.text("Mois:")
@@ -190,38 +183,37 @@ def print_receipt(id_enfant):
     if inscr.transport:
         tr="OUI"
         
-    printer.text(f" {tr}\n\n")
+    printer.text(f" {tr}\n")
     
     printer.set(underline=1)
     printer.text("Frais Mensuels:")
     printer.set(underline=0,bold=True)
     printer.text(f" {frais_mensuels}.00 DZD\n")
-    
     printer.set(underline=1,bold=False)
-    printer.text("Frais De Transport:")
-    printer.set(underline=0,bold=True)
-    printer.text(F" {frais_transport}.00 DZD\n\n")
-    
-    printer.set(underline=1,bold=False)
+    if inscr.transport:
+        printer.text("Frais De Transport:")
+        printer.set(underline=0,bold=True)
+        printer.text(F" {frais_transport}.00 DZD\n")
+    printer.text("\n")    
+    printer.set(underline=1,bold=True,width=3,height=3)
     printer.text("Total:")
     printer.set(underline=0,bold=True)
-    printer.text(f" {somme}.00 DZD\n\n\n")    
+    printer.text(f" {somme}.00 DZD\n")    
+    printer.set(align="left")
     
-    current_datetime = datetime.now()
+    
+    current_datetime = datetime.now() + timedelta(hours=1)
     formatted_datetime = current_datetime.strftime("%d-%m-%Y %H:%M:%S")
     
-    printer.set(underline=1)
+    printer.set(underline=1,width=1,height=1)
     printer.text("Fais Le:")
     printer.set(underline=0)
     printer.text(f" {formatted_datetime}\n")
     
-    printer.set(align="right")
-    printer.text("Le Gestionnaire\n\n")
-    
     printer.set(align="center")
-    printer.qr(link_fb,size=8)
+    printer.qr(link_fb,size=6)
+    printer.set(align="right")
+    printer.text("MERCI\n")
     
-    printer.text("\nMERCI")    
-
     printer.cut()
     printer.close()
