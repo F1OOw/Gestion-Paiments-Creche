@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   nginx:
     container_name: reverse_proxy
@@ -14,25 +14,26 @@ services:
   back:
     container_name: backend
     build: ./back/
-    
+
     privileged: true
 
     devices:
       - /dev/bus/usb:/dev/bus/usb
-    
+
     ports:
       - "8000:8000"
-    
+
     env_file:
       - .env
-    
+
     volumes:
       - ./back/app:/app
       - ./back/archives:${ARCHIVE_FOLDER}
-    
+      - /dev/bus/usb:/dev/bus/usb
+
     networks:
       - app
-    
+
     restart: always
 
   front:
@@ -41,8 +42,8 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - VITE_APP_URL=${APP_URL}:${APP_PORT}
-    
+      - VITE_APP_URL=http://localhost:3000
+
     volumes:
       - ./front/src:/app/src
     networks:
